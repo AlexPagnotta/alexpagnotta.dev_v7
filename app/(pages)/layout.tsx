@@ -4,16 +4,9 @@ import { cx } from "@/app/features/style/utils";
 import "@/app/features/style/tailwind.css";
 import { env } from "@/env";
 
-const exampleFontSans = localFont({
-  src: [{ path: "../../public/fonts/example-font-sans.otf", style: "normal" }],
-  variable: "--font-example-font-sans",
-  weight: "400",
-  display: "swap",
-});
-
-const exampleFontSerif = localFont({
-  src: [{ path: "../../public/fonts/example-font-serif.otf", style: "normal" }],
-  variable: "--font-example-font-serif",
+const ppframa = localFont({
+  src: [{ path: "../../public/fonts/ppframa-regular.otf", style: "normal" }],
+  variable: "--font-ppframa",
   weight: "400",
   display: "swap",
 });
@@ -33,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cx(exampleFontSans.variable, exampleFontSerif.variable)}>
+    <html lang="en" className={cx(ppframa.variable)}>
       <body>{children}</body>
     </html>
   );

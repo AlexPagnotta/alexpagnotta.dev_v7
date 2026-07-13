@@ -1,20 +1,12 @@
 @font-face {
-  font-family: "ExampleFontSerif";
-  src: url("/fonts/example-font-serif.otf");
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "ExampleFontSans";
-  src: url("/fonts/example-font-sans.otf");
+  font-family: "PPFrama";
+  src: url("/fonts/ppframa-regular.otf");
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  --font-serif: "ExampleFontSerif", var(--font-example-font-serif);
-  --font-sans: "ExampleFontSans", var(--font-example-font-sans);
+  --font-sans: "PPFrama", var(--font-ppframa);
 
   --text-\*: initial;
 
