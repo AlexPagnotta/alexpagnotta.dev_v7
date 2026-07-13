@@ -5,9 +5,15 @@ import "@/app/features/style/tailwind.css";
 import { env } from "@/env";
 
 const ppframa = localFont({
-  src: [{ path: "../../public/fonts/ppframa-regular.otf", style: "normal" }],
+  src: [
+    { path: "../../public/fonts/ppframa-extralight.otf", weight: "200", style: "normal" },
+    { path: "../../public/fonts/ppframa-extralight-italic.otf", weight: "200", style: "italic" },
+    { path: "../../public/fonts/ppframa-regular.otf", weight: "400", style: "normal" },
+    { path: "../../public/fonts/ppframa-regular-italic.otf", weight: "400", style: "italic" },
+    { path: "../../public/fonts/ppframa-black.otf", weight: "900", style: "normal" },
+    { path: "../../public/fonts/ppframa-black-italic.otf", weight: "900", style: "italic" },
+  ],
   variable: "--font-ppframa",
-  weight: "400",
   display: "swap",
 });
 

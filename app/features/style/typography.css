@@ -1,12 +1,5 @@
-@font-face {
-  font-family: "PPFrama";
-  src: url("/fonts/ppframa-regular.otf");
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
-  --font-sans: "PPFrama", var(--font-ppframa);
+  --font-sans: var(--font-ppframa);
 
   --text-\*: initial;
 
@@ -27,13 +20,13 @@
 }
 
 @utility title {
-  @apply text-title;
+  @apply text-title font-sans;
 }
 
 @utility body {
-  @apply text-body;
+  @apply text-body font-sans;
 }
 
 @utility caption {
-  @apply text-caption;
+  @apply text-caption font-sans;
 }
