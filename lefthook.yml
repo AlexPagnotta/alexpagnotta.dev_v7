@@ -1,12 +1,18 @@
 pre-commit:
   parallel: true
+  skip:
+    - merge
+    - rebase
   commands:
     # Lint and auto-fix staged files with Biome.
     lint-staged:
+      priority: 1
       run: NO_COLOR=1 npx --no-progress -- @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --write {staged_files}
       stage_fixed: true
-    # Partial typecheck for staged TS files.
+    # Partial typecheck for staged TS files. Runs after lint-staged so it
+    # checks Biome's fixed output, not the pre-fix version.
     typecheck-staged:
+      priority: 2
       glob: "*.{ts,tsx}"
       run: NO_COLOR=1 npx --no-progress -- tsc-files --noEmit --pretty false -p tsconfig.json {staged_files}
       skip:
