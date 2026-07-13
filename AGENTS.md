@@ -30,6 +30,14 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Never suppress focus outlines (no `outline-none` or `focus:outline-none` without a `focus-visible` replacement).
 - Use `disabled` on native elements; if an element must remain in the tab order while visually disabled, use `aria-disabled` and block interaction manually.
 
+# Commits
+
+- Use Conventional Commits: `type: short one-line description`, e.g. `feat: add hero section animation`.
+- Common types: `feat`, `fix`, `chore`, `refactor`, `style`, `docs`, `test`, `perf`.
+- Description is lowercase, imperative mood (e.g. "add" not "added"/"adds"), no trailing period.
+- Keep the summary line short (under ~72 chars); only add a body if the "why" isn't obvious from the diff.
+- No scopes (e.g. no `feat(auth):`) unless the user asks for them.
+
 # File Naming
 
 - Component files must use kebab-case (e.g. `text-area.tsx`, `icon.tsx`).
