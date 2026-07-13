@@ -1,0 +1,18 @@
+html,
+body {
+  @apply h-full overflow-hidden;
+}
+
+body {
+  @apply bg-white text-black text-body antialiased;
+}
+
+/* Custom CSS variables for the site. */
+:root {
+  --example-height: calc(84 * var(--spacing));
+}
+
+::selection {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}

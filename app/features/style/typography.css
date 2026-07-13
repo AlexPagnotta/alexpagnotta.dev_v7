@@ -1,0 +1,47 @@
+@font-face {
+  font-family: "ExampleFontSerif";
+  src: url("/fonts/example-font-serif.otf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ExampleFontSans";
+  src: url("/fonts/example-font-sans.otf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-serif: "ExampleFontSerif", var(--font-example-font-serif);
+  --font-sans: "ExampleFontSans", var(--font-example-font-sans);
+
+  --text-\*: initial;
+
+  --text-title: --spacing(20);
+  --text-title--font-weight: 400;
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: normal;
+
+  --text-body: --spacing(16);
+  --text-body--font-weight: 400;
+  --text-body--line-height: 1;
+  --text-body--letter-spacing: normal;
+
+  --text-caption: --spacing(14);
+  --text-caption--font-weight: 400;
+  --text-caption--line-height: 1;
+  --text-caption--letter-spacing: normal;
+}
+
+@utility title {
+  @apply text-title;
+}
+
+@utility body {
+  @apply text-body;
+}
+
+@utility caption {
+  @apply text-caption;
+}
