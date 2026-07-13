@@ -44,9 +44,12 @@
   --color-current: currentColor;
   --color-transparent: transparent;
 
-  --color-black: #2b2b27;
+  --color-black: #1c1c1c;
   --color-white: #ffffff;
-  --color-red: #ef2309;
+  --color-yellow: #f9ef38;
+  --color-green: #38f98c;
+  --color-cyan: #38f9d9;
+  --color-magenta: #f9388f;
 
   /* Reset default TW blur. */
   --blur-\*: initial;
