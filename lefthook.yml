@@ -11,10 +11,15 @@ pre-commit:
       stage_fixed: true
     # Partial typecheck for staged TS files. Runs after lint-staged so it
     # checks Biome's fixed output, not the pre-fix version.
+    #
+    # next-env.d.ts is passed explicitly: tsc-files builds a temp config that
+    # overwrites `files` and empties `include`, so anything tsconfig pulls in
+    # that way is dropped. Without it the ambient module declarations are
+    # missing and non-code imports (e.g. `*.svg`) fail with TS2307.
     typecheck-staged:
       priority: 2
       glob: "*.{ts,tsx}"
-      run: NO_COLOR=1 npx --no-progress -- tsc-files --noEmit --pretty false -p tsconfig.json {staged_files}
+      run: NO_COLOR=1 npx --no-progress -- tsc-files --noEmit --pretty false -p tsconfig.json next-env.d.ts {staged_files}
       skip:
         # Skip checking, because we will typecheck
         # the full project when dependencies change.
