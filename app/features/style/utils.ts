@@ -5,7 +5,7 @@ import { extendTailwindMerge } from "tailwind-merge";
 function isValidTextSize(cn: string) {
   // Any class that starts with this prefix is valid.
   // eg. `--text-body-10`, `--text-title-100`.
-  return ["title", "body", "caption"].some((val) => cn.startsWith(val));
+  return ["display", "title", "body", "caption"].some((val) => cn.startsWith(val));
 }
 
 // @see https://github.com/dcastil/tailwind-merge/blob/v3.3.0/docs/configuration.md#theme
@@ -13,6 +13,7 @@ const twMerge = extendTailwindMerge({
   extend: {
     theme: {
       text: [isValidTextSize],
+      shadow: ["depth-sm", "depth-md", "depth-lg"],
     },
   },
 });

@@ -4,7 +4,7 @@ body {
 }
 
 body {
-  @apply bg-white text-black text-body antialiased;
+  @apply bg-cream text-black body-1 antialiased;
 }
 
 /* Custom CSS variables for the site. */

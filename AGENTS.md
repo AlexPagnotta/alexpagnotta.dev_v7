@@ -9,18 +9,43 @@ This version has breaking changes — APIs, conventions, and file structure may 
 # Styling
 
 - Always use `className` with Tailwind utility classes for styling. No inline styles, CSS modules, or styled-components.
-- For components with complex conditional variants, use `cva` (class-variance-authority).
+- For components with complex conditional variants, use `cva` (class-variance-authority). Name the `cva` styles object `{componentName}Styles` (e.g. `buttonStyles`, `selectStyles`).
 - Always use the design tokens defined in the Tailwind config — colors, typography, spacing, etc. Do not hardcode raw values.
 - If a style requirement cannot be satisfied with existing tokens, **ask the user** before adding anything new. Once confirmed, add the new token to the appropriate Tailwind config file.
+
+# Spacing units (rem vs px)
+
+The spacing scale exposes every step in two units: the bare token in **rem** (e.g. `p-4`, `gap-8`, `size-14`) and a fixed **px** twin with a `-px` suffix (e.g. `p-4-px`, `gap-8-px`, `size-14-px`). Pick the unit based on one question — _should this value grow when the user increases their browser font size?_ (an accessibility setting). This is about the **font-size preference**, not page zoom, which scales everything regardless of unit.
+
+- **Use `rem` (scales with font size)** — the default for anything that spaces or sizes _content_, so layouts stay proportional when text is enlarged:
+  - padding and gaps inside/around text and interactive controls (buttons, inputs, menu items) — keeps hit areas proportional to the label
+  - margins / vertical rhythm between text blocks
+  - reading-measure `max-width` (line length scales with text)
+  - font size (always rem — see Typography)
+- **Use `px` (stays fixed)** — for visual/structural details that must render identically regardless of text size:
+  - border / stroke widths and hairline dividers (`border`, `border-2`)
+  - focus outline width & offset
+  - box-shadow offsets & blur
+  - icon / glyph sizes and other fixed graphic details
+
+Examples:
+
+- Button / control padding → **rem**: `px-24 py-12` (the control grows with its label).
+- Control border → **px**: `border-2` (a 2px stroke shouldn't thicken when text scales).
+- Icon inside a control → **px**: `size-14-px` (a crisp, fixed glyph).
+- Depth shadow → **px**: `4px 4px 0 0` (fixed offset).
+- Reading column → **rem**: `max-w-600` (line length scales with the text).
+
+When in doubt: content spacing = `rem`; borders, shadows, outlines, and icons = `px`.
 
 # Typography
 
 - **Always use the custom typography utilities** defined in `app/features/style/typography.css` for text styling:
-  - `title`
-  - `subtitle`
-  - `body`
+  - `display`
+  - `title-1`, `title-2`, `title-3`
+  - `body-2`, `body-1`
   - `caption`
-- **Never use** raw tailwind text size classes (`text-title`, `text-body`, `text-subtitle`, `text-caption`) directly — these are the underlying tokens used by the utilities above.
+- **Never use** raw tailwind text size classes (`text-display`, `text-title-1`, `text-body-1`, etc.) directly — these are the underlying tokens used by the utilities above.
 
 # Accessibility
 

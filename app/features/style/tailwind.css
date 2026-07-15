@@ -27,8 +27,76 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 96rem;
 
+  --spacing-\*: initial;
   /* One unit should match one pixel given that 1rem equals 16px. */
   --spacing: 0.0625rem;
+
+  /*
+    Default Tailwind spacing scale, pinned as named tokens. Every step is
+    available in two units: the bare token in rem (via --spacing(), so the number
+    equals that many px on the 16px root — e.g. spacing-4 = 0.25rem = 4px) and a
+    fixed `-px` twin. Use e.g. `p-4` / `gap-4` (rem, scales with the root) or
+    `p-4-px` / `gap-4-px` (fixed px). Arbitrary values still resolve through
+    --spacing (e.g. `p-13` = 13px).
+  */
+  --spacing-1: --spacing(1);
+  --spacing-1-px: 1px;
+  --spacing-2: --spacing(2);
+  --spacing-2-px: 2px;
+  --spacing-3: --spacing(3);
+  --spacing-3-px: 3px;
+  --spacing-4: --spacing(4);
+  --spacing-4-px: 4px;
+  --spacing-5: --spacing(5);
+  --spacing-5-px: 5px;
+  --spacing-6: --spacing(6);
+  --spacing-6-px: 6px;
+  --spacing-7: --spacing(7);
+  --spacing-7-px: 7px;
+  --spacing-8: --spacing(8);
+  --spacing-8-px: 8px;
+  --spacing-9: --spacing(9);
+  --spacing-9-px: 9px;
+  --spacing-10: --spacing(10);
+  --spacing-10-px: 10px;
+  --spacing-11: --spacing(11);
+  --spacing-11-px: 11px;
+  --spacing-12: --spacing(12);
+  --spacing-12-px: 12px;
+  --spacing-14: --spacing(14);
+  --spacing-14-px: 14px;
+  --spacing-16: --spacing(16);
+  --spacing-16-px: 16px;
+  --spacing-20: --spacing(20);
+  --spacing-20-px: 20px;
+  --spacing-24: --spacing(24);
+  --spacing-24-px: 24px;
+  --spacing-28: --spacing(28);
+  --spacing-28-px: 28px;
+  --spacing-32: --spacing(32);
+  --spacing-32-px: 32px;
+  --spacing-36: --spacing(36);
+  --spacing-36-px: 36px;
+  --spacing-40: --spacing(40);
+  --spacing-40-px: 40px;
+  --spacing-44: --spacing(44);
+  --spacing-44-px: 44px;
+  --spacing-48: --spacing(48);
+  --spacing-48-px: 48px;
+  --spacing-52: --spacing(52);
+  --spacing-52-px: 52px;
+  --spacing-56: --spacing(56);
+  --spacing-56-px: 56px;
+  --spacing-60: --spacing(60);
+  --spacing-60-px: 60px;
+  --spacing-64: --spacing(64);
+  --spacing-64-px: 64px;
+  --spacing-72: --spacing(72);
+  --spacing-72-px: 72px;
+  --spacing-80: --spacing(80);
+  --spacing-80-px: 80px;
+  --spacing-96: --spacing(96);
+  --spacing-96-px: 96px;
 
   /* Reset default TW z-index. */
   --z-index-\*: initial;
@@ -46,6 +114,7 @@
 
   --color-black: #1c1c1c;
   --color-white: #ffffff;
+  --color-cream: #fffef6;
   --color-yellow: #f9ef38;
   --color-green: #38f98c;
   --color-cyan: #38f9d9;
@@ -58,6 +127,15 @@
   --shadow-\*: initial;
   --shadow-none: none;
 
+  /*
+    Hard offset shadow (no blur) for a 3D depth/border effect. Black by default;
+    override the color with a `shadow-<color>` utility to shade the depth instead
+    of dropping it in black.
+  */
+  --shadow-depth-sm: 2px 2px 0 0 var(--color-black);
+  --shadow-depth-md: 4px 4px 0 0 var(--color-black);
+  --shadow-depth-lg: 8px 8px 0 0 var(--color-black);
+
   --drop-shadow-\*: initial;
   --drop-shadow-none: none;
 
@@ -65,7 +143,9 @@
   --rounded-\*: initial;
 
   --radius-none: 0;
+  --radius-sm: --spacing(8);
   --radius-md: --spacing(12);
+  --radius-lg: --spacing(30);
   --radius-full: 9999px;
 }
 
@@ -75,22 +155,4 @@
   }
 
   scrollbar-width: none;
-}
-
-@utility scrollbar-minimal {
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--color-black) 30%, transparent);
-    border-radius: 9999px;
-  }
-
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--color-black) 30%, transparent) transparent;
 }

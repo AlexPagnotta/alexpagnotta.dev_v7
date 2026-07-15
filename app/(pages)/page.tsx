@@ -1,3 +1,19 @@
+import { AboutMe } from "@/app/features/homepage/about-me";
+import { Hero } from "@/app/features/homepage/hero";
+import { PersonalMarquee } from "@/app/features/homepage/personal-marquee";
+import { TopicsMarquee } from "@/app/features/homepage/topics-marquee";
+import { Footer } from "@/app/features/nav/footer";
+import { Header } from "@/app/features/nav/header";
+
 export default function Home() {
-  return <div>Hello World</div>;
+  return (
+    <main className="flex flex-col h-full overflow-y-auto scrollbar-thumb-black">
+      <Header />
+      <Hero />
+      <TopicsMarquee />
+      <PersonalMarquee />
+      <AboutMe />
+      <Footer />
+    </main>
+  );
 }

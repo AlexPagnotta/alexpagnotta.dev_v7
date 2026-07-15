@@ -3,30 +3,132 @@
 
   --text-\*: initial;
 
-  --text-title: --spacing(20);
-  --text-title--font-weight: 400;
-  --text-title--line-height: 1.1;
-  --text-title--letter-spacing: normal;
+  --tracking-\*: initial;
 
-  --text-body: --spacing(16);
-  --text-body--font-weight: 400;
-  --text-body--line-height: 1;
-  --text-body--letter-spacing: normal;
+  /*
+    Exactly three tracking tiers, picked by the size the token actually renders
+    at — not by its name, so a `-mobile` twin usually sits a tier looser than its
+    desktop counterpart. Tight >= 64px, snug 28-48px, normal <= 24px.
+  */
+  --tracking-tight: -0.04em;
+  --tracking-snug: -0.02em;
+  --tracking-normal: normal;
 
+  /*
+    Each style has a desktop token and a `-mobile` twin carrying identical
+    weight and line-height; tracking is picked per rendered size, so the twins
+    can differ there. The utilities apply the mobile token
+    by default and switch to the desktop token at the `lg` breakpoint. Sizes go
+    through `--spacing()` (1 unit = 0.0625rem), so the computed value is in rem.
+    Line height and letter spacing both run inverse to the size — larger text
+    tighter, smaller text looser. Line height is a multiplier, so display sizes
+    need very little leading while body copy needs a generous measure to stay
+    readable. Tracking is an optical correction: large type reads as gappy at
+    default spacing, small type needs extra air to stay legible.
+  */
+
+  /* Display — hero statement headers. */
+  --text-display: --spacing(120);
+  --text-display--font-weight: 900;
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: var(--tracking-tight);
+
+  --text-display-mobile: --spacing(48);
+  --text-display-mobile--font-weight: 900;
+  --text-display-mobile--line-height: 1;
+  --text-display-mobile--letter-spacing: var(--tracking-snug);
+
+  /* Title 1 — largest title. */
+  --text-title-1: --spacing(72);
+  --text-title-1--font-weight: 400;
+  --text-title-1--line-height: 1.05;
+  --text-title-1--letter-spacing: var(--tracking-tight);
+
+  --text-title-1-mobile: --spacing(36);
+  --text-title-1-mobile--font-weight: 400;
+  --text-title-1-mobile--line-height: 1.05;
+  --text-title-1-mobile--letter-spacing: var(--tracking-snug);
+
+  /* Title 2 — statement & marquee text. */
+  --text-title-2: --spacing(44);
+  --text-title-2--font-weight: 400;
+  --text-title-2--line-height: 1.1;
+  --text-title-2--letter-spacing: var(--tracking-snug);
+
+  --text-title-2-mobile: --spacing(28);
+  --text-title-2-mobile--font-weight: 400;
+  --text-title-2-mobile--line-height: 1.1;
+  --text-title-2-mobile--letter-spacing: var(--tracking-snug);
+
+  /* Title 3 — card & blog titles. */
+  --text-title-3: --spacing(36);
+  --text-title-3--font-weight: 400;
+  --text-title-3--line-height: 1.2;
+  --text-title-3--letter-spacing: var(--tracking-snug);
+
+  --text-title-3-mobile: --spacing(24);
+  --text-title-3-mobile--font-weight: 400;
+  --text-title-3-mobile--line-height: 1.2;
+  --text-title-3-mobile--letter-spacing: var(--tracking-normal);
+
+  /* Body 2 — large labels. */
+  --text-body-2: --spacing(24);
+  --text-body-2--font-weight: 400;
+  --text-body-2--line-height: 1.4;
+  --text-body-2--letter-spacing: var(--tracking-normal);
+
+  --text-body-2-mobile: --spacing(20);
+  --text-body-2-mobile--font-weight: 400;
+  --text-body-2-mobile--line-height: 1.4;
+  --text-body-2-mobile--letter-spacing: var(--tracking-normal);
+
+  /* Body 1 — paragraph copy. */
+  --text-body-1: --spacing(24);
+  --text-body-1--font-weight: 400;
+  --text-body-1--line-height: 1.6;
+  --text-body-1--letter-spacing: var(--tracking-normal);
+
+  --text-body-1-mobile: --spacing(18);
+  --text-body-1-mobile--font-weight: 400;
+  --text-body-1-mobile--line-height: 1.6;
+  --text-body-1-mobile--letter-spacing: var(--tracking-normal);
+
+  /* Caption — fine print & meta. */
   --text-caption: --spacing(14);
   --text-caption--font-weight: 400;
-  --text-caption--line-height: 1;
-  --text-caption--letter-spacing: normal;
+  --text-caption--line-height: 1.5;
+  --text-caption--letter-spacing: var(--tracking-normal);
+
+  --text-caption-mobile: --spacing(12);
+  --text-caption-mobile--font-weight: 400;
+  --text-caption-mobile--line-height: 1.5;
+  --text-caption-mobile--letter-spacing: var(--tracking-normal);
 }
 
-@utility title {
-  @apply text-title font-sans;
+@utility display {
+  @apply text-display-mobile lg:text-display font-sans;
 }
 
-@utility body {
-  @apply text-body font-sans;
+@utility title-1 {
+  @apply text-title-1-mobile lg:text-title-1 font-sans;
+}
+
+@utility title-2 {
+  @apply text-title-2-mobile lg:text-title-2 font-sans;
+}
+
+@utility title-3 {
+  @apply text-title-3-mobile lg:text-title-3 font-sans;
+}
+
+@utility body-2 {
+  @apply text-body-2-mobile lg:text-body-2 font-sans;
+}
+
+@utility body-1 {
+  @apply text-body-1-mobile lg:text-body-1 font-sans;
 }
 
 @utility caption {
-  @apply text-caption font-sans;
+  @apply text-caption-mobile lg:text-caption font-sans;
 }
