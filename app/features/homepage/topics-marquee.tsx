@@ -10,7 +10,7 @@ const TEXT = [
 
 export const TopicsMarquee = () => {
   return (
-    <Marquee>
+    <Marquee className="border-b-4 border-white/40">
       <span className="flex items-center gap-20">
         {TEXT.map(({ label, separatorColor }) => (
           <React.Fragment key={label}>
