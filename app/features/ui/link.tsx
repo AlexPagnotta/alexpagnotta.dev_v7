@@ -1,6 +1,12 @@
 import NextLink from "next/link";
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 
+/*
+  Next's Link, unstyled — for links that wrap a block and bring their own styles.
+  Link below builds its text-link styling on top of it.
+*/
+export const BaseLink = NextLink;
+
 const linkStyles = cva({
   base: [
     "inline-flex items-center gap-4 cursor-pointer",
@@ -16,8 +22,8 @@ const linkStyles = cva({
   },
 });
 
-export type LinkProps = React.ComponentPropsWithRef<typeof NextLink> & VariantProps<typeof linkStyles>;
+export type LinkProps = React.ComponentPropsWithRef<typeof BaseLink> & VariantProps<typeof linkStyles>;
 
 export const Link = ({ className, variant, ...props }: LinkProps) => {
-  return <NextLink className={cx(linkStyles({ variant }), className)} {...props} />;
+  return <BaseLink className={cx(linkStyles({ variant }), className)} {...props} />;
 };
