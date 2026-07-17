@@ -53,16 +53,23 @@ const TYPE_STYLES: TypeStyle[] = [
     stacked: true,
   },
   {
+    name: "Body 3",
+    utility: "body-3",
+    specs: "24 / 20 px · Regular · 1.12 · -0.03em",
+    sample: MULTILINE_SAMPLE,
+    multiline: true,
+  },
+  {
     name: "Body 2",
     utility: "body-2",
-    specs: "24 / 20 px · Regular · 1.12 · -0.03em",
+    specs: "24 / 18 px · Regular · 1.1",
     sample: MULTILINE_SAMPLE,
     multiline: true,
   },
   {
     name: "Body 1",
     utility: "body-1",
-    specs: "24 / 18 px · Regular · 1.1",
+    specs: "16 / 16 px · Regular · 1.6",
     sample: MULTILINE_SAMPLE,
     multiline: true,
   },
@@ -108,9 +115,9 @@ const DesignPage = () => {
     <main className="h-full overflow-y-auto bg-white text-black scrollbar-thumb-black">
       <div className="mx-auto flex max-w-1200 flex-col gap-80 px-24 py-80">
         <header className="flex flex-col gap-16">
-          <p className="body-2 text-magenta">DESIGN SYSTEM</p>
+          <p className="body-3 text-magenta">DESIGN SYSTEM</p>
           <h1 className="title-1">Components &amp; type</h1>
-          <p className="body-1 max-w-600 text-black/60">
+          <p className="body-2 max-w-600 text-black/60">
             The building blocks of the site, sourced from Figma. Type styles map to Tailwind utilities; components live
             in <code>app/features/ui</code>.
           </p>

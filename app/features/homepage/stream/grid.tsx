@@ -26,7 +26,7 @@ export const StreamGrid = () => {
   return (
     <ul className="columns-1 gap-56 sm:columns-2 lg:columns-3">
       {ITEMS.map((Card, index) => (
-        <li key={index} className="mb-24 break-inside-avoid">
+        <li key={index} className="mb-16 break-inside-avoid">
           <Card />
         </li>
       ))}

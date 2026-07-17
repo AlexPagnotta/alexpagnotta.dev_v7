@@ -43,7 +43,7 @@ When in doubt: content spacing = `rem`; borders, shadows, outlines, and icons = 
 - **Always use the custom typography utilities** defined in `app/features/style/typography.css` for text styling:
   - `display`
   - `title-1`, `title-2`, `title-3`
-  - `body-2`, `body-1`
+  - `body-3`, `body-2`, `body-1`
   - `caption`
 - **Never use** raw tailwind text size classes (`text-display`, `text-title-1`, `text-body-1`, etc.) directly — these are the underlying tokens used by the utilities above.
 

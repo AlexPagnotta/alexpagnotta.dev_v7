@@ -14,7 +14,7 @@ const linkStyles = cva({
   ],
   variants: {
     variant: {
-      nav: "body-2 font-normal hover:font-black",
+      nav: "body-3 font-normal hover:font-black",
     },
   },
   defaultVariants: {

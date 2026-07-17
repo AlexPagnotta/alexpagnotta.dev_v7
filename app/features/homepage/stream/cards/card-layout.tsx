@@ -5,7 +5,7 @@ import { cva, cx, type VariantProps } from "@/app/features/style/utils";
   CardLayout — this only carries the pill's look and color.
 */
 const cardLabelStyles = cva({
-  base: "body-2 inline-block -rotate-3 rounded-sm px-12 py-4 font-black uppercase",
+  base: "body-3 inline-block -rotate-3 rounded-sm px-12 py-4 font-black uppercase",
   variants: {
     color: {
       magenta: "bg-magenta text-white",
@@ -41,7 +41,7 @@ export type CardLayoutProps = {
 
 export const CardLayout = ({ label, className, children }: CardLayoutProps) => {
   return (
-    <article className="relative isolate pt-32">
+    <article className="relative isolate pt-40">
       <div className="absolute -left-12 top-0">{label}</div>
       <div className={cx("relative z-10 rounded-md border-2 border-black", className)}>{children}</div>
     </article>

@@ -71,24 +71,35 @@
   --text-title-3-mobile--line-height: 1.2;
   --text-title-3-mobile--letter-spacing: var(--tracking-normal);
 
-  /* Body 2 — large labels. */
+  /* Body 3 — large labels. */
+  --text-body-3: --spacing(24);
+  --text-body-3--font-weight: 400;
+  --text-body-3--line-height: 1.4;
+  --text-body-3--letter-spacing: var(--tracking-normal);
+
+  --text-body-3-mobile: --spacing(20);
+  --text-body-3-mobile--font-weight: 400;
+  --text-body-3-mobile--line-height: 1.4;
+  --text-body-3-mobile--letter-spacing: var(--tracking-normal);
+
+  /* Body 2 — large paragraph copy. */
   --text-body-2: --spacing(24);
   --text-body-2--font-weight: 400;
-  --text-body-2--line-height: 1.4;
+  --text-body-2--line-height: 1.6;
   --text-body-2--letter-spacing: var(--tracking-normal);
 
-  --text-body-2-mobile: --spacing(20);
+  --text-body-2-mobile: --spacing(18);
   --text-body-2-mobile--font-weight: 400;
-  --text-body-2-mobile--line-height: 1.4;
+  --text-body-2-mobile--line-height: 1.6;
   --text-body-2-mobile--letter-spacing: var(--tracking-normal);
 
   /* Body 1 — paragraph copy. */
-  --text-body-1: --spacing(24);
+  --text-body-1: --spacing(16);
   --text-body-1--font-weight: 400;
   --text-body-1--line-height: 1.6;
   --text-body-1--letter-spacing: var(--tracking-normal);
 
-  --text-body-1-mobile: --spacing(18);
+  --text-body-1-mobile: --spacing(16);
   --text-body-1-mobile--font-weight: 400;
   --text-body-1-mobile--line-height: 1.6;
   --text-body-1-mobile--letter-spacing: var(--tracking-normal);
@@ -119,6 +130,10 @@
 
 @utility title-3 {
   @apply text-title-3-mobile lg:text-title-3 font-sans;
+}
+
+@utility body-3 {
+  @apply text-body-3-mobile lg:text-body-3 font-sans;
 }
 
 @utility body-2 {

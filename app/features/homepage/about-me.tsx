@@ -12,7 +12,7 @@ export const AboutMe = () => {
           />
         </h2>
         <div className="mt-40 flex flex-col justify-between gap-40 lg:mt-60 lg:flex-row lg:gap-110">
-          <p className="body-1 max-w-500">
+          <p className="body-2 max-w-500">
             Part blog, part portfolio, part social media
             <br />
             With advent of AI I am not just a dev I am a maker.

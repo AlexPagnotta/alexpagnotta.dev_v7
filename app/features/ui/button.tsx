@@ -11,7 +11,7 @@ export type ButtonVariant = "green" | "yellow" | "magenta" | "cyan";
 
 export const buttonSizeClass: Record<ButtonSize, string> = {
   huge: "display font-normal rounded-lg px-24 py-12 border-2 lg:border-4 lg:px-96 lg:py-24",
-  md: "body-1 px-24 py-12 border-2",
+  md: "body-2 px-24 py-12 border-2",
   sm: "caption px-16 py-8 border",
 };
 
