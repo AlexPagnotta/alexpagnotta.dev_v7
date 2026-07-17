@@ -1,31 +1,33 @@
-import { cx } from "@/app/features/style/utils";
+import { PostCard } from "@/app/features/homepage/stream/cards/post";
+import { ProjectCard } from "@/app/features/homepage/stream/cards/project";
+import { ThoughtCard } from "@/app/features/homepage/stream/cards/thought";
 
 /*
-  Placeholder masonry grid — real stream cards come later. Each item is a solid
-  colored block with a varied height to exercise the masonry column flow. Heights
-  and colors are fixed (not random at runtime) to keep server/client markup in sync.
+  Placeholder masonry grid — cycles the three mocked stream card types through
+  the column flow so the varied heights exercise the layout. Real content and
+  ordering come later.
 */
 const ITEMS = [
-  { color: "bg-yellow", height: "h-300" },
-  { color: "bg-cyan", height: "h-457" },
-  { color: "bg-magenta", height: "h-240" },
-  { color: "bg-green", height: "h-360" },
-  { color: "bg-white", height: "h-200" },
-  { color: "bg-yellow", height: "h-420" },
-  { color: "bg-magenta", height: "h-300" },
-  { color: "bg-cyan", height: "h-260" },
-  { color: "bg-green", height: "h-440" },
-  { color: "bg-white", height: "h-320" },
-  { color: "bg-yellow", height: "h-220" },
-  { color: "bg-magenta", height: "h-400" },
+  ProjectCard,
+  ThoughtCard,
+  PostCard,
+  ThoughtCard,
+  ProjectCard,
+  PostCard,
+  ProjectCard,
+  PostCard,
+  ThoughtCard,
+  PostCard,
+  ProjectCard,
+  ThoughtCard,
 ];
 
 export const StreamGrid = () => {
   return (
-    <ul className="columns-1 gap-24 sm:columns-2 lg:columns-3">
-      {ITEMS.map(({ color, height }, index) => (
+    <ul className="columns-1 gap-56 sm:columns-2 lg:columns-3">
+      {ITEMS.map((Card, index) => (
         <li key={index} className="mb-24 break-inside-avoid">
-          <div className={cx("w-full rounded-md", height, color)} />
+          <Card />
         </li>
       ))}
     </ul>
