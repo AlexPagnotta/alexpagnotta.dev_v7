@@ -13,30 +13,14 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Always use the design tokens defined in the Tailwind config — colors, typography, spacing, etc. Do not hardcode raw values.
 - If a style requirement cannot be satisfied with existing tokens, **ask the user** before adding anything new. Once confirmed, add the new token to the appropriate Tailwind config file.
 
-# Spacing units (rem vs px)
+# Spacing units
 
-The spacing scale exposes every step in two units: the bare token in **rem** (e.g. `p-4`, `gap-8`, `size-14`) and a fixed **px** twin with a `-px` suffix (e.g. `p-4-px`, `gap-8-px`, `size-14-px`). Pick the unit based on one question — _should this value grow when the user increases their browser font size?_ (an accessibility setting). This is about the **font-size preference**, not page zoom, which scales everything regardless of unit.
+The spacing scale is **rem-only**, driven by a single base token (`--spacing: 0.0625rem`) so that one unit equals one pixel at the 16px root font size. Every spacing/sizing utility resolves through it and scales with the user's font-size preference — e.g. `p-4` = 0.25rem = 4px, `size-14` = 0.875rem = 14px, `max-w-600` = 37.5rem = 600px.
 
-- **Use `rem` (scales with font size)** — the default for anything that spaces or sizes _content_, so layouts stay proportional when text is enlarged:
-  - padding and gaps inside/around text and interactive controls (buttons, inputs, menu items) — keeps hit areas proportional to the label
-  - margins / vertical rhythm between text blocks
-  - reading-measure `max-width` (line length scales with text)
-  - font size (always rem — see Typography)
-- **Use `px` (stays fixed)** — for visual/structural details that must render identically regardless of text size:
-  - border / stroke widths and hairline dividers (`border`, `border-2`)
-  - focus outline width & offset
-  - box-shadow offsets & blur
-  - icon / glyph sizes and other fixed graphic details
+- Use the bare numeric tokens for all padding, gaps, margins, `width`/`height`/`size`, and `max-width`: `px-24 py-12`, `gap-8`, `size-14`, `max-w-600`. Any positive integer works (e.g. `w-205`); it resolves to that many px in rem.
+- **Never** hardcode px arbitrary values for spacing/sizing (no `size-[14px]`, `h-[180px]`) — use the scale token instead (`size-14`, `h-180`).
 
-Examples:
-
-- Button / control padding → **rem**: `px-24 py-12` (the control grows with its label).
-- Control border → **px**: `border-2` (a 2px stroke shouldn't thicken when text scales).
-- Icon inside a control → **px**: `size-14-px` (a crisp, fixed glyph).
-- Depth shadow → **px**: `4px 4px 0 0` (fixed offset).
-- Reading column → **rem**: `max-w-600` (line length scales with the text).
-
-When in doubt: content spacing = `rem`; borders, shadows, outlines, and icons = `px`.
+Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`) are **not** part of the spacing scale — they remain their own fixed-px utilities and are unaffected by this.
 
 # Typography
 

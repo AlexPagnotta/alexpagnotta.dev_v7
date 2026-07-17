@@ -73,7 +73,7 @@ export const Select = ({
         </BaseSelect.Value>
         <BaseSelect.Icon className="flex shrink-0">
           <ChevronDown
-            className="size-16-px transition-transform group-data-[popup-open]:-rotate-180"
+            className="size-16 transition-transform group-data-[popup-open]:-rotate-180"
             aria-hidden="true"
           />
         </BaseSelect.Icon>
@@ -100,7 +100,7 @@ export const Select = ({
               >
                 <BaseSelect.ItemText>{item.label}</BaseSelect.ItemText>
                 <BaseSelect.ItemIndicator className="flex shrink-0">
-                  <Check className="size-14-px" aria-hidden="true" />
+                  <Check className="size-14" aria-hidden="true" />
                 </BaseSelect.ItemIndicator>
               </BaseSelect.Item>
             ))}
