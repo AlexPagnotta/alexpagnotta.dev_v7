@@ -14,9 +14,7 @@ type TypeStyle = {
   utility: string;
   specs: string;
   sample: string;
-  /* Big heading styles: render the sample below the info, on its own row. */
   stacked?: boolean;
-  /* Text styles: let the sample wrap across lines to showcase line height. */
   multiline?: boolean;
 };
 

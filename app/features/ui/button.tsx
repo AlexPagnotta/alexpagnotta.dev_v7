@@ -23,10 +23,6 @@ const buttonStyles = cva({
     "disabled:cursor-not-allowed disabled:opacity-40",
   ],
   variants: {
-    /*
-      A variant only names its fill; the background and the huge size's depth
-      shadow both read --btn-fill, so a variant stays one line and one color.
-    */
     variant: {
       green: "[--btn-fill:var(--color-green)]",
       yellow: "[--btn-fill:var(--color-yellow)]",
@@ -36,10 +32,6 @@ const buttonStyles = cva({
     size: buttonSizeClass,
   },
   compoundVariants: [
-    /*
-      Only huge shades its border and shadow from the fill instead of using black —
-      at this size black edges read as a second element rather than as depth.
-    */
     {
       size: "huge",
       class: [

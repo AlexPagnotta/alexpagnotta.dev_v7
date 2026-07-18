@@ -3,7 +3,6 @@ import { Button } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
 
 export const Footer = () => {
-  // shrink-0: overflow-hidden zeroes the flex item's automatic min-height, so it would otherwise collapse.
   return (
     <footer className="relative shrink-0 overflow-hidden bg-black px-24 text-white">
       <Logo

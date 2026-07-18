@@ -2,11 +2,6 @@ import { PostCard } from "@/app/features/homepage/stream/cards/post";
 import { ProjectCard } from "@/app/features/homepage/stream/cards/project";
 import { ThoughtCard } from "@/app/features/homepage/stream/cards/thought";
 
-/*
-  Placeholder masonry grid — cycles the three mocked stream card types through
-  the column flow so the varied heights exercise the layout. Real content and
-  ordering come later.
-*/
 const ITEMS = [
   ProjectCard,
   ThoughtCard,
