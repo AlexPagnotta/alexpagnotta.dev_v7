@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import * as React from "react";
 import Logo from "@/app/assets/logo.svg";
 import { cx } from "@/app/features/style/utils";
 import { Button } from "@/app/features/ui/button";
@@ -17,6 +18,12 @@ export const Header = () => {
   const isHome = pathname === "/";
   // Project pages let the title marquee's own border serve as the divider.
   const isProject = pathname.startsWith("/projects");
+
+  // The header is a persistent layout element above each page's content, so Next.js's
+  // own "scroll new page into view" logic stops right below it instead of at the top.
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
 
   const scrollToFooter = () => {
     document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" });

@@ -3,7 +3,7 @@ import { Header } from "@/app/features/nav/header";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="flex h-full scroll-smooth flex-col overflow-y-auto scrollbar-thumb-black">
+    <main className="flex flex-col">
       <Header />
       {children}
       <Footer />

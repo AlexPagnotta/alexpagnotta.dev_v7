@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cx(ppframa.variable)}>
+    <html lang="en" className={cx(ppframa.variable, "scroll-smooth")}>
       <body>
         {children}
         <Analytics />
