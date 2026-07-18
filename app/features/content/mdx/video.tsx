@@ -1,14 +1,7 @@
-import { cx } from "@/app/features/style/utils";
+import { Video, type VideoProps } from "@/app/features/ui/video";
 
-export type VideoProps = {
-  src: string;
-  className?: string;
-} & React.VideoHTMLAttributes<HTMLVideoElement>;
-
-export const Video = ({ src, className, ...props }: VideoProps) => {
-  return (
-    <figure className="overflow-hidden rounded-lg">
-      <video src={src} controls playsInline className={cx("block h-auto w-full", className)} {...props} />
-    </figure>
-  );
-};
+export const MarkdownVideo = (props: VideoProps) => (
+  <figure className="overflow-hidden rounded-lg">
+    <Video {...props} />
+  </figure>
+);

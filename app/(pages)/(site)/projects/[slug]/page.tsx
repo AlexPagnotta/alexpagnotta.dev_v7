@@ -1,6 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import NextImage, { type StaticImageData } from "next/image";
 import { getAllEntries, getEntry } from "@/app/features/content/loader";
+import { MarkdownParagraph } from "@/app/features/content/mdx/paragraph";
 import { Prose } from "@/app/features/content/prose";
 import { ReadingMarquee } from "@/app/features/content/reading-marquee";
 import { Container } from "@/app/features/ui/container";
@@ -21,7 +22,7 @@ export const generateMetadata = async ({ params }: Props) => {
 // The project body sits on a dark section, and its copy runs one step larger than
 // the default prose paragraph.
 const projectComponents: MDXComponents = {
-  p: ({ children }) => <p className="body-2">{children}</p>,
+  p: ({ children }) => <MarkdownParagraph size="lg">{children}</MarkdownParagraph>,
 };
 
 export default async function ProjectPage({ params }: Props) {
