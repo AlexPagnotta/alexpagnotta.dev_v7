@@ -43,5 +43,5 @@ Ordered list of remaining work before launch. Roughly sequenced content/copy →
 
 ## 8. Deploy
 
-- [ ] Install and configure Vercel Analytics (`@vercel/analytics`).
-- [ ] Deploy to Next.js hosting (production release).
+- [x] Install and configure Vercel Analytics (`@vercel/analytics`).
+- [x] Deploy to Next.js hosting (production release).
