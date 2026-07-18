@@ -1,6 +1,6 @@
 import NextImage, { type StaticImageData } from "next/image";
 import { CardLayout } from "@/app/features/homepage/stream/cards/card-layout";
-import { CardCategoryLabel } from "@/app/features/homepage/stream/cards/category-label";
+import { CardContentTypeLabel } from "@/app/features/homepage/stream/cards/content-type-label";
 import { BaseLink } from "@/app/features/ui/link";
 
 export type ProjectCardProps = {
@@ -13,7 +13,7 @@ export type ProjectCardProps = {
 export const ProjectCard = ({ title, href, image, color }: ProjectCardProps) => {
   return (
     <CardLayout
-      label={<CardCategoryLabel color="magenta">Project</CardCategoryLabel>}
+      label={<CardContentTypeLabel color="magenta">Project</CardContentTypeLabel>}
       className="aspect-3/4 w-full overflow-hidden"
     >
       <NextImage
@@ -29,12 +29,12 @@ export const ProjectCard = ({ title, href, image, color }: ProjectCardProps) => 
         aria-label={title}
         className="absolute inset-0 block focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-black"
       >
-        <CardCategoryLabel
+        <CardContentTypeLabel
           className="absolute right-16 bottom-16 border-2 border-(--tag-shade) bg-(--tag-color) text-black shadow-depth-md shadow-(color:--tag-shade) [--tag-shade:color-mix(in_oklab,var(--tag-color)_78%,black)]"
           style={{ "--tag-color": color } as React.CSSProperties}
         >
           {title}
-        </CardCategoryLabel>
+        </CardContentTypeLabel>
       </BaseLink>
     </CardLayout>
   );

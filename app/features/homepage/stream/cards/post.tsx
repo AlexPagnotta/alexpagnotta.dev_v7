@@ -1,5 +1,5 @@
 import { CardLayout } from "@/app/features/homepage/stream/cards/card-layout";
-import { CardCategoryLabel } from "@/app/features/homepage/stream/cards/category-label";
+import { CardContentTypeLabel } from "@/app/features/homepage/stream/cards/content-type-label";
 import { BaseLink } from "@/app/features/ui/link";
 
 export type PostCardProps = {
@@ -10,7 +10,7 @@ export type PostCardProps = {
 
 export const PostCard = ({ title, description, href }: PostCardProps) => {
   return (
-    <CardLayout label={<CardCategoryLabel color="cyan">Post</CardCategoryLabel>} className="bg-cream p-48">
+    <CardLayout label={<CardContentTypeLabel color="cyan">Post</CardContentTypeLabel>} className="bg-cream p-48">
       <BaseLink
         href={href}
         aria-label={title}
