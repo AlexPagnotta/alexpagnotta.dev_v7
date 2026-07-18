@@ -31,6 +31,11 @@ Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`) are *
   - `caption`
 - **Never use** raw tailwind text size classes (`text-display`, `text-title-1`, `text-body-1`, etc.) directly — these are the underlying tokens used by the utilities above.
 
+# Comments
+
+- Default to writing no comments. Only add one when it explains something not obvious or understandable by looking at the code itself — a hidden constraint, a subtle invariant, a workaround for a specific bug.
+- Never write a comment that just restates what the code does.
+
 # Accessibility
 
 - Use semantic HTML elements (`<button>`, `<nav>`, `<main>`, etc.) over generic `<div>`/`<span>` wrappers.
