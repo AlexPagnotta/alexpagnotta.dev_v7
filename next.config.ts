@@ -1,9 +1,11 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 // Import the env file to validate the environment variables on build time.
 import "./env";
 
 const nextConfig: NextConfig = {
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   turbopack: {
     rules: {
       "*.svg": [
@@ -38,4 +40,13 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    // Turbopack requires remark/rehype plugins as string names with serializable options.
+    remarkPlugins: [["remark-frontmatter"], ["remark-gfm"]],
+    rehypePlugins: [],
+  },
+});
+
+export default withMDX(nextConfig);
