@@ -1,20 +1,39 @@
-import { getStreamItems } from "@/app/features/content/loader";
+import { getStreamItems, type StreamItem } from "@/app/features/content/loader";
 import { PostCard } from "@/app/features/homepage/stream/cards/post";
 import { ProjectCard } from "@/app/features/homepage/stream/cards/project";
 import { ThoughtCard } from "@/app/features/homepage/stream/cards/thought";
 
-export const StreamGrid = () => {
+export const StreamGrid = async () => {
   const items = getStreamItems();
 
-  return (
-    <ul className="columns-1 gap-56 sm:columns-2 lg:columns-3">
-      {items.map((item) => (
+  // Resolve per-card assets up front: project cards need their colocated card image
+  // (dynamic import → optimized StaticImageData), thought cards render their MDX body.
+  const cards = await Promise.all(
+    items.map(async (item) => {
+      const card = await renderCard(item);
+      return (
         <li key={`${item.kind}-${item.slug}`} className="mb-32 break-inside-avoid">
-          {item.kind === "post" && <PostCard title={item.title} description={item.description} href={item.href} />}
-          {item.kind === "project" && <ProjectCard title={item.title} href={item.href} />}
-          {item.kind === "thought" && <ThoughtCard text={item.text} />}
+          {card}
         </li>
-      ))}
-    </ul>
+      );
+    })
   );
+
+  return <ul className="columns-1 gap-56 sm:columns-2 lg:columns-3">{cards}</ul>;
+};
+
+const renderCard = async (item: StreamItem) => {
+  if (item.kind === "project") {
+    const { default: image } = await import(`@/content/projects/${item.slug}/${item.cardImage}`);
+    return <ProjectCard title={item.title} href={item.href} image={image} />;
+  }
+  if (item.kind === "thought") {
+    const { default: Thought } = await import(`@/content/thoughts/${item.slug}.mdx`);
+    return (
+      <ThoughtCard>
+        <Thought />
+      </ThoughtCard>
+    );
+  }
+  return <PostCard title={item.title} description={item.description} href={item.href} />;
 };

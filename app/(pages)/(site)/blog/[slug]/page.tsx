@@ -18,7 +18,7 @@ export const generateMetadata = async ({ params }: Props) => {
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const entry = getEntry("blog", slug);
-  const { default: Post } = await import(`@/content/blog/${slug}.mdx`);
+  const { default: Post } = await import(`@/content/blog/${slug}/index.mdx`);
 
   return (
     <>

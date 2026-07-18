@@ -36,6 +36,11 @@ const nextConfig: NextConfig = {
           as: "*.js",
         },
       ],
+      // Colocated video files are emitted as static assets so a plain `import` returns
+      // their served URL (next/image handles images natively; this covers video).
+      "*.{mp4,mov,webm}": {
+        type: "asset",
+      },
     },
   },
 };

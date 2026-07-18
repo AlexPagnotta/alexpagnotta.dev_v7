@@ -1,3 +1,4 @@
+import NextImage, { type StaticImageData } from "next/image";
 import { CardLayout } from "@/app/features/homepage/stream/cards/card-layout";
 import { CardCategoryLabel } from "@/app/features/homepage/stream/cards/category-label";
 import { BaseLink } from "@/app/features/ui/link";
@@ -5,16 +6,26 @@ import { BaseLink } from "@/app/features/ui/link";
 export type ProjectCardProps = {
   title: string;
   href: string;
+  image: StaticImageData;
 };
 
-export const ProjectCard = ({ title, href }: ProjectCardProps) => {
+export const ProjectCard = ({ title, href, image }: ProjectCardProps) => {
   return (
     <CardLayout
       label={<CardCategoryLabel color="magenta">Project</CardCategoryLabel>}
-      className="aspect-3/4 w-full overflow-hidden bg-cyan"
+      className="aspect-3/4 w-full overflow-hidden"
     >
+      <NextImage
+        src={image}
+        alt=""
+        fill
+        placeholder="blur"
+        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        className="object-cover"
+      />
       <BaseLink
         href={href}
+        aria-label={title}
         className="absolute inset-0 block focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-black"
       >
         <CardCategoryLabel

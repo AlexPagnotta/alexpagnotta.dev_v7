@@ -15,6 +15,7 @@ const linkStyles = cva({
   variants: {
     variant: {
       nav: "body-3 font-normal hover:font-black",
+      default: "inline underline underline-offset-2 hover:font-black",
     },
   },
   defaultVariants: {

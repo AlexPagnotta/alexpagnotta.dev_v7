@@ -1,0 +1,24 @@
+---
+title: Hello, World
+description: The first post — a quick tour of the MDX content pipeline.
+date: 2026-07-17
+---
+
+import diagram from "./diagram.png";
+
+This is the very first post rendered through the new content system. It's plain
+**MDX**, so I get all of markdown _plus_ real React components.
+
+## Markdown works
+
+Everything you'd expect: [links](https://example.com) and lists —
+
+- one
+- two
+- three
+
+## Colocated media works too
+
+Images live next to the post and render through `next/image`:
+
+<Image src={diagram} alt="A placeholder diagram" />

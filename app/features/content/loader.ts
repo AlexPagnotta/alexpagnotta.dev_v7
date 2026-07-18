@@ -16,9 +16,24 @@ const byDateDesc = (a: { date: Date }, b: { date: Date }) => b.date.getTime() - 
 
 const dirFor = (type: ContentType) => path.join(CONTENT_DIR, CONTENT_TYPES[type].dir);
 
+// Folder-layout entries colocate their assets in `<slug>/index.mdx`; file-layout
+// entries are a flat `<slug>.mdx`.
+const fileFor = (type: ContentType, slug: string) =>
+  CONTENT_TYPES[type].layout === "folder"
+    ? path.join(dirFor(type), slug, "index.mdx")
+    : path.join(dirFor(type), `${slug}.mdx`);
+
 export const getSlugs = (type: ContentType): string[] => {
   const dir = dirFor(type);
   if (!fs.existsSync(dir)) return [];
+
+  if (CONTENT_TYPES[type].layout === "folder") {
+    return fs
+      .readdirSync(dir, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(dir, entry.name, "index.mdx")))
+      .map((entry) => entry.name);
+  }
+
   return fs
     .readdirSync(dir)
     .filter((file) => file.endsWith(".mdx"))
@@ -26,7 +41,7 @@ export const getSlugs = (type: ContentType): string[] => {
 };
 
 export const getEntry = <T extends ContentType>(type: T, slug: string): EntryFor<T> => {
-  const file = path.join(dirFor(type), `${slug}.mdx`);
+  const file = fileFor(type, slug);
   const { data } = matter(fs.readFileSync(file, "utf8"));
   // Throws on invalid frontmatter so a malformed file fails the build loudly.
   const frontmatter = CONTENT_TYPES[type].schema.parse(data);
@@ -44,8 +59,8 @@ export const getAllEntries = <T extends ContentType>(type: T): EntryFor<T>[] =>
 
 export type StreamItem =
   | { kind: "post"; slug: string; title: string; description?: string; date: Date; href: string }
-  | { kind: "project"; slug: string; title: string; date: Date; href: string }
-  | { kind: "thought"; slug: string; text: string; date: Date };
+  | { kind: "project"; slug: string; title: string; cardImage: string; date: Date; href: string }
+  | { kind: "thought"; slug: string; date: Date };
 
 export const getStreamItems = (): StreamItem[] => {
   const posts = readVisibleEntries("blog").map(
@@ -63,12 +78,13 @@ export const getStreamItems = (): StreamItem[] => {
       kind: "project",
       slug: entry.slug,
       title: entry.title,
+      cardImage: entry.cardImage,
       date: entry.date,
       href: `/projects/${entry.slug}`,
     })
   );
   const thoughts = readVisibleEntries("thought").map(
-    (entry): StreamItem => ({ kind: "thought", slug: entry.slug, text: entry.text, date: entry.date })
+    (entry): StreamItem => ({ kind: "thought", slug: entry.slug, date: entry.date })
   );
 
   return [...posts, ...projects, ...thoughts].sort(byDateDesc);
