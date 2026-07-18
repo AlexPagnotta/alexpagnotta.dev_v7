@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { cx } from "@/app/features/style/utils";
 import { Button } from "@/app/features/ui/button";
 import { Link } from "@/app/features/ui/link";
 import { Select } from "@/app/features/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/app/features/ui/toggle-group";
+import { isProduction } from "@/app/features/utils/release-channel";
 
 export const metadata: Metadata = {
   title: "Design",
@@ -109,6 +111,10 @@ const Row = ({ label, children }: RowProps) => (
 );
 
 const DesignPage = () => {
+  if (isProduction) {
+    notFound();
+  }
+
   return (
     <main className="h-full overflow-y-auto bg-white text-black scrollbar-thumb-black">
       <div className="mx-auto flex max-w-1200 flex-col gap-80 px-24 py-80">

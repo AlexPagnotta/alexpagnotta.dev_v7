@@ -51,3 +51,5 @@ Ordered list of remaining work before launch. Roughly sequenced content/copy →
 ## 9. Tooling
 
 - [ ] Give Claude Code a native way to verify UI changes — e.g. a headless browser (Playwright) MCP server or script — instead of relying on manual screenshot checks.
+- [ ] Fix and improve the `/design` design system page.
+- [x] Hide `/design` in production (404s outside development).
