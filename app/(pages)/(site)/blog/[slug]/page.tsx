@@ -3,7 +3,7 @@ import { Prose } from "@/app/features/content/prose";
 import { ReadingMarquee } from "@/app/features/content/reading-marquee";
 import { pageMetadata } from "@/app/features/seo/metadata";
 import { Container } from "@/app/features/ui/container";
-import { formatRelativeDate } from "@/app/features/utils/relative-date";
+import { formatRelativeDate } from "@/app/features/utils/date";
 
 type Props = PageProps<"/blog/[slug]">;
 
