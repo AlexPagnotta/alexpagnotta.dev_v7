@@ -31,8 +31,8 @@ Ordered list of remaining work before launch. Roughly sequenced content/copy →
 
 ## 5. Media pipeline
 
-- [ ] Optimize images: correct sizes, quality, and loading strategy (e.g. lazy-loading, responsive `srcset`).
-- [ ] Optimize videos with appropriate encoding settings.
+- [x] Optimize images: correct sizes, quality, and loading strategy (e.g. lazy-loading, responsive `srcset`).
+- [x] Optimize videos with appropriate encoding settings.
 - [ ] Add an npm script that runs ffmpeg to auto-convert source videos into the optimized format.
 
 ## 6. SEO & metadata

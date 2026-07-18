@@ -22,7 +22,7 @@ export const ProjectCard = ({ title, href, image, color }: ProjectCardProps) => 
         alt=""
         fill
         placeholder="blur"
-        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        sizes="(min-width: 1024px) min(33vw, 363px), (min-width: 640px) 50vw, 100vw"
         className="object-cover"
       />
       <BaseLink
