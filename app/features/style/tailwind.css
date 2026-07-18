@@ -4,23 +4,11 @@
 @import "./global.css";
 
 @theme {
-  /*
-    Core layout dimensions for site boundaries and viewport constraints.
-    These variables define both content width parameters and function as
-    reference values for responsive design calculations. They should align
-    with the minimum and maximum content width requirements.
-  */
   --layout-min-w: 375;
   --layout-max-w: 1600;
 
-  /* Reset default TW breakpoints. */
   --breakpoint-\*: initial;
 
-  /*
-    Note: When used in media queries, rem units don't scale with the document's
-    root font size. Instead, they scale according to the browser's default font size.
-    Users with larger default font settings will trigger mobile breakpoints "sooner".
-  */
   --breakpoint-sm: 40rem;
   --breakpoint-md: 48rem;
   --breakpoint-lg: 64rem;
@@ -28,6 +16,7 @@
   --breakpoint-2xl: 96rem;
 
   --spacing-\*: initial;
+
   /*
     One unit matches one pixel given that 1rem equals 16px, so any spacing/sizing
     utility resolves to rem and scales with the root font size — e.g. `p-4` =
@@ -35,12 +24,8 @@
   */
   --spacing: 0.0625rem;
 
-  /* Reset default TW z-index. */
   --z-index-\*: initial;
 
-  --z-index-preloader: 0;
-
-  /* Reset default TW colors. */
   --color-\*: initial;
 
   --color-unset: unset;
@@ -57,18 +42,11 @@
   --color-cyan: #38f9d9;
   --color-magenta: #f9388f;
 
-  /* Reset default TW blur. */
   --blur-\*: initial;
 
-  /* Reset default TW shadow. */
   --shadow-\*: initial;
   --shadow-none: none;
 
-  /*
-    Hard offset shadow (no blur) for a 3D depth/border effect. Black by default;
-    override the color with a `shadow-<color>` utility to shade the depth instead
-    of dropping it in black.
-  */
   --shadow-depth-sm: 2px 2px 0 0 var(--color-black);
   --shadow-depth-md: 4px 4px 0 0 var(--color-black);
   --shadow-depth-lg: 8px 8px 0 0 var(--color-black);
@@ -76,7 +54,6 @@
   --drop-shadow-\*: initial;
   --drop-shadow-none: none;
 
-  /* Reset default TW rounded. */
   --rounded-\*: initial;
 
   --radius-none: 0;
