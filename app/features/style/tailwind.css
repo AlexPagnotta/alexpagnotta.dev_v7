@@ -26,6 +26,8 @@
 
   --z-index-\*: initial;
 
+  --z-index-cursor: 9999;
+
   --color-\*: initial;
 
   --color-unset: unset;

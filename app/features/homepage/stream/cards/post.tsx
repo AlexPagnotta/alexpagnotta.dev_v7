@@ -1,5 +1,6 @@
 import { CardLayout } from "@/app/features/homepage/stream/cards/card-layout";
 import { CardContentTypeLabel } from "@/app/features/homepage/stream/cards/content-type-label";
+import type { CursorVariant } from "@/app/features/ui/cursor";
 import { BaseLink } from "@/app/features/ui/link";
 
 export type PostCardProps = {
@@ -14,6 +15,7 @@ export const PostCard = ({ title, description, href }: PostCardProps) => {
       <BaseLink
         href={href}
         aria-label={title}
+        data-cursor={"open-yellow" satisfies CursorVariant}
         className="absolute inset-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
       />
       <div className="flex flex-col gap-8">

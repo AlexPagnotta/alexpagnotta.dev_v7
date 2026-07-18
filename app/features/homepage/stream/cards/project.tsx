@@ -1,6 +1,7 @@
 import NextImage, { type StaticImageData } from "next/image";
 import { CardLayout } from "@/app/features/homepage/stream/cards/card-layout";
 import { CardContentTypeLabel } from "@/app/features/homepage/stream/cards/content-type-label";
+import type { CursorVariant } from "@/app/features/ui/cursor";
 import { BaseLink } from "@/app/features/ui/link";
 import { Pill } from "@/app/features/ui/pill";
 
@@ -30,6 +31,7 @@ export const ProjectCard = ({ title, href, image, color }: ProjectCardProps) => 
       <BaseLink
         href={href}
         aria-label={title}
+        data-cursor={"open-magenta" satisfies CursorVariant}
         className="absolute inset-0 block focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-black"
       >
         <Pill

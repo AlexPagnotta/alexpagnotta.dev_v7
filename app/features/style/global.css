@@ -11,3 +11,14 @@ body {
   background-color: var(--color-black);
   color: var(--color-white);
 }
+
+/*
+  The custom cursor replaces the native one with a JS follower element. The
+  attribute is only set (via JS) on fine-pointer devices, so touch keeps its
+  default behavior. The descendant selector outranks per-element cursor
+  utilities (e.g. `cursor-pointer` on links), so they don't reveal it.
+*/
+html[data-custom-cursor="true"],
+html[data-custom-cursor="true"] * {
+  cursor: none;
+}

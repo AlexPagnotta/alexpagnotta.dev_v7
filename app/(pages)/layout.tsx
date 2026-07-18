@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { siteConfig } from "@/app/features/seo/config";
 import { JsonLd } from "@/app/features/seo/json-ld";
 import { cx } from "@/app/features/style/utils";
+import { Cursor } from "@/app/features/ui/cursor";
 import "@/app/features/style/tailwind.css";
 import { isProduction } from "@/app/features/utils/release-channel";
 
@@ -75,6 +76,7 @@ export default function RootLayout({
     <html lang={siteConfig.lang} className={cx(ppframa.variable, "scroll-smooth")}>
       <body>
         {children}
+        <Cursor />
         <Analytics />
         <JsonLd />
       </body>
