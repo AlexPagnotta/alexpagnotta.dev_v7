@@ -36,7 +36,7 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <>
-      <Marquee variant="yellow" size="lg" className="border-y-4 border-black">
+      <Marquee variant="light" size="lg" className="border-y-4 border-black" style={{ backgroundColor: entry.color }}>
         {entry.title}&nbsp;&nbsp;&nbsp;&nbsp;
       </Marquee>
       {cover && (

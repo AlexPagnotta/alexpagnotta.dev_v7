@@ -59,7 +59,7 @@ export const getAllEntries = <T extends ContentType>(type: T): EntryFor<T>[] =>
 
 export type StreamItem =
   | { kind: "post"; slug: string; title: string; description?: string; date: Date; href: string }
-  | { kind: "project"; slug: string; title: string; cardImage: string; date: Date; href: string }
+  | { kind: "project"; slug: string; title: string; cardImage: string; color: string; date: Date; href: string }
   | { kind: "thought"; slug: string; date: Date };
 
 export const getStreamItems = (): StreamItem[] => {
@@ -79,6 +79,7 @@ export const getStreamItems = (): StreamItem[] => {
       slug: entry.slug,
       title: entry.title,
       cardImage: entry.cardImage,
+      color: entry.color,
       date: entry.date,
       href: `/projects/${entry.slug}`,
     })

@@ -38,11 +38,11 @@ const marqueeTextStyles = cva({
 
 export type MarqueeProps = ReactFastMarqueeProps & VariantProps<typeof marqueeStyles>;
 
-export const Marquee = ({ className, variant, size, play = true, children, ...props }: MarqueeProps) => {
+export const Marquee = ({ className, style, variant, size, play = true, children, ...props }: MarqueeProps) => {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className={cx(marqueeStyles({ variant, size }), className)}>
+    <div className={cx(marqueeStyles({ variant, size }), className)} style={style}>
       <span className="sr-only">{children}</span>
       <ReactFastMarquee
         aria-hidden="true"

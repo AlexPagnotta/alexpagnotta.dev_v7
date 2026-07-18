@@ -19,7 +19,7 @@ Ordered list of remaining work before launch. Roughly sequenced content/copy →
 
 - [ ] Add a work/personal filter, backed by a new frontmatter field on content markdown to tag each entry.
 - [ ] Add hover animations to cards.
-- [ ] Support a per-project custom color for the title label.
+- [x] Support a per-project custom color for the title label.
 - [ ] Improve overall spacing, especially on mobile.
 
 ## 4. Blog & project pages

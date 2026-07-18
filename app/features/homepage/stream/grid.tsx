@@ -25,7 +25,7 @@ export const StreamGrid = async () => {
 const renderCard = async (item: StreamItem) => {
   if (item.kind === "project") {
     const { default: image } = await import(`@/content/projects/${item.slug}/${item.cardImage}`);
-    return <ProjectCard title={item.title} href={item.href} image={image} />;
+    return <ProjectCard title={item.title} href={item.href} image={image} color={item.color} />;
   }
   if (item.kind === "thought") {
     const { default: Thought } = await import(`@/content/thoughts/${item.slug}.mdx`);

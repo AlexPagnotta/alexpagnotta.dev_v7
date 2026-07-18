@@ -7,9 +7,10 @@ export type ProjectCardProps = {
   title: string;
   href: string;
   image: StaticImageData;
+  color: string;
 };
 
-export const ProjectCard = ({ title, href, image }: ProjectCardProps) => {
+export const ProjectCard = ({ title, href, image, color }: ProjectCardProps) => {
   return (
     <CardLayout
       label={<CardCategoryLabel color="magenta">Project</CardCategoryLabel>}
@@ -29,8 +30,8 @@ export const ProjectCard = ({ title, href, image }: ProjectCardProps) => {
         className="absolute inset-0 block focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-black"
       >
         <CardCategoryLabel
-          color="green"
-          className="absolute right-16 bottom-16 border-2 border-(--tag-shade) shadow-depth-md shadow-(color:--tag-shade) [--tag-shade:color-mix(in_oklab,var(--color-green)_78%,black)]"
+          className="absolute right-16 bottom-16 border-2 border-(--tag-shade) bg-(--tag-color) text-black shadow-depth-md shadow-(color:--tag-shade) [--tag-shade:color-mix(in_oklab,var(--tag-color)_78%,black)]"
+          style={{ "--tag-color": color } as React.CSSProperties}
         >
           {title}
         </CardCategoryLabel>

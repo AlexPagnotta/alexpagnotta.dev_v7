@@ -14,6 +14,9 @@ export const projectSchema = z.object({
   date: z.coerce.date(),
   cardImage: z.string(),
   coverImage: z.string().optional(),
+  // Drives the title label's background on the stream card and the title marquee
+  // on the project's detail page.
+  color: z.string().regex(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i, "must be a hex color, e.g. #f9ef38"),
   draft: z.boolean().default(false),
 });
 
