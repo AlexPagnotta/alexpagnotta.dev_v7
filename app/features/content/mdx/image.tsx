@@ -7,11 +7,13 @@ export const Image = ({ className, sizes, ...props }: ImageProps) => {
   const isStatic = typeof props.src === "object";
 
   return (
-    <NextImage
-      sizes={sizes ?? "100vw"}
-      placeholder={isStatic ? "blur" : undefined}
-      className={cx("h-auto w-full rounded-md", className)}
-      {...props}
-    />
+    <figure className="overflow-hidden rounded-lg">
+      <NextImage
+        sizes={sizes ?? "100vw"}
+        placeholder={isStatic ? "blur" : undefined}
+        className={cx("block h-auto w-full", className)}
+        {...props}
+      />
+    </figure>
   );
 };

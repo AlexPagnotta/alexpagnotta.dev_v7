@@ -6,5 +6,9 @@ export type VideoProps = {
 } & React.VideoHTMLAttributes<HTMLVideoElement>;
 
 export const Video = ({ src, className, ...props }: VideoProps) => {
-  return <video src={src} controls playsInline className={cx("h-auto w-full rounded-md", className)} {...props} />;
+  return (
+    <figure className="overflow-hidden rounded-lg">
+      <video src={src} controls playsInline className={cx("block h-auto w-full", className)} {...props} />
+    </figure>
+  );
 };

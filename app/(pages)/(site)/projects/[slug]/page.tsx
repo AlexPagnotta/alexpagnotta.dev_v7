@@ -1,8 +1,10 @@
+import type { MDXComponents } from "mdx/types";
 import NextImage, { type StaticImageData } from "next/image";
 import { getAllEntries, getEntry } from "@/app/features/content/loader";
 import { Prose } from "@/app/features/content/prose";
 import { ReadingMarquee } from "@/app/features/content/reading-marquee";
 import { Container } from "@/app/features/ui/container";
+import { Marquee } from "@/app/features/ui/marquee";
 
 type Props = PageProps<"/projects/[slug]">;
 
@@ -14,6 +16,12 @@ export const generateMetadata = async ({ params }: Props) => {
   const { slug } = await params;
   const { title, description } = getEntry("project", slug);
   return { title, description };
+};
+
+// The project body sits on a dark section, and its copy runs one step larger than
+// the default prose paragraph.
+const projectComponents: MDXComponents = {
+  p: ({ children }) => <p className="body-2">{children}</p>,
 };
 
 export default async function ProjectPage({ params }: Props) {
@@ -28,26 +36,29 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <>
-      <Container size="md" className="flex flex-col gap-40 px-24 py-64">
-        {cover && (
+      <Marquee variant="yellow" size="lg" className="border-y-4 border-black">
+        {entry.title}&nbsp;&nbsp;&nbsp;&nbsp;
+      </Marquee>
+      {cover && (
+        <div className="relative h-[70vh] w-full shrink-0">
           <NextImage
             src={cover}
             alt={entry.title}
+            fill
+            priority
             placeholder="blur"
-            sizes="(min-width: 768px) 768px, 100vw"
-            className="h-auto w-full rounded-md"
+            sizes="100vw"
+            className="object-cover"
           />
-        )}
-        <header className="flex flex-col gap-16">
-          <h1 className="title-1">{entry.title}</h1>
-          <p className="caption text-black/60">
-            {entry.date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-          </p>
-        </header>
-        <Prose>
-          <Project />
-        </Prose>
-      </Container>
+        </div>
+      )}
+      <section className="bg-black">
+        <Container size="md" className="px-24 py-64">
+          <Prose tone="onDark">
+            <Project components={projectComponents} />
+          </Prose>
+        </Container>
+      </section>
       <ReadingMarquee />
     </>
   );
