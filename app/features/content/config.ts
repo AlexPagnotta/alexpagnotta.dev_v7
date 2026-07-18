@@ -1,9 +1,16 @@
 import { z } from "zod";
 
+export const CATEGORIES = ["personal", "work"] as const;
+export type Category = (typeof CATEGORIES)[number];
+
+// Tags every stream entry as work or personal so the stream can be filtered.
+const categorySchema = z.enum(CATEGORIES);
+
 export const blogSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   date: z.coerce.date(),
+  category: categorySchema,
   cover: z.string().optional(),
   draft: z.boolean().default(false),
 });
@@ -12,6 +19,7 @@ export const projectSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   date: z.coerce.date(),
+  category: categorySchema,
   cardImage: z.string(),
   coverImage: z.string().optional(),
   // Drives the title label's background on the stream card and the title marquee
@@ -23,6 +31,7 @@ export const projectSchema = z.object({
 export const thoughtSchema = z.object({
   title: z.string(),
   date: z.coerce.date(),
+  category: categorySchema,
   draft: z.boolean().default(false),
 });
 

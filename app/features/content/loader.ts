@@ -2,7 +2,7 @@ import "server-only";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { CONTENT_TYPES, type ContentType, type EntryFor } from "@/app/features/content/config";
+import { type Category, CONTENT_TYPES, type ContentType, type EntryFor } from "@/app/features/content/config";
 import { isProduction } from "@/app/features/utils/release-channel";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
@@ -57,10 +57,11 @@ const readVisibleEntries = <T extends ContentType>(type: T): EntryFor<T>[] =>
 export const getAllEntries = <T extends ContentType>(type: T): EntryFor<T>[] =>
   readVisibleEntries(type).sort(byDateDesc);
 
-export type StreamItem =
+export type StreamItem = { category: Category } & (
   | { kind: "post"; slug: string; title: string; description?: string; date: Date; href: string }
   | { kind: "project"; slug: string; title: string; cardImage: string; color: string; date: Date; href: string }
-  | { kind: "thought"; slug: string; date: Date };
+  | { kind: "thought"; slug: string; date: Date }
+);
 
 export const getStreamItems = (): StreamItem[] => {
   const posts = readVisibleEntries("blog").map(
@@ -69,6 +70,7 @@ export const getStreamItems = (): StreamItem[] => {
       slug: entry.slug,
       title: entry.title,
       description: entry.description,
+      category: entry.category,
       date: entry.date,
       href: `/blog/${entry.slug}`,
     })
@@ -80,12 +82,13 @@ export const getStreamItems = (): StreamItem[] => {
       title: entry.title,
       cardImage: entry.cardImage,
       color: entry.color,
+      category: entry.category,
       date: entry.date,
       href: `/projects/${entry.slug}`,
     })
   );
   const thoughts = readVisibleEntries("thought").map(
-    (entry): StreamItem => ({ kind: "thought", slug: entry.slug, date: entry.date })
+    (entry): StreamItem => ({ kind: "thought", slug: entry.slug, category: entry.category, date: entry.date })
   );
 
   return [...posts, ...projects, ...thoughts].sort(byDateDesc);
