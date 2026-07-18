@@ -35,7 +35,7 @@ const buttonStyles = cva({
     {
       size: "huge",
       class: [
-        "[--btn-shade:color-mix(in_oklab,var(--btn-fill)_78%,black)]",
+        "[--btn-shade:color-mix(in_oklab,var(--btn-fill)_80%,black)]",
         "border-(--btn-shade) shadow-depth-lg shadow-(color:--btn-shade)",
       ],
     },

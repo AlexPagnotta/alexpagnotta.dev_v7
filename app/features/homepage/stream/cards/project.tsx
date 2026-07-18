@@ -2,6 +2,7 @@ import NextImage, { type StaticImageData } from "next/image";
 import { CardLayout } from "@/app/features/homepage/stream/cards/card-layout";
 import { CardContentTypeLabel } from "@/app/features/homepage/stream/cards/content-type-label";
 import { BaseLink } from "@/app/features/ui/link";
+import { Pill } from "@/app/features/ui/pill";
 
 export type ProjectCardProps = {
   title: string;
@@ -29,12 +30,13 @@ export const ProjectCard = ({ title, href, image, color }: ProjectCardProps) => 
         aria-label={title}
         className="absolute inset-0 block focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-black"
       >
-        <CardContentTypeLabel
-          className="absolute right-16 bottom-16 border-2 border-(--tag-shade) bg-(--tag-color) text-black shadow-depth-md shadow-(color:--tag-shade) [--tag-shade:color-mix(in_oklab,var(--tag-color)_78%,black)]"
+        <Pill
+          uppercase={false}
+          className="absolute right-24 bottom-24 bg-(--tag-color) text-black shadow-depth-md shadow-(color:--tag-shade) [--tag-shade:color-mix(in_oklab,var(--tag-color)_80%,black)]"
           style={{ "--tag-color": color } as React.CSSProperties}
         >
           {title}
-        </CardContentTypeLabel>
+        </Pill>
       </BaseLink>
     </CardLayout>
   );

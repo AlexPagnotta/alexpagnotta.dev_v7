@@ -21,7 +21,7 @@ Ordered list of remaining work before launch. Roughly sequenced content/copy →
 - [ ] Add hover animations to cards.
 - [ ] Add a custom cursor (SVG pointer) that swaps to an "OPEN" circle when hovering a card.
 - [x] Support a per-project custom color for the title label.
-- [ ] Extract a shared "Pill"/"Tag" UI component from `CardContentTypeLabel` and reuse it inline for the project title; the inline project-title variant should not be rotated.
+- [x] Extract a shared "Pill"/"Tag" UI component from `CardContentTypeLabel` and reuse it inline for the project title; the inline project-title variant should not be rotated.
 - [ ] Improve overall spacing, especially on mobile.
 
 ## 4. Blog & project pages
@@ -47,3 +47,7 @@ Ordered list of remaining work before launch. Roughly sequenced content/copy →
 
 - [x] Install and configure Vercel Analytics (`@vercel/analytics`).
 - [x] Deploy to Next.js hosting (production release).
+
+## 9. Tooling
+
+- [ ] Give Claude Code a native way to verify UI changes — e.g. a headless browser (Playwright) MCP server or script — instead of relying on manual screenshot checks.

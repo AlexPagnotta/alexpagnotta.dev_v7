@@ -1,7 +1,7 @@
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import { Pill } from "@/app/features/ui/pill";
 
 const cardContentTypeLabelStyles = cva({
-  base: "body-3 inline-block -rotate-3 rounded-sm px-12 py-4 font-black uppercase",
   variants: {
     color: {
       magenta: "bg-magenta text-white",
@@ -16,5 +16,5 @@ export type CardContentTypeLabelProps = React.ComponentPropsWithRef<"span"> &
   VariantProps<typeof cardContentTypeLabelStyles>;
 
 export const CardContentTypeLabel = ({ className, color, ...props }: CardContentTypeLabelProps) => {
-  return <span className={cx(cardContentTypeLabelStyles({ color }), className)} {...props} />;
+  return <Pill rotate className={cx(cardContentTypeLabelStyles({ color }), className)} {...props} />;
 };
