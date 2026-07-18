@@ -17,7 +17,7 @@ Ordered list of remaining work before launch. Roughly sequenced content/copy →
 
 ## 3. Stream section
 
-- [ ] Add a work/personal filter, backed by a new frontmatter field on content markdown to tag each entry.
+- [x] Add a work/personal filter, backed by a new frontmatter field on content markdown to tag each entry.
 - [ ] Add hover animations to cards.
 - [ ] Add a custom cursor (SVG pointer) that swaps to an "OPEN" circle when hovering a card.
 - [x] Support a per-project custom color for the title label.
