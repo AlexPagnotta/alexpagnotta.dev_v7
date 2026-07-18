@@ -37,7 +37,9 @@ Ordered list of remaining work before launch. Roughly sequenced content/copy →
 
 ## 6. SEO & metadata
 
-- [ ] Add full SEO config: meta tags, Open Graph/social share image, favicons, JSON-LD structured data, and any LLM-search-facing metadata (e.g. `llms.txt`).
+- [x] Add full SEO config: meta tags, Open Graph/social share image, favicons, JSON-LD structured data, and any LLM-search-facing metadata (e.g. `llms.txt`).
+- [ ] Replace the mock SEO copy in `app/features/seo/config.ts` with final content: title, description, keywords, author, and the real social profile URLs (currently placeholder platform roots feeding the JSON-LD `sameAs`) and `twitterHandle`.
+- [ ] Replace the placeholder assets with final artwork: favicons/app icons (`app/favicon.ico`, `app/icon.svg`, `app/icon.png`, `app/apple-icon.png`), PWA manifest icons (`public/web-app-manifest-*.png`), and the social share image (`public/og.jpg`) — update `siteConfig.ogImage` dimensions if they change.
 
 ## 7. Migration
 
