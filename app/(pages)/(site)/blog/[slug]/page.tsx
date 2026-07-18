@@ -1,6 +1,7 @@
 import { getAllEntries, getEntry } from "@/app/features/content/loader";
 import { Prose } from "@/app/features/content/prose";
 import { ReadingMarquee } from "@/app/features/content/reading-marquee";
+import { pageMetadata } from "@/app/features/seo/metadata";
 import { Container } from "@/app/features/ui/container";
 import { formatRelativeDate } from "@/app/features/utils/relative-date";
 
@@ -13,7 +14,7 @@ export const generateStaticParams = () => getAllEntries("blog").map((entry) => (
 export const generateMetadata = async ({ params }: Props) => {
   const { slug } = await params;
   const { title, description } = getEntry("blog", slug);
-  return { title, description };
+  return pageMetadata({ title, description, path: `/blog/${slug}`, type: "article" });
 };
 
 export default async function BlogPostPage({ params }: Props) {

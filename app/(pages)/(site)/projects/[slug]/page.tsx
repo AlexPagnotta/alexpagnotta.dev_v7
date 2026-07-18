@@ -4,6 +4,7 @@ import { getAllEntries, getEntry } from "@/app/features/content/loader";
 import { MarkdownParagraph } from "@/app/features/content/mdx/paragraph";
 import { Prose } from "@/app/features/content/prose";
 import { ReadingMarquee } from "@/app/features/content/reading-marquee";
+import { pageMetadata } from "@/app/features/seo/metadata";
 import { Container } from "@/app/features/ui/container";
 import { Marquee } from "@/app/features/ui/marquee";
 
@@ -16,7 +17,7 @@ export const generateStaticParams = () => getAllEntries("project").map((entry) =
 export const generateMetadata = async ({ params }: Props) => {
   const { slug } = await params;
   const { title, description } = getEntry("project", slug);
-  return { title, description };
+  return pageMetadata({ title, description, path: `/projects/${slug}`, type: "article" });
 };
 
 // The project body sits on a dark section, and its copy runs one step larger than

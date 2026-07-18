@@ -9,6 +9,7 @@ import { isProduction } from "@/app/features/utils/release-channel";
 
 export const metadata: Metadata = {
   title: "Design",
+  robots: { index: false, follow: false },
 };
 
 type TypeStyle = {
