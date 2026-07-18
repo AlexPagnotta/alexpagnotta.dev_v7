@@ -4,7 +4,7 @@ import { Container } from "@/app/features/ui/container";
 
 export const Footer = () => {
   return (
-    <footer className="relative shrink-0 overflow-hidden bg-black px-24 text-white">
+    <footer id="footer" className="relative shrink-0 overflow-hidden bg-black px-24 text-white">
       <Logo
         aria-hidden="true"
         className="pointer-events-none absolute -bottom-40 -left-24 h-auto w-full -rotate-8 opacity-4 lg:w-3/5"

@@ -2,7 +2,7 @@ import { Container } from "@/app/features/ui/container";
 
 export const AboutMe = () => {
   return (
-    <section className="px-24">
+    <section id="about-me" className="px-24">
       <Container size="md" className="py-60 lg:py-80">
         <h2 className="display flex flex-wrap items-center justify-center gap-12 text-center lg:gap-24">
           ABOUT ME

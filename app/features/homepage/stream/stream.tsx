@@ -4,7 +4,7 @@ import { Container } from "@/app/features/ui/container";
 
 export const Stream = () => {
   return (
-    <section className=" bg-black px-24 py-96">
+    <section id="stream" className=" bg-black px-24 py-96">
       <Container size="md">
         <StreamHeader />
       </Container>

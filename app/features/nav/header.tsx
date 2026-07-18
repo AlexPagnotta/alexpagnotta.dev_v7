@@ -8,8 +8,8 @@ import { Container } from "@/app/features/ui/container";
 import { Link } from "@/app/features/ui/link";
 
 const NAV_ITEMS = [
-  { label: "THE STREAM", href: "/" },
-  { label: "ABOUT ME", href: "/about" },
+  { label: "THE STREAM", href: "#stream" },
+  { label: "ABOUT ME", href: "#about-me" },
 ];
 
 export const Header = () => {
@@ -17,6 +17,10 @@ export const Header = () => {
   const isHome = pathname === "/";
   // Project pages let the title marquee's own border serve as the divider.
   const isProject = pathname.startsWith("/projects");
+
+  const scrollToFooter = () => {
+    document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <header className="px-24">
@@ -26,7 +30,7 @@ export const Header = () => {
         </Link>
         <nav className="justify-self-center">
           {isHome && (
-            <ul className="flex items-center gap-32">
+            <ul className="hidden items-center gap-32 lg:flex">
               {NAV_ITEMS.map(({ label, href }) => (
                 <li key={href}>
                   <Link href={href} variant="nav">
@@ -37,7 +41,7 @@ export const Header = () => {
             </ul>
           )}
         </nav>
-        <Button variant="green" className="rotate-5 justify-self-end">
+        <Button variant="green" className="rotate-5 justify-self-end" onClick={scrollToFooter}>
           Say Hi!
         </Button>
       </Container>
