@@ -23,7 +23,7 @@ export const Header = () => {
   // own "scroll new page into view" logic stops right below it instead of at the top.
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [pathname]);
+  }, []);
 
   const scrollToFooter = () => {
     document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" });
