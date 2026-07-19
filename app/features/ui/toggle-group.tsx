@@ -23,7 +23,7 @@ const toggleGroupItemStyles = cva({
   },
   defaultVariants: {
     variant: "green",
-    size: "md",
+    size: "lg",
   },
 });
 
@@ -33,7 +33,7 @@ type ToggleGroupContextValue = {
 };
 
 const ToggleGroupContext = React.createContext<ToggleGroupContextValue>({
-  size: "md",
+  size: "lg",
   variant: "green",
 });
 
@@ -43,7 +43,7 @@ export type ToggleGroupProps = Omit<React.ComponentPropsWithRef<typeof BaseToggl
   variant?: ButtonVariant;
 };
 
-export const ToggleGroup = ({ className, size = "md", variant = "green", ...props }: ToggleGroupProps) => {
+export const ToggleGroup = ({ className, size = "lg", variant = "green", ...props }: ToggleGroupProps) => {
   return (
     <ToggleGroupContext.Provider value={{ size, variant }}>
       <BaseToggleGroup className={cx("inline-flex flex-wrap items-center gap-8", className)} {...props} />

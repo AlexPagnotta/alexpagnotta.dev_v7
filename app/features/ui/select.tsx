@@ -16,7 +16,7 @@ const selectStyles = cva({
     size: buttonSizeClass,
   },
   defaultVariants: {
-    size: "md",
+    size: "lg",
   },
 });
 
@@ -52,7 +52,7 @@ export const Select = ({
   onValueChange,
   placeholder = "Select…",
   disabled,
-  size = "md",
+  size = "lg",
   variant = "green",
   className,
   "aria-label": ariaLabel,
@@ -93,7 +93,7 @@ export const Select = ({
                 key={item.value}
                 value={item.value}
                 className={cx(
-                  "flex cursor-pointer items-center justify-between gap-16 rounded-md px-12 py-8 text-black caption outline-none transition-colors",
+                  "flex cursor-pointer items-center justify-between gap-16 rounded-md px-12 py-8 text-black body-1 outline-none transition-colors",
                   "data-[highlighted]:text-black",
                   highlightColor[variant]
                 )}

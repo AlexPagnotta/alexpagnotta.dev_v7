@@ -19,7 +19,7 @@ export const StreamFilterBar = ({ value, onValueChange }: StreamFilterBarProps) 
         value={[value]}
         // Single-select: keep the last choice instead of allowing an empty selection.
         onValueChange={([next]) => next && onValueChange(next as StreamFilter)}
-        size="sm"
+        size="md"
       >
         <ToggleGroupItem value="everything">Everything</ToggleGroupItem>
         <ToggleGroupItem value="work">Work</ToggleGroupItem>

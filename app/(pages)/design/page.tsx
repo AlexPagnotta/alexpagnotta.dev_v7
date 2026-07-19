@@ -137,8 +137,8 @@ const DesignPage = () => {
             <Button variant="cyan">Cyan</Button>
           </Row>
           <Row label="Sizes">
+            <Button size="lg">Large</Button>
             <Button size="md">Medium</Button>
-            <Button size="sm">Small</Button>
           </Row>
           <Row label="Disabled">
             <Button disabled>Disabled</Button>
@@ -149,15 +149,15 @@ const DesignPage = () => {
           title="Toggle group"
           description="Segmented single-select control (Base UI). Shares the button sizes and color variants — the pressed item fills with the variant color."
         >
-          <Row label="Medium · green">
+          <Row label="Large · green">
             <ToggleGroup defaultValue={["everything"]}>
               <ToggleGroupItem value="everything">Everything</ToggleGroupItem>
               <ToggleGroupItem value="dev-ai">Dev / AI</ToggleGroupItem>
               <ToggleGroupItem value="personal">Personal</ToggleGroupItem>
             </ToggleGroup>
           </Row>
-          <Row label="Small · magenta">
-            <ToggleGroup size="sm" variant="magenta" defaultValue={["everything"]}>
+          <Row label="Medium · magenta">
+            <ToggleGroup size="md" variant="magenta" defaultValue={["everything"]}>
               <ToggleGroupItem value="everything">Everything</ToggleGroupItem>
               <ToggleGroupItem value="dev-ai">Dev / AI</ToggleGroupItem>
               <ToggleGroupItem value="personal">Personal</ToggleGroupItem>
@@ -169,7 +169,7 @@ const DesignPage = () => {
           title="Select"
           description="Base UI select — the chosen option stays shown in the trigger and marked in the list. Shares the button sizes and color variants (highlight color)."
         >
-          <Row label="Medium · green">
+          <Row label="Large · green">
             <Select
               aria-label="View"
               defaultValue="split"
@@ -180,10 +180,10 @@ const DesignPage = () => {
               ]}
             />
           </Row>
-          <Row label="Small · cyan">
+          <Row label="Medium · cyan">
             <Select
               aria-label="Sort"
-              size="sm"
+              size="md"
               variant="cyan"
               defaultValue="newest"
               items={[
