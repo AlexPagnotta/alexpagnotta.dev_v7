@@ -13,8 +13,8 @@ const marqueeStyles = cva({
       yellow: "bg-yellow text-black",
     },
     size: {
-      md: "py-16",
-      lg: "py-32",
+      md: "py-12",
+      lg: "py-24",
     },
   },
   defaultVariants: {

@@ -16,11 +16,9 @@ const NAV_ITEMS = [
 export const Header = () => {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  // Project pages let the title marquee's own border serve as the divider.
+
   const isProject = pathname.startsWith("/projects");
 
-  // The header is a persistent layout element above each page's content, so Next.js's
-  // own "scroll new page into view" logic stops right below it instead of at the top.
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
@@ -30,10 +28,10 @@ export const Header = () => {
   };
 
   return (
-    <header className="px-24">
-      <Container className={cx("grid grid-cols-3 items-center py-48", !isProject && "border-b-4 border-black")}>
+    <header className={cx("lg:mx-24 px-24", !isProject && "border-b-2 border-black")}>
+      <Container className="grid grid-cols-3 items-center py-40 lg:py-48">
         <Link href="/" aria-label="Alex Pagnotta, home" className="-rotate-5 justify-self-start">
-          <Logo aria-hidden="true" className="h-auto w-160" />
+          <Logo aria-hidden="true" className="h-auto w-140 lg:w-160" />
         </Link>
         <nav className="justify-self-center">
           {isHome && (

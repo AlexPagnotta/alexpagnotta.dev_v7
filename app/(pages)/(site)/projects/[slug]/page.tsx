@@ -23,7 +23,11 @@ export const generateMetadata = async ({ params }: Props) => {
 // The project body sits on a dark section, and its copy runs one step larger than
 // the default prose paragraph.
 const projectComponents: MDXComponents = {
-  p: ({ children }) => <MarkdownParagraph size="lg">{children}</MarkdownParagraph>,
+  p: ({ children }) => (
+    <MarkdownParagraph size="lg" className="text-center">
+      {children}
+    </MarkdownParagraph>
+  ),
 };
 
 export default async function ProjectPage({ params }: Props) {
@@ -39,10 +43,10 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <>
       <Marquee variant="light" size="lg" className="border-y-4 border-black" style={{ backgroundColor: entry.color }}>
-        {entry.title}&nbsp;&nbsp;&nbsp;&nbsp;
+        {entry.title}&nbsp;&nbsp;
       </Marquee>
       {cover && (
-        <div className="relative h-[70vh] w-full shrink-0">
+        <div className="relative h-[50vh] w-full shrink-0">
           <NextImage
             src={cover}
             alt={entry.title}
@@ -55,8 +59,8 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       )}
       <section className="bg-black">
-        <Container size="md" className="px-24 py-64">
-          <Prose tone="onDark">
+        <Container size="md" className="px-24 py-64 lg:py-120" enableMdMaxWidth>
+          <Prose theme="dark">
             <Project components={projectComponents} />
           </Prose>
         </Container>

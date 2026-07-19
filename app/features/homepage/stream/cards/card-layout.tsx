@@ -12,8 +12,8 @@ export type CardLayoutProps = {
 
 export const CardLayout = ({ label, className, children }: CardLayoutProps) => {
   return (
-    <article className="relative isolate pt-40">
-      <div className="absolute -left-12 top-0">{label}</div>
+    <article className="relative isolate pt-32 lg:pt-40">
+      <div className="absolute -left-4 -top-2">{label}</div>
       <div className={cx("relative z-10 rounded-md border-2 border-black", className)}>{children}</div>
     </article>
   );

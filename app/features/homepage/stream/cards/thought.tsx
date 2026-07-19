@@ -7,7 +7,7 @@ export type ThoughtCardProps = {
 
 export const ThoughtCard = ({ children }: ThoughtCardProps) => {
   return (
-    <CardLayout label={<CardContentTypeLabel color="yellow">Thoughts</CardContentTypeLabel>} className="bg-cream p-48">
+    <CardLayout label={<CardContentTypeLabel color="yellow">Thoughts</CardContentTypeLabel>} className="bg-cream p-40">
       <div className="text-black">{children}</div>
     </CardLayout>
   );

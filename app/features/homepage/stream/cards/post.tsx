@@ -11,7 +11,7 @@ export type PostCardProps = {
 
 export const PostCard = ({ title, description, href }: PostCardProps) => {
   return (
-    <CardLayout label={<CardContentTypeLabel color="cyan">Post</CardContentTypeLabel>} className="bg-cream p-48">
+    <CardLayout label={<CardContentTypeLabel color="cyan">Post</CardContentTypeLabel>} className="bg-cream p-40">
       <BaseLink
         href={href}
         aria-label={title}

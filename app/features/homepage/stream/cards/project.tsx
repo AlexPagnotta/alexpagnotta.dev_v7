@@ -23,8 +23,6 @@ export const ProjectCard = ({ title, href, image, color }: ProjectCardProps) => 
         alt=""
         fill
         placeholder="blur"
-        // Actual rendered card width: a 3-column grid capped at 360px per column on desktop,
-        // 2 columns (~50vw) on tablet, full width on mobile.
         sizes="(min-width: 1024px) min(33vw, 360px), (min-width: 640px) 50vw, 100vw"
         className="object-cover"
       />
@@ -36,7 +34,7 @@ export const ProjectCard = ({ title, href, image, color }: ProjectCardProps) => 
       >
         <Pill
           uppercase={false}
-          className="absolute right-24 bottom-24 bg-(--tag-color) text-black shadow-depth-md shadow-(color:--tag-shade) [--tag-shade:color-mix(in_oklab,var(--tag-color)_80%,black)]"
+          className="absolute right-24 bottom-24 bg-(--tag-color) text-black shadow-depth-sm shadow-(color:--tag-shade) [--tag-shade:color-mix(in_oklab,var(--tag-color)_80%,black)]"
           style={{ "--tag-color": color } as React.CSSProperties}
         >
           {title}

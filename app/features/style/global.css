@@ -1,5 +1,5 @@
 body {
-  @apply bg-cream text-black body-1 antialiased;
+  @apply bg-cream text-black body-1 antialiased min-w-360;
 }
 
 /* Custom CSS variables for the site. */

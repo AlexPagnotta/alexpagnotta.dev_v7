@@ -4,7 +4,7 @@ import { Highlight } from "@/app/features/ui/highlight";
 export const Hero = () => {
   return (
     <section className="px-24">
-      <Container size="md" className="py-96">
+      <Container size="md" className="lg:py-140 py-96" enableMdMaxWidth>
         <h1 className="title-2">
           I AM <Highlight color="yellow">ALEX PAGNOTTA,</Highlight> FULL STACK DEV AT{" "}
           <span className="font-black">WILD</span> I MAKE STUFF FOR CLIENTS, WITH HELP FROM AI CHECK MY{" "}

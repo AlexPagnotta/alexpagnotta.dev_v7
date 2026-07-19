@@ -12,7 +12,7 @@ export type StreamFilterBarProps = {
 
 export const StreamFilterBar = ({ value, onValueChange }: StreamFilterBarProps) => {
   return (
-    <div className="flex items-center gap-16">
+    <div className="flex md:flex-row flex-col md:items-center gap-16">
       <span className="body-2 text-white">Show me:</span>
       <ToggleGroup
         aria-label="Filter the stream"
@@ -21,7 +21,10 @@ export const StreamFilterBar = ({ value, onValueChange }: StreamFilterBarProps) 
         onValueChange={([next]) => next && onValueChange(next as StreamFilter)}
         size="md"
       >
-        <ToggleGroupItem value="everything">Everything</ToggleGroupItem>
+        <ToggleGroupItem value="everything">
+          <span className="inline md:hidden">All</span>
+          <span className="hidden md:inline">Everything</span>
+        </ToggleGroupItem>
         <ToggleGroupItem value="work">Work</ToggleGroupItem>
         <ToggleGroupItem value="personal">Personal</ToggleGroupItem>
       </ToggleGroup>

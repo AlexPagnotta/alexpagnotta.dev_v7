@@ -20,6 +20,7 @@ Ordered list of remaining work before launch. Roughly sequenced content/copy →
 - [x] Add a work/personal filter, backed by a new frontmatter field on content markdown to tag each entry.
 - [ ] Add hover animations to cards.
 - [ ] Add a custom cursor (SVG pointer) that swaps to an "OPEN" circle when hovering a card.
+- [ ] Custom cursor should become a hand/pointer cursor when hovering clickable elements.
 - [x] Support a per-project custom color for the title label.
 - [x] Extract a shared "Pill"/"Tag" UI component from `CardContentTypeLabel` and reuse it inline for the project title; the inline project-title variant should not be rotated.
 - [ ] Improve overall spacing, especially on mobile.

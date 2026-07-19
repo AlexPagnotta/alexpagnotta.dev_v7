@@ -24,10 +24,10 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
-      <Container size="md" className="flex flex-col gap-40 px-24 py-64">
-        <header className="flex flex-col gap-8">
-          <p className="title-2 rotate-1 text-right text-black/25">{formatRelativeDate(entry.date)}</p>
-          <h1 className="title-1 rotate-1 text-center">{entry.title}</h1>
+      <Container size="md" className="flex flex-col gap-64 lg:gap-96 px-24 py-64 lg:py-80" enableMdMaxWidth>
+        <header className="flex flex-col text-left lg:text-right">
+          <p className="title-2 -rotate-1 text-black/25 lg:-mb-8">{formatRelativeDate(entry.date)}</p>
+          <h1 className="title-1 -rotate-1">{entry.title}</h1>
         </header>
         <Prose>
           <Post />
