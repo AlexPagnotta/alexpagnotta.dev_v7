@@ -1,7 +1,7 @@
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 
 const pillStyles = cva({
-  base: "body-3 inline-block rounded-sm px-12 py-4",
+  base: "body-2 inline-block rounded-sm px-12 py-4",
   variants: {
     rotate: {
       true: "-rotate-3",

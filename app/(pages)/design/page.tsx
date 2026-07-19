@@ -16,11 +16,9 @@ type TypeStyle = {
   name: string;
   utility: string;
   specs: string;
-  sample: string;
-  stacked?: boolean;
-  multiline?: boolean;
 };
 
+const SINGLE_LINE_SAMPLE = "Lorem Ipsum Dolor";
 const MULTILINE_SAMPLE =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
@@ -28,58 +26,37 @@ const TYPE_STYLES: TypeStyle[] = [
   {
     name: "Display",
     utility: "display",
-    specs: "120 / 48 px · Black · 1.3 · -0.02em",
-    sample: "Lorem Ipsum Dolor",
-    stacked: true,
+    specs: "120 / 50 px · Black · 1.2 · -0.02em",
   },
   {
     name: "Title 1",
     utility: "title-1",
-    specs: "72 / 36 px · Regular · 1.25 · -0.06em",
-    sample: "Lorem Ipsum Dolor",
-    stacked: true,
+    specs: "72 / 40 px · Regular · 1.2 · -0.02em",
   },
   {
     name: "Title 2",
     utility: "title-2",
-    specs: "44 / 28 px · Regular · 1.2 · -0.05em",
-    sample: "Lorem Ipsum Dolor",
-    stacked: true,
+    specs: "44 / 28 px · Regular · 1.4 · -0.02em",
   },
   {
     name: "Title 3",
     utility: "title-3",
-    specs: "36 / 24 px · Regular · 1.15",
-    sample: "Lorem Ipsum Dolor",
-    stacked: true,
-  },
-  {
-    name: "Body 3",
-    utility: "body-3",
-    specs: "24 / 20 px · Regular · 1.12 · -0.03em",
-    sample: MULTILINE_SAMPLE,
-    multiline: true,
+    specs: "32 / 28 px · Regular · 1.4",
   },
   {
     name: "Body 2",
     utility: "body-2",
-    specs: "24 / 18 px · Regular · 1.1",
-    sample: MULTILINE_SAMPLE,
-    multiline: true,
+    specs: "24 / 18 px · Regular · 1.6 · -0.02em",
   },
   {
     name: "Body 1",
     utility: "body-1",
-    specs: "16 / 16 px · Regular · 1.6",
-    sample: MULTILINE_SAMPLE,
-    multiline: true,
+    specs: "16 / 16 px · Regular · 1.8",
   },
   {
     name: "Caption",
     utility: "caption",
-    specs: "14 / 12 px · Regular · 1.05",
-    sample: MULTILINE_SAMPLE,
-    multiline: true,
+    specs: "14 / 14 px · Regular · 1.8",
   },
 ];
 
@@ -120,7 +97,7 @@ const DesignPage = () => {
     <main className="h-full overflow-y-auto bg-white text-black scrollbar-thumb-black">
       <div className="mx-auto flex max-w-1200 flex-col gap-80 px-24 py-80">
         <header className="flex flex-col gap-16">
-          <p className="body-3 text-magenta">DESIGN SYSTEM</p>
+          <p className="body-2 text-magenta">DESIGN SYSTEM</p>
           <h1 className="title-1">Components &amp; type</h1>
           <p className="body-2 max-w-600 text-black/60">
             The building blocks of the site, sourced from Figma. Type styles map to Tailwind utilities; components live
@@ -136,20 +113,16 @@ const DesignPage = () => {
             {TYPE_STYLES.map((style) => (
               <article
                 key={style.utility}
-                className={cx(
-                  "flex flex-col gap-16 border-t border-black/10 py-40",
-                  !style.stacked && "md:flex-row md:gap-48"
-                )}
+                className="flex flex-col gap-16 border-t border-black/10 py-40 md:flex-row md:gap-48"
               >
-                <div className={cx("flex shrink-0 flex-col gap-4", !style.stacked && "md:w-240")}>
+                <div className="flex shrink-0 flex-col gap-4 md:w-240">
                   <p className="caption font-black tracking-wide uppercase">{style.name}</p>
                   <p className="caption text-magenta">.{style.utility}</p>
                   <p className="caption text-black/50">{style.specs}</p>
                 </div>
-                <div className={cx("min-w-0 flex-1", !style.multiline && "overflow-x-auto")}>
-                  <p className={cx(style.utility, style.multiline ? "max-w-600" : "whitespace-nowrap")}>
-                    {style.sample}
-                  </p>
+                <div className="flex min-w-0 flex-1 flex-col gap-16">
+                  <p className={cx(style.utility, "truncate")}>{SINGLE_LINE_SAMPLE}</p>
+                  <p className={cx(style.utility, "line-clamp-3 max-w-600")}>{MULTILINE_SAMPLE}</p>
                 </div>
               </article>
             ))}

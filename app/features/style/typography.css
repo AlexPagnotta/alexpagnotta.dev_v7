@@ -1,99 +1,94 @@
 @theme {
   --font-sans: var(--font-ppframa);
 
-  --text-\*: initial;
-
   --tracking-\*: initial;
 
   --tracking-tight: -0.04em;
   --tracking-snug: -0.02em;
   --tracking-normal: normal;
 
+  --leading-\*: initial;
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.8;
+
+  --text-\*: initial;
+
   --text-display: --spacing(120);
   --text-display--font-weight: 900;
-  --text-display--line-height: 1;
-  --text-display--letter-spacing: var(--tracking-tight);
+  --text-display--line-height: var(--leading-tight);
+  --text-display--letter-spacing: var(--tracking-snug);
 
-  --text-display-mobile: --spacing(48);
+  --text-display-mobile: --spacing(50);
   --text-display-mobile--font-weight: 900;
-  --text-display-mobile--line-height: 1;
+  --text-display-mobile--line-height: var(--leading-tight);
   --text-display-mobile--letter-spacing: var(--tracking-snug);
 
   /* Title 1 */
   --text-title-1: --spacing(72);
   --text-title-1--font-weight: 400;
-  --text-title-1--line-height: 1.05;
-  --text-title-1--letter-spacing: var(--tracking-tight);
+  --text-title-1--line-height: var(--leading-tight);
+  --text-title-1--letter-spacing: var(--tracking-snug);
 
-  --text-title-1-mobile: --spacing(36);
+  --text-title-1-mobile: --spacing(40);
   --text-title-1-mobile--font-weight: 400;
-  --text-title-1-mobile--line-height: 1.05;
+  --text-title-1-mobile--line-height: var(--leading-tight);
   --text-title-1-mobile--letter-spacing: var(--tracking-snug);
 
   /* Title 2 */
   --text-title-2: --spacing(44);
   --text-title-2--font-weight: 400;
-  --text-title-2--line-height: 1.1;
+  --text-title-2--line-height: var(--leading-snug);
   --text-title-2--letter-spacing: var(--tracking-snug);
 
   --text-title-2-mobile: --spacing(28);
   --text-title-2-mobile--font-weight: 400;
-  --text-title-2-mobile--line-height: 1.1;
+  --text-title-2-mobile--line-height: var(--leading-snug);
   --text-title-2-mobile--letter-spacing: var(--tracking-snug);
 
   /* Title 3 */
-  --text-title-3: --spacing(36);
+  --text-title-3: --spacing(32);
   --text-title-3--font-weight: 400;
-  --text-title-3--line-height: 1.2;
-  --text-title-3--letter-spacing: var(--tracking-snug);
+  --text-title-3--line-height: var(--leading-snug);
+  --text-title-3--letter-spacing: var(--tracking-normal);
 
-  --text-title-3-mobile: --spacing(24);
+  --text-title-3-mobile: --spacing(28);
   --text-title-3-mobile--font-weight: 400;
-  --text-title-3-mobile--line-height: 1.2;
+  --text-title-3-mobile--line-height: var(--leading-snug);
   --text-title-3-mobile--letter-spacing: var(--tracking-normal);
-
-  /* Body 3 */
-  --text-body-3: --spacing(24);
-  --text-body-3--font-weight: 400;
-  --text-body-3--line-height: 1.4;
-  --text-body-3--letter-spacing: var(--tracking-normal);
-
-  --text-body-3-mobile: --spacing(20);
-  --text-body-3-mobile--font-weight: 400;
-  --text-body-3-mobile--line-height: 1.4;
-  --text-body-3-mobile--letter-spacing: var(--tracking-normal);
 
   /* Body 2 */
   --text-body-2: --spacing(24);
   --text-body-2--font-weight: 400;
-  --text-body-2--line-height: 1.6;
-  --text-body-2--letter-spacing: var(--tracking-normal);
+  --text-body-2--line-height: var(--leading-normal);
+  --text-body-2--letter-spacing: var(--tracking-snug);
 
   --text-body-2-mobile: --spacing(18);
   --text-body-2-mobile--font-weight: 400;
-  --text-body-2-mobile--line-height: 1.6;
-  --text-body-2-mobile--letter-spacing: var(--tracking-normal);
+  --text-body-2-mobile--line-height: var(--leading-normal);
+  --text-body-2-mobile--letter-spacing: var(--tracking-snug);
 
   /* Body 1 */
   --text-body-1: --spacing(16);
   --text-body-1--font-weight: 400;
-  --text-body-1--line-height: 1.6;
+  --text-body-1--line-height: var(--leading-relaxed);
   --text-body-1--letter-spacing: var(--tracking-normal);
 
   --text-body-1-mobile: --spacing(16);
   --text-body-1-mobile--font-weight: 400;
-  --text-body-1-mobile--line-height: 1.6;
+  --text-body-1-mobile--line-height: var(--leading-relaxed);
   --text-body-1-mobile--letter-spacing: var(--tracking-normal);
 
   /* Caption */
   --text-caption: --spacing(14);
   --text-caption--font-weight: 400;
-  --text-caption--line-height: 1.5;
+  --text-caption--line-height: var(--leading-relaxed);
   --text-caption--letter-spacing: var(--tracking-normal);
 
-  --text-caption-mobile: --spacing(12);
+  --text-caption-mobile: --spacing(14);
   --text-caption-mobile--font-weight: 400;
-  --text-caption-mobile--line-height: 1.5;
+  --text-caption-mobile--line-height: var(--leading-relaxed);
   --text-caption-mobile--letter-spacing: var(--tracking-normal);
 }
 
@@ -111,10 +106,6 @@
 
 @utility title-3 {
   @apply text-title-3-mobile lg:text-title-3 font-sans;
-}
-
-@utility body-3 {
-  @apply text-body-3-mobile lg:text-body-3 font-sans;
 }
 
 @utility body-2 {

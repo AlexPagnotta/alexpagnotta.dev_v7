@@ -5,12 +5,12 @@ export const StreamHeader = () => {
         THE STREAM <span className="font-normal text-yellow">✷</span>
       </h2>
       <div className="flex flex-col items-start gap-24 lg:flex-row-reverse lg:justify-between">
-        <p className="body-3 text-white lg:text-right">
+        <p className="body-2 text-white lg:text-right">
           Part blog, part portfolio, part social media
           <br />
           With advent of AI I am not just a dev I am a maker
         </p>
-        <p className="caption rotate-6 rounded-md bg-yellow px-12 py-14 text-center text-black">
+        <p className="body-1 rotate-6 rounded-md bg-yellow px-12 py-14 text-center text-black">
           This counts as
           <br />
           doom scrolling!
