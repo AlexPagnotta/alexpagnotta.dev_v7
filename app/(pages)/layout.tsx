@@ -1,0 +1,77 @@
+import { Analytics } from "@vercel/analytics/next";
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import { siteConfig } from "@/app/features/seo/config";
+import { cx } from "@/app/features/style/utils";
+import "@/app/features/style/tailwind.css";
+import { isProduction } from "@/app/features/utils/release-channel";
+
+const ppframa = localFont({
+  src: [
+    { path: "../../public/fonts/ppframa-extralight.otf", weight: "200", style: "normal" },
+    { path: "../../public/fonts/ppframa-extralight-italic.otf", weight: "200", style: "italic" },
+    { path: "../../public/fonts/ppframa-regular.otf", weight: "400", style: "normal" },
+    { path: "../../public/fonts/ppframa-regular-italic.otf", weight: "400", style: "italic" },
+    { path: "../../public/fonts/ppframa-black.otf", weight: "900", style: "normal" },
+    { path: "../../public/fonts/ppframa-black-italic.otf", weight: "900", style: "italic" },
+  ],
+  variable: "--font-ppframa",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.author.name, url: siteConfig.url }],
+  creator: siteConfig.author.name,
+  publisher: siteConfig.author.name,
+  keywords: [...siteConfig.keywords],
+  // canonical/openGraph.url/title vary per page — set via pageMetadata, not here.
+  // Only production is indexable; preview/staging are blocked here too, not just in robots.txt.
+  robots: isProduction
+    ? {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+      }
+    : { index: false, follow: false },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    description: siteConfig.description,
+    locale: siteConfig.locale,
+    images: [siteConfig.ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    description: siteConfig.description,
+    creator: siteConfig.twitterHandle,
+    images: [siteConfig.ogImage.url],
+  },
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.shortName,
+    statusBarStyle: "default",
+  },
+  formatDetection: { telephone: false },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang={siteConfig.lang} data-scroll-behavior="smooth" className={cx(ppframa.variable, "scroll-smooth")}>
+      <body>
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  );
+}

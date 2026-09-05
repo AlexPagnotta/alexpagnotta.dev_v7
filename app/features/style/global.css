@@ -1,0 +1,13 @@
+body {
+  @apply bg-background text-foreground body-1 antialiased min-w-360 overflow-x-hidden;
+}
+
+/* Custom CSS variables for the site. */
+:root {
+  /* --example-height: calc(84 * var(--spacing)); */
+}
+
+::selection {
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+}

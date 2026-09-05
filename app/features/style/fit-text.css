@@ -1,0 +1,64 @@
+/*
+  Fit-to-width text, in CSS only. `--fit-available` captures the container's width
+  and `--fit-natural` the width the same text occupies at the reference size;
+  tan(atan2()) turns that pair of lengths into the unitless ratio between them,
+  which scales the font size. Both are registered so they compute to a real length
+  where they are declared, instead of substituting the raw `100cqi` token further
+  down the tree where it would resolve against the wrong container.
+*/
+@property --fit-available {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+@property --fit-natural {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+:root {
+  /* Cancels out of the ratio, so it only bounds the precision of the fit. */
+  --fit-reference: --spacing(100);
+}
+
+@utility fit-text {
+  display: block;
+  container-type: inline-size;
+  /* The measuring wrapper below is max-content wide; clip it on the inline axis
+     only, so descenders of the scaled text still paint. */
+  overflow-x: clip;
+}
+
+@utility fit-text-available {
+  display: block;
+  --fit-available: 100cqi;
+}
+
+@utility fit-text-natural {
+  display: block;
+  width: max-content;
+}
+
+@utility fit-text-ghost {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: var(--fit-reference);
+}
+
+@utility fit-text-measure {
+  display: block;
+  /* Size containment stops the scaled text from feeding back into the
+     max-content width that is being measured. */
+  container-type: inline-size;
+}
+
+@utility fit-text-value {
+  display: block;
+  white-space: nowrap;
+  --fit-natural: 100cqi;
+  font-size: calc(var(--fit-reference) * tan(atan2(var(--fit-available), var(--fit-natural))));
+}

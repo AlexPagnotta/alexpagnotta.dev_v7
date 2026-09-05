@@ -1,0 +1,125 @@
+@theme {
+  --font-sans: var(--font-ppframa);
+
+  --tracking-\*: initial;
+
+  --tracking-xs: -0.04em;
+  --tracking-sm: -0.02em;
+  --tracking-md: normal;
+
+  --leading-\*: initial;
+  --leading-xs: 1.2;
+  --leading-sm: 1.4;
+  --leading-md: 1.6;
+  --leading-lg: 1.8;
+
+  --text-\*: initial;
+
+  /* Placeholder sizes — replace once the design lands, keep the token shape.
+     PPFrama only ships 200 / 400 / 900, so stick to those weights to avoid synthetic bolding. */
+
+  /* Display */
+  --text-display: --spacing(96);
+  --text-display--font-weight: 900;
+  --text-display--line-height: var(--leading-xs);
+  --text-display--letter-spacing: var(--tracking-sm);
+
+  --text-display-mobile: --spacing(48);
+  --text-display-mobile--font-weight: 900;
+  --text-display-mobile--line-height: var(--leading-xs);
+  --text-display-mobile--letter-spacing: var(--tracking-sm);
+
+  /* Title 1 */
+  --text-title-1: --spacing(64);
+  --text-title-1--font-weight: 400;
+  --text-title-1--line-height: var(--leading-xs);
+  --text-title-1--letter-spacing: var(--tracking-sm);
+
+  --text-title-1-mobile: --spacing(40);
+  --text-title-1-mobile--font-weight: 400;
+  --text-title-1-mobile--line-height: var(--leading-xs);
+  --text-title-1-mobile--letter-spacing: var(--tracking-sm);
+
+  /* Title 2 */
+  --text-title-2: --spacing(40);
+  --text-title-2--font-weight: 400;
+  --text-title-2--line-height: var(--leading-sm);
+  --text-title-2--letter-spacing: var(--tracking-sm);
+
+  --text-title-2-mobile: --spacing(28);
+  --text-title-2-mobile--font-weight: 400;
+  --text-title-2-mobile--line-height: var(--leading-sm);
+  --text-title-2-mobile--letter-spacing: var(--tracking-sm);
+
+  /* Title 3 */
+  --text-title-3: --spacing(28);
+  --text-title-3--font-weight: 400;
+  --text-title-3--line-height: var(--leading-sm);
+  --text-title-3--letter-spacing: var(--tracking-md);
+
+  --text-title-3-mobile: --spacing(22);
+  --text-title-3-mobile--font-weight: 400;
+  --text-title-3-mobile--line-height: var(--leading-sm);
+  --text-title-3-mobile--letter-spacing: var(--tracking-md);
+
+  /* Body 2 */
+  --text-body-2: --spacing(20);
+  --text-body-2--font-weight: 400;
+  --text-body-2--line-height: var(--leading-md);
+  --text-body-2--letter-spacing: var(--tracking-sm);
+
+  --text-body-2-mobile: --spacing(18);
+  --text-body-2-mobile--font-weight: 400;
+  --text-body-2-mobile--line-height: var(--leading-md);
+  --text-body-2-mobile--letter-spacing: var(--tracking-sm);
+
+  /* Body 1 */
+  --text-body-1: --spacing(16);
+  --text-body-1--font-weight: 400;
+  --text-body-1--line-height: var(--leading-lg);
+  --text-body-1--letter-spacing: var(--tracking-md);
+
+  --text-body-1-mobile: --spacing(16);
+  --text-body-1-mobile--font-weight: 400;
+  --text-body-1-mobile--line-height: var(--leading-lg);
+  --text-body-1-mobile--letter-spacing: var(--tracking-md);
+
+  /* Caption */
+  --text-caption: --spacing(14);
+  --text-caption--font-weight: 400;
+  --text-caption--line-height: var(--leading-lg);
+  --text-caption--letter-spacing: var(--tracking-md);
+
+  --text-caption-mobile: --spacing(14);
+  --text-caption-mobile--font-weight: 400;
+  --text-caption-mobile--line-height: var(--leading-lg);
+  --text-caption-mobile--letter-spacing: var(--tracking-md);
+}
+
+@utility display {
+  @apply text-display-mobile lg:text-display font-sans;
+}
+
+@utility title-1 {
+  @apply text-title-1-mobile lg:text-title-1 font-sans;
+}
+
+@utility title-2 {
+  @apply text-title-2-mobile lg:text-title-2 font-sans;
+}
+
+@utility title-3 {
+  @apply text-title-3-mobile lg:text-title-3 font-sans;
+}
+
+@utility body-2 {
+  @apply text-body-2-mobile lg:text-body-2 font-sans;
+}
+
+@utility body-1 {
+  @apply text-body-1-mobile lg:text-body-1 font-sans;
+}
+
+@utility caption {
+  @apply text-caption-mobile lg:text-caption font-sans;
+}
