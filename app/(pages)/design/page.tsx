@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cx } from "@/app/features/style/utils";
 import { Button, ButtonLink } from "@/app/features/ui/button";
+import { Marquee } from "@/app/features/ui/marquee";
 import { Tag } from "@/app/features/ui/tag";
 import { isProduction } from "@/app/features/utils/release-channel";
 import { Label, Matrix, Section, Subsection } from "./harness";
@@ -32,12 +33,13 @@ const ACCENTS = [
   { name: "violet-2", className: "bg-violet-2", hex: "#e762f6" },
 ] as const;
 
-const SHORT_SAMPLE = "Frama";
+const DISPLAY_SAMPLE = "Title";
+const SHORT_SAMPLE = "Lorem Ipsum Dolor";
 const LONG_SAMPLE = "Duis cillum in ea ut non duis mollit incididunt laborum voluptate nulla.";
 
 const TYPE_STYLES = [
-  { utility: "display-1", specs: "220 / 200 px · Regular", sample: SHORT_SAMPLE },
-  { utility: "display-2", specs: "220 / 90 px · Regular", sample: SHORT_SAMPLE },
+  { utility: "display-1", specs: "220 / 200 px · Regular", sample: DISPLAY_SAMPLE },
+  { utility: "display-2", specs: "220 / 90 px · Regular", sample: DISPLAY_SAMPLE },
   { utility: "headline-1", specs: "80 / 56 px · Regular", sample: SHORT_SAMPLE },
   { utility: "headline-2", specs: "64 / 40 px · Regular", sample: SHORT_SAMPLE },
   { utility: "headline-3", specs: "48 / 32 px · Regular", sample: SHORT_SAMPLE },
@@ -121,7 +123,7 @@ export default function DesignPage() {
       <Section title="Button">
         <Subsection title="Sizes">
           <Matrix axes={{ size: ["sm", "md", "lg", "xl"] } as const}>
-            {(props) => <Button {...props}>Say Hi!</Button>}
+            {(props) => <Button {...props}>Button</Button>}
           </Matrix>
         </Subsection>
 
@@ -129,7 +131,7 @@ export default function DesignPage() {
           <Matrix axes={{ color: ["white", "yellow-1", "green-1", "blue-1", "pink-1", "violet-1"] } as const}>
             {(props) => (
               <Button {...props} size="md">
-                Visit the site
+                Button
               </Button>
             )}
           </Matrix>
@@ -156,18 +158,32 @@ export default function DesignPage() {
         </Subsection>
       </Section>
 
+      <Section title="Marquee">
+        <Subsection title="Small">
+          <Marquee size="sm" text={SHORT_SAMPLE} separator="•" className="-mx-24" />
+        </Subsection>
+
+        <Subsection title="Big">
+          <Marquee size="lg" text="LOREM IPSUM DOLOR" separator="-" className="-mx-24" />
+        </Subsection>
+
+        <Subsection title="No separator, paused">
+          <Marquee size="sm" text={SHORT_SAMPLE} play={false} className="-mx-24" />
+        </Subsection>
+      </Section>
+
       <Section title="Tag">
         <Subsection title="Shape and size">
           <Matrix axes={{ shape: ["pill", "rounded"], size: ["sm", "md"] } as const}>
-            {(props) => <Tag {...props}>Writing</Tag>}
+            {(props) => <Tag {...props}>Tag</Tag>}
           </Matrix>
         </Subsection>
 
         <Subsection title="In a group">
           <div className="flex flex-wrap items-center gap-16">
-            <Tag shape="rounded">Writing</Tag>
-            <Tag>AI</Tag>
-            <Tag>Dev</Tag>
+            <Tag shape="rounded">Lorem</Tag>
+            <Tag>Ipsum</Tag>
+            <Tag>Dolor</Tag>
           </div>
         </Subsection>
       </Section>
