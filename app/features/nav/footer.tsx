@@ -1,11 +1,13 @@
+import { siteConfig } from "@/app/features/seo/config";
 import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
 
-const SOCIAL_LINKS = [
-  { label: "Unsplash", href: "#" },
-  { label: "GitHub", href: "#" },
-  { label: "LinkedIn", href: "#" },
-  { label: "Curriculum", href: "#" },
+// Labels and order are the footer's own; the destinations come from the shared site config.
+const LINKS = [
+  { label: "Unsplash", href: siteConfig.social.unsplash },
+  { label: "GitHub", href: siteConfig.social.github },
+  { label: "LinkedIn", href: siteConfig.social.linkedin },
+  { label: "Curriculum", href: siteConfig.resumeUrl },
 ];
 
 export const Footer = () => {
@@ -20,7 +22,7 @@ export const Footer = () => {
             <span>Want to</span>
             <span className="-mt-24 pl-120 lg:pl-248">Say hi?</span>
           </h2>
-          <ButtonLink href="#" size="xl">
+          <ButtonLink href={`mailto:${siteConfig.author.email}`} size="xl">
             Contact me
           </ButtonLink>
         </div>
@@ -28,7 +30,7 @@ export const Footer = () => {
           aria-label="Elsewhere"
           className="flex flex-wrap justify-end gap-x-16 gap-y-20 lg:flex-col lg:items-end lg:gap-32"
         >
-          {SOCIAL_LINKS.map(({ label, href }) => (
+          {LINKS.map(({ label, href }) => (
             <ButtonLink key={label} href={href} className="uppercase">
               {label}
             </ButtonLink>

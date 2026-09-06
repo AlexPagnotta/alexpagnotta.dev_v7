@@ -27,8 +27,11 @@ export const siteConfig = {
     twitter: "https://x.com/",
     github: "https://github.com/",
     linkedin: "https://www.linkedin.com/",
+    unsplash: "https://unsplash.com/",
   },
   twitterHandle: "@handle",
+  // A document rather than a profile, so it stays out of `social` and off `sameAs`.
+  resumeUrl: "/resume.pdf",
 } as const;
 
 export const absoluteUrl = (path = "") => new URL(path, siteConfig.url).toString();
