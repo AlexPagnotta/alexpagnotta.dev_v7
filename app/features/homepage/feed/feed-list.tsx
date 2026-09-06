@@ -37,9 +37,15 @@ export const FeedList = ({ items }: FeedListProps) => {
           </Tab>
         ))}
       </Tabs>
-      <ul>
+      {/* Masonry by multi-column: the browser balances the columns, so cards of different
+          heights stack without gaps. Reading order runs down a column, then to the next. */}
+      <ul className="gap-x-32 md:columns-2 lg:columns-3">
         {items.map((item) => (
-          <li key={item.key} hidden={!matchesFeedFilter(item.facets, filter)}>
+          <li
+            key={item.key}
+            hidden={!matchesFeedFilter(item.facets, filter)}
+            className="mb-40 break-inside-avoid lg:mb-32"
+          >
             {item.node}
           </li>
         ))}

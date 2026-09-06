@@ -2,6 +2,7 @@ import "server-only";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import type { StaticImageData } from "next/image";
 import { CONTENT_TYPE_KEYS, CONTENT_TYPES, type ContentType, type EntryFor } from "@/app/features/content/config";
 import { isProduction } from "@/app/features/utils/release-channel";
 
@@ -16,6 +17,29 @@ const dirFor = (type: ContentType) => path.join(CONTENT_DIR, CONTENT_TYPES[type]
 
 // Entries colocate their assets in `<slug>/index.mdx`.
 const fileFor = (type: ContentType, slug: string) => path.join(dirFor(type), slug, "index.mdx");
+
+/*
+  The bundler resolves each of these into a module per matching file, so the prefix has to
+  be a literal — hence one entry per type rather than an interpolated directory.
+*/
+const coverImports = {
+  writing: (file: string) => import(`@/content/writings/${file}`),
+  project: (file: string) => import(`@/content/projects/${file}`),
+} satisfies Record<ContentType, (file: string) => Promise<{ default: StaticImageData }>>;
+
+/**
+ * The entry's colocated cover, named by its `cover` frontmatter and statically imported so
+ * it keeps its dimensions and blur placeholder. A name that resolves to nothing throws.
+ */
+export const getCover = async (
+  type: ContentType,
+  slug: string,
+  file: string | undefined
+): Promise<StaticImageData | undefined> => {
+  if (!file) return undefined;
+  const { default: cover } = await coverImports[type](`${slug}/${file}`);
+  return cover;
+};
 
 export const hrefFor = (type: ContentType, slug: string) => `${CONTENT_TYPES[type].basePath}/${slug}`;
 
