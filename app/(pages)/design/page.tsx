@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cx } from "@/app/features/style/utils";
 import { Button, ButtonLink } from "@/app/features/ui/button";
+import { Card } from "@/app/features/ui/card";
 import { Container, type ContainerSize } from "@/app/features/ui/container";
 import { Marquee } from "@/app/features/ui/marquee";
 import { Tag } from "@/app/features/ui/tag";
@@ -55,6 +56,8 @@ const TYPE_STYLES = [
 
 const SHADOWS = ["shadow-depth-sm", "shadow-depth-md", "shadow-depth-lg"] as const;
 
+const PLACEHOLDER_IMAGE = "/assets/placeholder.svg";
+
 const CONTAINERS = [
   { size: "lg", width: "1200px" },
   { size: "md", width: "960px" },
@@ -74,7 +77,7 @@ export default function DesignPage() {
   if (isProduction) notFound();
 
   return (
-    <main className="mx-auto flex w-full max-w-1200 flex-col gap-64 px-24 py-64">
+    <main className="mx-auto flex w-full max-w-1200 flex-col gap-64 px-(--page-side-spacing) py-64">
       <header className="flex flex-col gap-16">
         <h1 className="headline-1">Design</h1>
         <p className="body-3 max-w-700 text-black/60">
@@ -190,6 +193,43 @@ export default function DesignPage() {
 
         <Subsection title="No separator, paused">
           <Marquee size="sm" text={SHORT_SAMPLE} play={false} className="-mx-24" />
+        </Subsection>
+      </Section>
+
+      <Section title="Card">
+        <Subsection title="Post card">
+          <div className="max-w-379">
+            <Card>
+              <Card.Image src={PLACEHOLDER_IMAGE} alt="" />
+              <Card.Header>
+                <Card.Tags>
+                  <Tag shape="rounded">Writing</Tag>
+                  <Tag>AI</Tag>
+                  <Tag>Dev</Tag>
+                </Card.Tags>
+                <Card.Title className="body-4">This is a long title about something I built</Card.Title>
+              </Card.Header>
+            </Card>
+          </div>
+        </Subsection>
+
+        <Subsection title="Custom card">
+          {/* What a project card composes: the shell re-laid out, its own media, pinned tags. */}
+          <div className="max-w-379">
+            <Card className="h-360 items-center gap-16 overflow-hidden">
+              <Card.Tags align="end">
+                <Tag shape="rounded">Work</Tag>
+                <Tag>Colorful</Tag>
+                <Tag>Wild</Tag>
+              </Card.Tags>
+              <Card.CustomBody cardSpacing>
+                <div className="w-full h-full justify-center content-center">
+                  <p className="body-5 text-center">This is a custom title</p>
+                </div>
+                <div className="absolute left-24 -bottom-16 w-100 h-120 rotate-6 border-black bg-violet-1" />
+              </Card.CustomBody>
+            </Card>
+          </div>
         </Subsection>
       </Section>
 

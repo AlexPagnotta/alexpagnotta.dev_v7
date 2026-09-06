@@ -83,7 +83,7 @@
   --radius-none: 0;
   --radius-sm: --spacing(4);
   --radius-md: --spacing(8);
-  --radius-lg: --spacing(16);
+  --radius-lg: --spacing(12);
   --radius-full: 9999px;
 }
 

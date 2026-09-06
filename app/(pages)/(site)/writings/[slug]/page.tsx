@@ -1,19 +1,28 @@
+import { getAllEntries, getEntry } from "@/app/features/content/loader";
 import { pageMetadata } from "@/app/features/seo/metadata";
 
 type Props = PageProps<"/writings/[slug]">;
 
+export const dynamicParams = false;
+
+export const generateStaticParams = () => getAllEntries("writing").map((entry) => ({ slug: entry.slug }));
+
 export const generateMetadata = async ({ params }: Props) => {
   const { slug } = await params;
-  return pageMetadata({ title: slug, path: `/writings/${slug}`, type: "article" });
+  const { title, description } = getEntry("writing", slug);
+  return pageMetadata({ title, description, path: `/writings/${slug}`, type: "article" });
 };
 
 export default async function WritingPage({ params }: Props) {
   const { slug } = await params;
+  const entry = getEntry("writing", slug);
+  const { default: Writing } = await import(`@/content/writings/${slug}/index.mdx`);
 
   return (
-    <div className="mx-auto flex w-full max-w-1200 flex-col gap-24 px-24 py-96">
-      <h1 className="headline-1">Writing</h1>
-      <p className="body-3">{slug}</p>
-    </div>
+    <article>
+      <h1>{entry.title}</h1>
+      <p>{entry.date.toISOString().slice(0, 10)}</p>
+      <Writing />
+    </article>
   );
 }
