@@ -14,6 +14,7 @@ const twMerge = extendTailwindMerge({
     theme: {
       text: [isValidTextSize],
       shadow: ["depth-sm", "depth-md", "depth-lg"],
+      "drop-shadow": ["depth-sm", "depth-md", "depth-lg"],
     },
   },
 });

@@ -26,6 +26,10 @@
   --content-md: --spacing(960);
   --content-lg: --spacing(1200);
 
+  /* Side spacing between a section's content and the viewport edges, used as
+     `px-(--page-side-spacing)`. Define per breakpoint (via media queries) if it ever differs. */
+  --page-side-spacing: --spacing(24);
+
   --z-index-\*: initial;
 
   --color-\*: initial;
@@ -67,6 +71,12 @@
 
   --drop-shadow-\*: initial;
   --drop-shadow-none: none;
+
+  /* The same offsets as `--shadow-depth-*`, for text and SVG where a box-shadow would
+     trace the box instead of the shape. A filter takes no spread, hence the three values. */
+  --drop-shadow-depth-sm: 2px 2px 0 var(--color-black);
+  --drop-shadow-depth-md: 4px 4px 0 var(--color-black);
+  --drop-shadow-depth-lg: 8px 8px 0 var(--color-black);
 
   --rounded-\*: initial;
 
