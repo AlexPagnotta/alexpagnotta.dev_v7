@@ -1,5 +1,5 @@
 body {
-  @apply bg-background text-foreground body-1 antialiased min-w-360 overflow-x-hidden;
+  @apply bg-white text-black body-2 antialiased min-w-360 overflow-x-hidden;
 }
 
 /* Custom CSS variables for the site. */
@@ -8,6 +8,6 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-foreground);
-  color: var(--color-background);
+  background-color: var(--color-black);
+  color: var(--color-white);
 }

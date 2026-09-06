@@ -3,113 +3,192 @@
 
   --tracking-\*: initial;
 
-  --tracking-xs: -0.04em;
-  --tracking-sm: -0.02em;
+  --tracking-xs: -0.02em;
+  --tracking-sm: -0.01em;
   --tracking-md: normal;
+  --tracking-lg: 0.01em;
+  --tracking-xl: 0.02em;
 
   --leading-\*: initial;
-  --leading-xs: 1.2;
-  --leading-sm: 1.4;
-  --leading-md: 1.6;
-  --leading-lg: 1.8;
+
+  --leading-xs: 1.4;
+  --leading-sm: 1.6;
+  --leading-md: 1.8;
+  --leading-lg: 2;
 
   --text-\*: initial;
 
-  /* Placeholder sizes — replace once the design lands, keep the token shape.
-     PPFrama only ships 200 / 400 / 900, so stick to those weights to avoid synthetic bolding. */
+  /* Display 1 */
+  --text-display-1: --spacing(220);
+  --text-display-1--font-weight: 400;
+  --text-display-1--line-height: var(--leading-xs);
+  --text-display-1--letter-spacing: var(--tracking-xs);
 
-  /* Display */
-  --text-display: --spacing(96);
-  --text-display--font-weight: 900;
-  --text-display--line-height: var(--leading-xs);
-  --text-display--letter-spacing: var(--tracking-sm);
+  --text-display-1-mobile: --spacing(200);
+  --text-display-1-mobile--font-weight: 400;
+  --text-display-1-mobile--line-height: var(--leading-xs);
+  --text-display-1-mobile--letter-spacing: var(--tracking-xs);
 
-  --text-display-mobile: --spacing(48);
-  --text-display-mobile--font-weight: 900;
-  --text-display-mobile--line-height: var(--leading-xs);
-  --text-display-mobile--letter-spacing: var(--tracking-sm);
+  /* Display 2 */
+  --text-display-2: --spacing(220);
+  --text-display-2--font-weight: 400;
+  --text-display-2--line-height: var(--leading-xs);
+  --text-display-2--letter-spacing: var(--tracking-xs);
 
-  /* Title 1 */
-  --text-title-1: --spacing(64);
-  --text-title-1--font-weight: 400;
-  --text-title-1--line-height: var(--leading-xs);
-  --text-title-1--letter-spacing: var(--tracking-sm);
+  --text-display-2-mobile: --spacing(90);
+  --text-display-2-mobile--font-weight: 400;
+  --text-display-2-mobile--line-height: var(--leading-xs);
+  --text-display-2-mobile--letter-spacing: var(--tracking-xs);
 
-  --text-title-1-mobile: --spacing(40);
-  --text-title-1-mobile--font-weight: 400;
-  --text-title-1-mobile--line-height: var(--leading-xs);
-  --text-title-1-mobile--letter-spacing: var(--tracking-sm);
+  /* Headline 1 */
+  --text-headline-1: --spacing(80);
+  --text-headline-1--font-weight: 400;
+  --text-headline-1--line-height: var(--leading-xs);
+  --text-headline-1--letter-spacing: var(--tracking-sm);
 
-  /* Title 2 */
-  --text-title-2: --spacing(40);
-  --text-title-2--font-weight: 400;
-  --text-title-2--line-height: var(--leading-sm);
-  --text-title-2--letter-spacing: var(--tracking-sm);
+  --text-headline-1-mobile: --spacing(56);
+  --text-headline-1-mobile--font-weight: 400;
+  --text-headline-1-mobile--line-height: var(--leading-sm);
+  --text-headline-1-mobile--letter-spacing: var(--tracking-sm);
 
-  --text-title-2-mobile: --spacing(28);
-  --text-title-2-mobile--font-weight: 400;
-  --text-title-2-mobile--line-height: var(--leading-sm);
-  --text-title-2-mobile--letter-spacing: var(--tracking-sm);
+  /* Headline 2 */
+  --text-headline-2: --spacing(64);
+  --text-headline-2--font-weight: 400;
+  --text-headline-2--line-height: var(--leading-sm);
+  --text-headline-2--letter-spacing: var(--tracking-sm);
 
-  /* Title 3 */
-  --text-title-3: --spacing(28);
-  --text-title-3--font-weight: 400;
-  --text-title-3--line-height: var(--leading-sm);
-  --text-title-3--letter-spacing: var(--tracking-md);
+  --text-headline-2-mobile: --spacing(40);
+  --text-headline-2-mobile--font-weight: 400;
+  --text-headline-2-mobile--line-height: var(--leading-sm);
+  --text-headline-2-mobile--letter-spacing: var(--tracking-sm);
 
-  --text-title-3-mobile: --spacing(22);
-  --text-title-3-mobile--font-weight: 400;
-  --text-title-3-mobile--line-height: var(--leading-sm);
-  --text-title-3-mobile--letter-spacing: var(--tracking-md);
+  /* Headline 3 */
+  --text-headline-3: --spacing(48);
+  --text-headline-3--font-weight: 400;
+  --text-headline-3--line-height: var(--leading-sm);
+  --text-headline-3--letter-spacing: var(--tracking-sm);
+
+  --text-headline-3-mobile: --spacing(32);
+  --text-headline-3-mobile--font-weight: 400;
+  --text-headline-3-mobile--line-height: var(--leading-sm);
+  --text-headline-3-mobile--letter-spacing: var(--tracking-sm);
+
+  /* Headline 4 */
+  --text-headline-4: --spacing(40);
+  --text-headline-4--font-weight: 400;
+  --text-headline-4--line-height: var(--leading-sm);
+  --text-headline-4--letter-spacing: var(--tracking-lg);
+
+  --text-headline-4-mobile: --spacing(20);
+  --text-headline-4-mobile--font-weight: 400;
+  --text-headline-4-mobile--line-height: var(--leading-md);
+  --text-headline-4-mobile--letter-spacing: var(--tracking-xl);
+
+  /* Headline 5 — the only Black cut in the scale. */
+  --text-headline-5: --spacing(42);
+  --text-headline-5--font-weight: 900;
+  --text-headline-5--line-height: var(--leading-sm);
+  --text-headline-5--letter-spacing: var(--tracking-sm);
+
+  --text-headline-5-mobile: --spacing(28);
+  --text-headline-5-mobile--font-weight: 900;
+  --text-headline-5-mobile--line-height: var(--leading-md);
+  --text-headline-5-mobile--letter-spacing: var(--tracking-md);
+
+  /* Body 5 */
+  --text-body-5: --spacing(32);
+  --text-body-5--font-weight: 400;
+  --text-body-5--line-height: var(--leading-sm);
+  --text-body-5--letter-spacing: var(--tracking-md);
+
+  --text-body-5-mobile: --spacing(32);
+  --text-body-5-mobile--font-weight: 400;
+  --text-body-5-mobile--line-height: var(--leading-sm);
+  --text-body-5-mobile--letter-spacing: var(--tracking-md);
+
+  /* Body 4 */
+  --text-body-4: --spacing(24);
+  --text-body-4--font-weight: 400;
+  --text-body-4--line-height: var(--leading-md);
+  --text-body-4--letter-spacing: var(--tracking-xl);
+
+  --text-body-4-mobile: --spacing(20);
+  --text-body-4-mobile--font-weight: 400;
+  --text-body-4-mobile--line-height: var(--leading-md);
+  --text-body-4-mobile--letter-spacing: var(--tracking-sm);
+
+  /* Body 3 */
+  --text-body-3: --spacing(20);
+  --text-body-3--font-weight: 400;
+  --text-body-3--line-height: var(--leading-md);
+  --text-body-3--letter-spacing: var(--tracking-xl);
+
+  --text-body-3-mobile: --spacing(16);
+  --text-body-3-mobile--font-weight: 400;
+  --text-body-3-mobile--line-height: var(--leading-lg);
+  --text-body-3-mobile--letter-spacing: var(--tracking-xl);
 
   /* Body 2 */
-  --text-body-2: --spacing(20);
+  --text-body-2: --spacing(16);
   --text-body-2--font-weight: 400;
-  --text-body-2--line-height: var(--leading-md);
-  --text-body-2--letter-spacing: var(--tracking-sm);
+  --text-body-2--line-height: var(--leading-lg);
+  --text-body-2--letter-spacing: var(--tracking-xl);
 
-  --text-body-2-mobile: --spacing(18);
+  --text-body-2-mobile: --spacing(16);
   --text-body-2-mobile--font-weight: 400;
-  --text-body-2-mobile--line-height: var(--leading-md);
-  --text-body-2-mobile--letter-spacing: var(--tracking-sm);
+  --text-body-2-mobile--line-height: var(--leading-lg);
+  --text-body-2-mobile--letter-spacing: var(--tracking-xl);
 
   /* Body 1 */
-  --text-body-1: --spacing(16);
+  --text-body-1: --spacing(14);
   --text-body-1--font-weight: 400;
   --text-body-1--line-height: var(--leading-lg);
-  --text-body-1--letter-spacing: var(--tracking-md);
+  --text-body-1--letter-spacing: var(--tracking-xl);
 
-  --text-body-1-mobile: --spacing(16);
+  --text-body-1-mobile: --spacing(14);
   --text-body-1-mobile--font-weight: 400;
   --text-body-1-mobile--line-height: var(--leading-lg);
-  --text-body-1-mobile--letter-spacing: var(--tracking-md);
-
-  /* Caption */
-  --text-caption: --spacing(14);
-  --text-caption--font-weight: 400;
-  --text-caption--line-height: var(--leading-lg);
-  --text-caption--letter-spacing: var(--tracking-md);
-
-  --text-caption-mobile: --spacing(14);
-  --text-caption-mobile--font-weight: 400;
-  --text-caption-mobile--line-height: var(--leading-lg);
-  --text-caption-mobile--letter-spacing: var(--tracking-md);
+  --text-body-1-mobile--letter-spacing: var(--tracking-xl);
 }
 
-@utility display {
-  @apply text-display-mobile lg:text-display font-sans;
+@utility display-1 {
+  @apply text-display-1-mobile lg:text-display-1 font-sans;
 }
 
-@utility title-1 {
-  @apply text-title-1-mobile lg:text-title-1 font-sans;
+@utility display-2 {
+  @apply text-display-2-mobile lg:text-display-2 font-sans;
 }
 
-@utility title-2 {
-  @apply text-title-2-mobile lg:text-title-2 font-sans;
+@utility headline-1 {
+  @apply text-headline-1-mobile lg:text-headline-1 font-sans;
 }
 
-@utility title-3 {
-  @apply text-title-3-mobile lg:text-title-3 font-sans;
+@utility headline-2 {
+  @apply text-headline-2-mobile lg:text-headline-2 font-sans;
+}
+
+@utility headline-3 {
+  @apply text-headline-3-mobile lg:text-headline-3 font-sans;
+}
+
+@utility headline-4 {
+  @apply text-headline-4-mobile lg:text-headline-4 font-sans;
+}
+
+@utility headline-5 {
+  @apply text-headline-5-mobile lg:text-headline-5 font-sans;
+}
+
+@utility body-5 {
+  @apply text-body-5-mobile lg:text-body-5 font-sans;
+}
+
+@utility body-4 {
+  @apply text-body-4-mobile lg:text-body-4 font-sans;
+}
+
+@utility body-3 {
+  @apply text-body-3-mobile lg:text-body-3 font-sans;
 }
 
 @utility body-2 {
@@ -118,8 +197,4 @@
 
 @utility body-1 {
   @apply text-body-1-mobile lg:text-body-1 font-sans;
-}
-
-@utility caption {
-  @apply text-caption-mobile lg:text-caption font-sans;
 }

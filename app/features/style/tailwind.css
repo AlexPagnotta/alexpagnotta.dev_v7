@@ -1,13 +1,9 @@
 @import "tailwindcss";
 
 @import "./typography.css";
-@import "./fit-text.css";
 @import "./global.css";
 
 @theme {
-  --layout-min-w: 375;
-  --layout-max-w: 1600;
-
   --breakpoint-\*: initial;
 
   --breakpoint-sm: 40rem;
@@ -25,24 +21,7 @@
   */
   --spacing: 0.0625rem;
 
-  /* The three content-column widths, shared by <Container> sizes and wide media. */
-  --content-sm: --spacing(700);
-  --content-md: --spacing(900);
-  --content-lg: --spacing(1200);
-
-  /* Side spacing: `--page-spacing` for the general page/nav layout, `--content-spacing` for the
-     reading content pages. Define per breakpoint (via media queries) if they ever differ. */
-  --page-spacing: --spacing(24);
-  --content-spacing: --spacing(24);
-
-  /* Wide media fills the md content area — the md column minus its content side spacing — so it
-     respects the padding on md-column pages and breaks out to the same width elsewhere. */
-  --content-wide: calc(var(--content-md) - var(--content-spacing) * 2);
-
   --z-index-\*: initial;
-
-  --z-index-overlay: 100;
-  --z-index-modal: 1000;
 
   --color-\*: initial;
 
@@ -52,27 +31,34 @@
   --color-current: currentColor;
   --color-transparent: transparent;
 
-  --color-black: #000000;
   --color-white: #ffffff;
+  --color-black: #0c0c0c;
+  --color-grey-1: #f2f2f2;
+  --color-grey-2: #e0e0e0;
 
-  /* Placeholder palette — replace with the real tokens once the design lands. */
-  --color-background: #ffffff;
-  --color-foreground: #171717;
-  --color-surface: #f5f5f5;
-  --color-surface-foreground: #171717;
-  --color-muted: #737373;
-  --color-border: #e5e5e5;
-  --color-accent: #2563eb;
-  --color-accent-foreground: #ffffff;
+  /* Accents: `-1` is the muted cut, `-2` the bright one. The two steps are separate
+     hues rather than tints of each other, so they are not interchangeable. */
+  --color-green-1: #33cc92;
+  --color-green-2: #62f671;
+  --color-yellow-1: #ffd435;
+  --color-yellow-2: #f6f662;
+  --color-blue-1: #3ed2ff;
+  --color-blue-2: #62f6f6;
+  --color-pink-1: #ff99e2;
+  --color-pink-2: #fd93b1;
+  --color-violet-1: #b393fd;
+  --color-violet-2: #e762f6;
 
   --blur-\*: initial;
 
   --shadow-\*: initial;
   --shadow-none: none;
 
-  --shadow-depth-sm: 2px 2px 0 0 var(--color-foreground);
-  --shadow-depth-md: 4px 4px 0 0 var(--color-foreground);
-  --shadow-depth-lg: 8px 8px 0 0 var(--color-foreground);
+  /* The site's hard offset shadow, used on buttons, cards, logos and display text.
+     Buttons build their own from `--btn-shadow-offset` so the offset can animate. */
+  --shadow-depth-sm: 2px 2px 0 0 var(--color-black);
+  --shadow-depth-md: 4px 4px 0 0 var(--color-black);
+  --shadow-depth-lg: 8px 8px 0 0 var(--color-black);
 
   --drop-shadow-\*: initial;
   --drop-shadow-none: none;

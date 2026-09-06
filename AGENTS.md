@@ -12,6 +12,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - For components with complex conditional variants, use `cva`. Name the `cva` styles object `{componentName}Styles` (e.g. `buttonStyles`, `selectStyles`).
 - Always use the design tokens defined in the Tailwind config — colors, typography, spacing, etc. Do not hardcode raw values.
 - If a style requirement cannot be satisfied with existing tokens, **ask the user** before adding anything new. Once confirmed, add the new token to the appropriate Tailwind config file.
+- Colors are `white`, `black`, `grey-1`, `grey-2` plus the accents `green-1/-2`, `yellow-1/-2`, `blue-1/-2`, `pink-1/-2`, `violet-1/-2`. On the accents `-1` is the muted cut and `-2` the bright one — they are different hues, not tints of each other, so don't treat them as a light/dark pair.
 - Prefer CSS over JS: reach for container queries, `calc()` and custom properties before adding a measuring client component.
 
 # Spacing units
@@ -26,11 +27,12 @@ Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`) are *
 # Typography
 
 - **Always use the custom typography utilities** defined in `app/features/style/typography.css` for text styling:
-  - `display`
-  - `title-1`, `title-2`, `title-3`
-  - `body-2`, `body-1`
-  - `caption`
-- **Never use** raw tailwind text size classes (`text-display`, `text-title-1`, `text-body-1`, etc.) directly — these are the underlying tokens used by the utilities above.
+  - `display-1`, `display-2`
+  - `headline-1` … `headline-5`
+  - `body-1` … `body-5`
+- Each utility pairs the mobile and desktop cut from Figma, switching at `lg`. `headline-5` is the only Black (900) style in the scale; everything else is Regular (400).
+- **Never use** raw tailwind text size classes (`text-display-1`, `text-headline-1`, `text-body-2`, etc.) directly — these are the underlying tokens used by the utilities above.
+- Body copy defaults to `body-2` (16px), set on `body` in `global.css`. `body-1` is the 14px caption-sized step.
 - Primitives in `app/features/ui/*` never hardcode font styles — the caller passes the typography utility in.
 
 # SVG imports
