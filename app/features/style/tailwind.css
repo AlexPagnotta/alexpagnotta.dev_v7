@@ -21,6 +21,11 @@
   */
   --spacing: 0.0625rem;
 
+  /* The three content-column widths, consumed by <Container> sizes. */
+  --content-sm: --spacing(720);
+  --content-md: --spacing(960);
+  --content-lg: --spacing(1200);
+
   --z-index-\*: initial;
 
   --color-\*: initial;

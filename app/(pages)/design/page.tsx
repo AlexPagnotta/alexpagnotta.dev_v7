@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cx } from "@/app/features/style/utils";
 import { Button, ButtonLink } from "@/app/features/ui/button";
+import { Container, type ContainerSize } from "@/app/features/ui/container";
 import { Marquee } from "@/app/features/ui/marquee";
 import { Tag } from "@/app/features/ui/tag";
 import { isProduction } from "@/app/features/utils/release-channel";
@@ -53,6 +54,12 @@ const TYPE_STYLES = [
 ] as const;
 
 const SHADOWS = ["shadow-depth-sm", "shadow-depth-md", "shadow-depth-lg"] as const;
+
+const CONTAINERS = [
+  { size: "lg", width: "1200px" },
+  { size: "md", width: "960px" },
+  { size: "sm", width: "720px" },
+] as const satisfies readonly { size: ContainerSize; width: string }[];
 
 const Swatch = ({ name, className, hex }: { name: string; className: string; hex: string }) => (
   <div className="flex flex-col gap-8">
@@ -156,6 +163,20 @@ export default function DesignPage() {
             <ButtonLink href="/design">ButtonLink</ButtonLink>
           </div>
         </Subsection>
+      </Section>
+
+      <Section title="Container">
+        <div className="flex flex-col gap-16">
+          {CONTAINERS.map((container) => (
+            <Container key={container.size} size={container.size}>
+              <div className="flex items-center justify-center rounded-md border-2 border-black bg-grey-1 py-16">
+                <Label>
+                  {container.size} · {container.width}
+                </Label>
+              </div>
+            </Container>
+          ))}
+        </div>
       </Section>
 
       <Section title="Marquee">
