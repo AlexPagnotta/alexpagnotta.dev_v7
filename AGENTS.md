@@ -6,6 +6,14 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 <!-- END:nextjs-agent-rules -->
 
+# Dev server
+
+Port 3000 belongs to the user's own `npm run dev`. Never start, restart, or kill it.
+
+- It is already running with HMR, so it serves your edits. Read from it (`curl`, a browser) as much as you need; reading disturbs nothing.
+- Next 16 refuses a second dev server for the same directory, so `npm run dev -- -p 3001` just exits. There is no parallel instance to fall back on.
+- If you ever do start one, shut down only that instance and match its port: `pkill -f "next dev -p 3001"`. Never `pkill -f "next dev"`.
+
 # Styling
 
 - Always use `className` with Tailwind utility classes for styling. No inline styles, CSS modules, or styled-components.
