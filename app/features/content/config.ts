@@ -9,8 +9,7 @@ export const CONTENT_TAG_LABELS = {
   make: "Make",
 } as const satisfies Record<ContentTag, string>;
 
-// Shared for now — split into per-type schemas when the two diverge.
-const entrySchema = z.object({
+const baseEntrySchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   date: z.coerce.date(),
@@ -26,10 +25,19 @@ const entrySchema = z.object({
   draft: z.boolean().default(false),
 });
 
+const writingSchema = baseEntrySchema;
+
+const projectSchema = baseEntrySchema.extend({
+  // Who the work was for. The detail header reads "x WILD - 2024", taking the year from `date`.
+  client: z.string().optional(),
+  // Live site, which the detail header offers as its call to action.
+  link: z.url().optional(),
+});
+
 export const CONTENT_TYPES = {
   // `label` names one entry, so it stays singular where the feed tabs read "Projects".
-  writing: { dir: "writings", basePath: "/writings", label: "Writing", schema: entrySchema },
-  project: { dir: "projects", basePath: "/projects", label: "Project", schema: entrySchema },
+  writing: { dir: "writings", basePath: "/writings", label: "Writing", schema: writingSchema },
+  project: { dir: "projects", basePath: "/projects", label: "Project", schema: projectSchema },
 } as const;
 
 export type ContentType = keyof typeof CONTENT_TYPES;

@@ -1,5 +1,7 @@
-import { getAllEntries, getEntry } from "@/app/features/content/loader";
+import { getAllEntries, getCover, getEntry } from "@/app/features/content/loader";
+import { ProjectHero } from "@/app/features/detail-page/hero/project-hero";
 import { pageMetadata } from "@/app/features/seo/metadata";
+import { Container } from "@/app/features/ui/container";
 
 type Props = PageProps<"/projects/[slug]">;
 
@@ -16,13 +18,24 @@ export const generateMetadata = async ({ params }: Props) => {
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const entry = getEntry("project", slug);
+  const cover = await getCover("project", slug, entry.cover);
   const { default: Project } = await import(`@/content/projects/${slug}/index.mdx`);
 
   return (
     <article>
-      <h1>{entry.title}</h1>
-      <p>{entry.date.toISOString().slice(0, 10)}</p>
-      <Project />
+      <ProjectHero
+        title={entry.title}
+        tags={entry.tags}
+        date={entry.date}
+        client={entry.client}
+        link={entry.link}
+        cover={cover}
+        accent={entry.accent}
+      />
+      {/* Body copy is still unstyled; the top padding clears the tag row hanging past the header. */}
+      <Container size="md" className="px-(--page-side-spacing) pt-72 lg:pt-120">
+        <Project />
+      </Container>
     </article>
   );
 }
