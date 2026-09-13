@@ -5,7 +5,23 @@ import ReactFastMarquee, { type MarqueeProps as ReactFastMarqueeProps } from "re
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 import { useIsClient } from "@/app/features/utils/use-is-client";
 
-const marqueeStyles = "w-full border-y-2 border-black py-4 text-black";
+/*
+  The band's height is set per size rather than left to the row inside it. react-fast-marquee
+  measures its own content before it renders any, so on the swap from the static row the band
+  would otherwise collapse to its borders for a frame and drag the whole page up with it.
+*/
+const marqueeStyles = cva({
+  base: "w-full overflow-hidden border-y-2 border-black py-4 text-black",
+  variants: {
+    size: {
+      sm: "h-44 lg:h-48",
+      lg: "h-76 lg:h-114",
+    },
+  },
+  defaultVariants: {
+    size: "sm",
+  },
+});
 
 const marqueeItemStyles = cva({
   // `whitespace-pre` keeps the spaces around the separator, which are what space the repeats apart.
@@ -38,7 +54,7 @@ export const Marquee = ({ className, size = "sm", text, separator, play = true, 
   const content = separator ? `${text} ${separator} ` : `${text} `;
 
   return (
-    <div className={cx(marqueeStyles, "overflow-hidden", className)}>
+    <div className={cx(marqueeStyles({ size }), className)}>
       {/* The scrolling copy is repeated, so expose the text once to assistive tech instead. */}
       <span className="sr-only">{text}</span>
       {isClient ? (
