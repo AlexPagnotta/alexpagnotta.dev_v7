@@ -1,6 +1,7 @@
 import type * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 import { Container } from "@/app/features/ui/container";
+import { Wordmark } from "@/app/features/ui/wordmark";
 
 const highlightStyles = cva({
   // Inline, so the pill takes its height from the line's own content box and never shifts the copy.
@@ -26,17 +27,21 @@ const Highlight = ({ className, color, ...props }: HighlightProps) => (
 
 export const Hero = () => {
   return (
-    // Padding is symmetric while the ALEX PAGNOTTA title is missing; the design pads only the bottom.
     // `data-navbar-boundary` keeps the revealed navbar off the hero, see `nav/navbar.tsx`.
-    <section data-navbar-boundary className="border-b-2 border-black bg-green-1 py-120">
-      <Container className="px-(--page-side-spacing)">
-        <p className="headline-4 text-balance text-center">
-          I'M <Highlight color="grey-1">ALEX</Highlight> WELCOME TO MY LITTLE{" "}
-          <Highlight color="yellow-1">DIGITAL PLACE.</Highlight> HERE I SHARE MY{" "}
-          <Highlight color="black">DEV</Highlight> WORK, THOUGHTS, PHOTOS, THINGS I MAKE, AND WHATEVER I HAPPEN TO BE{" "}
-          <em className="font-black">CURIOUS</em> ABOUT.
-        </p>
-      </Container>
+    <section data-navbar-boundary className="border-b-2 border-black bg-green-1 pb-64 lg:pb-96 lg:pt-32">
+      <div className="flex flex-col items-center gap-32 lg:gap-48">
+        {/* biome-ignore lint/a11y/useHeadingContent: the rule cannot see the words Wordmark renders into it. */}
+        <Wordmark words={["ALEX", "PAGNOTTA"]} ratio={7.5} stacked render={<h1 />} className="text-white" />
+
+        <Container className="px-(--page-side-spacing)">
+          <p className="headline-4 text-balance text-center">
+            I'M <Highlight color="grey-1">ALEX</Highlight> WELCOME TO MY LITTLE{" "}
+            <Highlight color="yellow-1">DIGITAL PLACE.</Highlight> HERE I SHARE MY{" "}
+            <Highlight color="black">DEV</Highlight> WORK, THOUGHTS, PHOTOS, THINGS I MAKE, AND WHATEVER I HAPPEN TO BE{" "}
+            <em className="font-black">CURIOUS</em> ABOUT.
+          </p>
+        </Container>
+      </div>
     </section>
   );
 };

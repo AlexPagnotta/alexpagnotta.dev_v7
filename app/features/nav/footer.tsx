@@ -1,6 +1,7 @@
 import { siteConfig } from "@/app/features/seo/config";
 import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
+import { Wordmark } from "@/app/features/ui/wordmark";
 
 // Labels and order are the footer's own; the destinations come from the shared site config.
 const LINKS = [
@@ -12,7 +13,8 @@ const LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="bg-yellow-1 pt-80 pb-200 lg:pt-96 lg:pb-280">
+    // The wordmark runs off the bottom edge, so the footer crops it rather than growing to fit.
+    <footer className="flex flex-col overflow-clip bg-yellow-1 pt-80 lg:pt-96">
       <Container
         size="md"
         className="flex flex-col gap-80 px-(--page-side-spacing) lg:flex-row lg:items-start lg:justify-between"
@@ -37,6 +39,16 @@ export const Footer = () => {
           ))}
         </nav>
       </Container>
+
+      {/* Figma knocks the shadow out behind the letters, so the fill is the composite rather than 50% white. */}
+      <Wordmark
+        words={["ALEX", "PAGNOTTA"]}
+        ratio={7.5}
+        sunk
+        joined
+        repeated
+        className="mt-47 text-[color-mix(in_srgb,var(--color-white)_50%,var(--color-yellow-1))] lg:mt-71"
+      />
     </footer>
   );
 };
