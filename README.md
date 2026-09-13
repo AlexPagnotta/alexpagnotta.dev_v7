@@ -9,6 +9,14 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Fonts
+
+The site is set in [PP Frama](https://pangrampangram.com/products/frama), which is licensed and
+cannot be redistributed, so `public/fonts` is ignored and empty in this repo. To run the site you
+need your own licence: drop the six `.otf` cuts (extralight, regular and black, roman and italic)
+into `public/fonts` named `ppframa-<weight>[-italic].otf`, matching `app/(pages)/layout.tsx`.
+Without them the browser falls back to a system sans and the type scale looks wrong.
+
 ## Scripts
 
 - `npm run dev` / `build` / `start` — Next.js
