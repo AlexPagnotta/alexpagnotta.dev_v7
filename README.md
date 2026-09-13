@@ -1,5 +1,7 @@
 # Alex Pagnotta Dev V7
 
+My personal site and portfolio.
+
 ## Getting Started
 
 ```bash
@@ -11,22 +13,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Fonts
 
-The site is set in [PP Frama](https://pangrampangram.com/products/frama), which is licensed and
-cannot be redistributed, so `public/fonts` is ignored and empty in this repo. To run the site you
-need your own licence: drop the six `.otf` cuts (extralight, regular and black, roman and italic)
-into `public/fonts` named `ppframa-<weight>[-italic].otf`, matching `app/(pages)/layout.tsx`.
-Without them the browser falls back to a system sans and the type scale looks wrong.
+[PP Frama](https://pangrampangram.com/products/frama) is licensed and cannot be redistributed, so
+`public/fonts` is empty here. Add your own cuts as `ppframa-<weight>[-italic].otf`, in extralight,
+regular and black.
 
 ## Scripts
 
 - `npm run dev` / `build` / `start` — Next.js
 - `npm run check` — typecheck + Biome lint in parallel
 - `npm run format` — Biome check with `--write --unsafe`
-
-## Design tokens
-
-Colors and typography are generated from the `Design - Tokens` page of the
-[Alex V7](https://www.figma.com/design/jSum9sQNGNr1FFQkqy9utG/Alex-V7) Figma file — colors from the
-`Colors` frame, typography from the 24 `Text/*` styles (12 tokens × desktop/mobile). The Figma file
-has no variables or paint styles, so the values are transcribed, not synced: re-check them by hand
-if the design moves.
