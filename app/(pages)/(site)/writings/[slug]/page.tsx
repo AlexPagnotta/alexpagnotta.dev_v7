@@ -1,6 +1,8 @@
 import { Prose } from "@/app/features/content/components/prose";
-import { getAllEntries, getCover, getEntry } from "@/app/features/content/loader";
+import { CONTENT_TAG_LABELS, CONTENT_TYPES } from "@/app/features/content/config";
+import { getAllEntries, getCover, getEntry, hrefFor } from "@/app/features/content/loader";
 import { WritingHero } from "@/app/features/detail-page/hero/writing-hero";
+import { ArticleJsonLd } from "@/app/features/seo/json-ld";
 import { pageMetadata } from "@/app/features/seo/metadata";
 import { Container } from "@/app/features/ui/container";
 
@@ -12,8 +14,18 @@ export const generateStaticParams = () => getAllEntries("writing").map((entry) =
 
 export const generateMetadata = async ({ params }: Props) => {
   const { slug } = await params;
-  const { title, description } = getEntry("writing", slug);
-  return pageMetadata({ title, description, path: `/writings/${slug}`, type: "article" });
+  const { title, description, date, tags } = getEntry("writing", slug);
+  return pageMetadata({
+    title,
+    description,
+    path: hrefFor("writing", slug),
+    type: "article",
+    article: {
+      publishedTime: date,
+      section: CONTENT_TYPES.writing.label,
+      tags: tags.map((tag) => CONTENT_TAG_LABELS[tag]),
+    },
+  });
 };
 
 export default async function WritingPage({ params }: Props) {
@@ -30,6 +42,14 @@ export default async function WritingPage({ params }: Props) {
           <Writing />
         </Prose>
       </Container>
+      <ArticleJsonLd
+        type="writing"
+        title={entry.title}
+        description={entry.description}
+        path={hrefFor("writing", slug)}
+        date={entry.date}
+        tags={entry.tags.map((tag) => CONTENT_TAG_LABELS[tag])}
+      />
     </article>
   );
 }

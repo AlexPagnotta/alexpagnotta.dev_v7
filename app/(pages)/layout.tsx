@@ -1,7 +1,9 @@
 import { Analytics } from "@vercel/analytics/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { siteConfig } from "@/app/features/seo/config";
+import { SiteJsonLd } from "@/app/features/seo/json-ld";
+import { feedAlternates } from "@/app/features/seo/metadata";
 import { cx } from "@/app/features/style/utils";
 import "@/app/features/style/tailwind.css";
 import { isProduction } from "@/app/features/utils/release-channel";
@@ -30,7 +32,9 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.author.name, url: siteConfig.url }],
   creator: siteConfig.author.name,
   publisher: siteConfig.author.name,
-  keywords: [...siteConfig.keywords],
+  // Icons and the manifest come from the `app/` file conventions (favicon.ico, icon.svg,
+  // apple-icon.png, manifest.ts), which inject their own link tags.
+  alternates: { types: feedAlternates },
   // canonical/openGraph.url/title vary per page — set via pageMetadata, not here.
   // Only production is indexable; preview/staging are blocked here too, not just in robots.txt.
   robots: isProduction
@@ -53,12 +57,16 @@ export const metadata: Metadata = {
     creator: siteConfig.twitterHandle,
     images: [siteConfig.ogImage.url],
   },
-  appleWebApp: {
-    capable: true,
-    title: siteConfig.shortName,
-    statusBarStyle: "default",
-  },
+  // Only the home-screen name: `capable` is the iOS twin of the manifest's `display`, and
+  // this site installs as a site rather than a chromeless app.
+  appleWebApp: { title: siteConfig.shortName },
   formatDetection: { telephone: false },
+};
+
+export const viewport: Viewport = {
+  // Paints the browser chrome to match the mark's pink ground on mobile.
+  themeColor: siteConfig.themeColor,
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -71,6 +79,7 @@ export default function RootLayout({
       <body>
         {children}
         <Analytics />
+        <SiteJsonLd />
       </body>
     </html>
   );
