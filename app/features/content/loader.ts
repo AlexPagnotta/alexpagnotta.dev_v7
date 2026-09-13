@@ -3,7 +3,14 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import type { StaticImageData } from "next/image";
-import { CONTENT_TYPE_KEYS, CONTENT_TYPES, type ContentType, type EntryFor } from "@/app/features/content/config";
+import type * as React from "react";
+import {
+  CONTENT_TYPE_KEYS,
+  CONTENT_TYPES,
+  type ContentCardProps,
+  type ContentType,
+  type EntryFor,
+} from "@/app/features/content/config";
 import { isProduction } from "@/app/features/utils/release-channel";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
@@ -39,6 +46,28 @@ export const getCover = async (
   if (!file) return undefined;
   const { default: cover } = await coverImports[type](`${slug}/${file}`);
   return cover;
+};
+
+/*
+  Same context-module rule as the covers above: one literal prefix per type. `card` resolves
+  to `card.tsx` when the entry has one.
+*/
+const cardImports = {
+  writing: (file: string) => import(`@/content/writings/${file}`),
+  project: (file: string) => import(`@/content/projects/${file}`),
+} satisfies Record<ContentType, (file: string) => Promise<{ default: React.ComponentType<ContentCardProps> }>>;
+
+/**
+ * An entry overrides its feed card by dropping a `card.tsx` next to its `index.mdx`, which
+ * default-exports the card to render. Entries without one get the standard card.
+ */
+export const getCustomCard = async (
+  type: ContentType,
+  slug: string
+): Promise<React.ComponentType<ContentCardProps> | undefined> => {
+  if (!fs.existsSync(path.join(dirFor(type), slug, "card.tsx"))) return undefined;
+  const { default: CustomCard } = await cardImports[type](`${slug}/card`);
+  return CustomCard;
 };
 
 export const hrefFor = (type: ContentType, slug: string) => `${CONTENT_TYPES[type].basePath}/${slug}`;

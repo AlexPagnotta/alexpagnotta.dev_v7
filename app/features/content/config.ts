@@ -48,3 +48,13 @@ export type EntryFor<T extends ContentType> = { slug: string } & z.infer<(typeof
 
 export type WritingEntry = EntryFor<"writing">;
 export type ProjectEntry = EntryFor<"project">;
+
+/**
+ * What an entry's own `card.tsx` receives: the values that have to stay in step with its
+ * frontmatter. Everything else about the card — copy, art, layout — is authored by hand.
+ */
+export type ContentCardProps = {
+  href: string;
+  tags: readonly ContentTag[];
+  accent?: string;
+};

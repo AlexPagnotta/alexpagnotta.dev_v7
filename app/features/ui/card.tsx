@@ -11,8 +11,9 @@ import { Image, type ImageProps } from "@/app/features/ui/image";
 // Shared so CustomBody's `cardSpacing` lines up with the shell's own padding exactly.
 const cardPaddingStyles = "p-24 pb-32";
 
+// `isolate`: CustomBody's z-index has to stay inside the card, or it paints over the navbar.
 const cardStyles = cx(
-  "relative flex w-full flex-col items-start gap-24 rounded-lg border-2 border-black bg-white shadow-depth-md",
+  "relative isolate flex w-full flex-col items-start gap-24 rounded-lg border-2 border-black bg-white shadow-depth-md",
   cardPaddingStyles
 );
 
