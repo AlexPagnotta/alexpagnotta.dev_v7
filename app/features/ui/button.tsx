@@ -7,9 +7,9 @@ import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 
 /*
   Every button in the design is a black-bordered pill on a hard offset shadow, with a
-  solid fill; only the fill color changes. Each size binds its own type style, because
-  no height is fixed in the design, it falls out of the label's line box plus padding
-  and border.
+  solid fill; only the fill color changes. Each size binds its own type style and its own
+  height, taken from Figma: deriving the height from the label's line box left it on a
+  fraction of a pixel and moved every pill whenever a type step was retuned.
 */
 
 const buttonStyles = cva({
@@ -31,10 +31,10 @@ const buttonStyles = cva({
       "violet-1": "[--btn-fill:var(--color-violet-1)]",
     },
     size: {
-      sm: "border px-16 py-4 body-3",
-      md: "border px-24 py-4 body-4",
-      lg: "border px-24 py-4 body-5",
-      xl: "border-2 px-24 py-16 headline-2 lg:px-48 lg:py-24",
+      sm: "border px-16 h-42 body-3 lg:h-46",
+      md: "border px-24 h-46 body-4 lg:h-54",
+      lg: "border px-24 h-62 body-5",
+      xl: "border-2 px-24 h-100 headline-2 lg:px-48 lg:h-154",
       "icon-sm": "border-2 size-40 p-0 body-1",
       "icon-md": "border-2 size-52 p-0 body-1",
     },

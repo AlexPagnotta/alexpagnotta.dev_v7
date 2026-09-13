@@ -49,7 +49,9 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     // Turbopack requires remark/rehype plugins as string names with serializable options.
-    remarkPlugins: [["remark-frontmatter"], ["remark-gfm"]],
+    // `unwrap-images` drops the paragraph remark wraps a lone image in, which would otherwise
+    // put the figure MarkdownImage renders inside a <p>.
+    remarkPlugins: [["remark-frontmatter"], ["remark-gfm"], ["remark-unwrap-images"]],
     rehypePlugins: [],
   },
 });

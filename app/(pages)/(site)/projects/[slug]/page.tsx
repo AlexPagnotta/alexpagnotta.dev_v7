@@ -1,3 +1,4 @@
+import { Prose } from "@/app/features/content/components/prose";
 import { getAllEntries, getCover, getEntry } from "@/app/features/content/loader";
 import { ProjectHero } from "@/app/features/detail-page/hero/project-hero";
 import { pageMetadata } from "@/app/features/seo/metadata";
@@ -32,9 +33,10 @@ export default async function ProjectPage({ params }: Props) {
         cover={cover}
         accent={entry.accent}
       />
-      {/* Body copy is still unstyled; the top padding clears the tag row hanging past the header. */}
-      <Container size="md" className="px-(--page-side-spacing) pt-72 lg:pt-120">
-        <Project />
+      <Container size="sm" className="px-(--page-side-spacing) pt-120 pb-120 lg:pb-160">
+        <Prose>
+          <Project />
+        </Prose>
       </Container>
     </article>
   );

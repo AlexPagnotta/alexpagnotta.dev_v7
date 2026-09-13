@@ -123,9 +123,9 @@
   --text-body-3--line-height: var(--leading-md);
   --text-body-3--letter-spacing: var(--tracking-xl);
 
-  --text-body-3-mobile: --spacing(16);
+  --text-body-3-mobile: --spacing(18);
   --text-body-3-mobile--font-weight: 400;
-  --text-body-3-mobile--line-height: var(--leading-lg);
+  --text-body-3-mobile--line-height: var(--leading-md);
   --text-body-3-mobile--letter-spacing: var(--tracking-xl);
 
   /* Body 2 */

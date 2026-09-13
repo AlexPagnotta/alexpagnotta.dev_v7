@@ -1,0 +1,85 @@
+---
+title: A project that shows off the body
+description: A test project that exercises every markdown block the detail page can render.
+date: 2026-09-12
+cover: cover.png
+accent: "#ff99e2"
+client: WILD
+link: https://example.com
+tags: [work, make]
+draft: true
+---
+
+import themes from "./themes.jpg";
+import cities from "./cities.jpg";
+import mascot from "./mascot.svg?url";
+import roomNavigation from "./room-navigation.mp4";
+import roomNavigationPoster from "./room-navigation-poster.jpg";
+import vintagePcMp4 from "./vintage-pc.mp4";
+import vintagePcWebm from "./vintage-pc.webm";
+import vintagePcPoster from "./vintage-pc-poster.jpg";
+
+The project body is the same renderer as a writing's, so a case study is built from exactly
+the same blocks. Only the header above it differs: a client and a year instead of a date,
+and a call to action pointing at the live site.
+
+## The brief
+
+A section title, then the copy it introduces. Paragraphs are justified and hyphenated, and
+inline styling behaves the same here: **bold**, _italic_, and a
+[link to the live site](https://example.com).
+
+What the work had to do:
+
+1. Give every city its own identity without redrawing the whole system.
+2. Keep the palette switchable at runtime.
+3. Survive a phone screen.
+
+## The work
+
+<Image src={themes} alt="Four colour themes of the site shown side by side" caption="Every theme, at a glance" />
+
+Two images in a row read as a sequence rather than as one figure, because the gap between
+blocks stays the same whatever those blocks are.
+
+<Image src={cities} alt="The city picker, mid-transition" caption="The city picker, mid-transition" />
+
+Video sits in the same frame. This one lists a webm first and an mp4 behind it, so a browser
+that can play the transparent cut gets it and everything else falls back.
+
+<Video
+  src={[
+    { src: vintagePcWebm, type: "video/webm" },
+    { src: vintagePcMp4, type: "video/mp4" },
+  ]}
+  poster={vintagePcPoster.src}
+  width={400}
+  height={400}
+  caption="Two sources, one clip"
+/>
+
+A single source is the common case:
+
+<Video
+  src={roomNavigation}
+  poster={roomNavigationPoster.src}
+  width={1920}
+  height={1080}
+  caption="Navigating between rooms"
+/>
+
+## Notes
+
+Vector art skips the image optimizer entirely: an SVG imported as a URL renders as a plain
+image, framed like everything else.
+
+<Image src={mascot} alt="The project mascot, drawn as vector art" caption="An SVG, imported as a URL" />
+
+Things that did not make the cut:
+
+- A second navigation model, dropped after the first round.
+- Per-city typography, which turned out to be one variable too many.
+- A dark theme, still on the list.
+
+That is the whole set of blocks. Anything an entry needs beyond this is a component it
+brings itself.

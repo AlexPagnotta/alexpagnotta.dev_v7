@@ -4,8 +4,9 @@ import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 
 /*
   Tags are labels, not controls: no shadow, and the first tag in a group takes the
-  `rounded` shape while the rest are pills. Like Button, the height comes out of the
-  label's line box plus padding and border rather than being set.
+  `rounded` shape while the rest are pills. Like Button, each size sets its height
+  outright: deriving it from the label's line box left it on a fraction of a pixel and
+  tied the pill to whatever leading the type step happened to carry.
 */
 
 const tagStyles = cva({
@@ -16,8 +17,8 @@ const tagStyles = cva({
       pill: "rounded-full",
     },
     size: {
-      sm: "border px-16 py-0 body-2",
-      md: "border-2 px-16 py-4 body-3 lg:px-24 lg:py-8",
+      sm: "border px-16 h-34 body-2",
+      md: "border-2 px-16 h-44 body-3 lg:px-24 lg:h-56",
     },
   },
   defaultVariants: {

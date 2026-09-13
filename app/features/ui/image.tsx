@@ -16,8 +16,17 @@ export const Image = ({ className, sizes, ...props }: ImageProps) => {
   // SVGs have no blur data and gain nothing from next/image's raster optimization —
   // render them as a plain <img>.
   if (svgUrl) {
-    // biome-ignore lint/performance/noImgElement: vector SVG, next/image adds no value
-    return <img src={svgUrl} alt={props.alt} className={cx("block h-auto w-full", className)} />;
+    return (
+      // biome-ignore lint/performance/noImgElement: vector SVG, next/image adds no value
+      <img
+        src={svgUrl}
+        alt={props.alt}
+        // next/image's own loading rule, applied by hand since this bypasses it.
+        loading={props.priority ? "eager" : "lazy"}
+        decoding="async"
+        className={cx("block h-auto w-full", className)}
+      />
+    );
   }
 
   // Statically imported (colocated) images carry a blurDataURL, so opt into the

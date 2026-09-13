@@ -1,0 +1,100 @@
+---
+title: Every block this body supports
+description: A test writing that exercises every markdown block the detail page can render.
+date: 2026-09-13
+cover: cover.png
+accent: "#b393fd"
+tags: [personal, make]
+draft: true
+---
+
+import figma from "./figma.jpg";
+import model from "./3d-model.jpg";
+import recommendations from "./recommendations.mp4";
+import recommendationsPoster from "./recommendations-poster.jpg";
+
+This entry exists to check the body renderer, not to say anything. Every block below is
+one of the pieces an entry can be built from, in roughly the order you would reach for
+them: copy, section breaks, lists, imagery and video.
+
+Paragraphs are set ragged right, because the column is too narrow to justify without
+stretching the word gaps. They step from 18px on a phone to 20px from the large breakpoint
+up, and the column never grows past the text measure.
+
+## Section titles
+
+A section title is a level-two heading. It takes more air above than a normal block and
+sits closer to the copy it introduces, so the two read as one unit rather than as two
+neighbours.
+
+Inline styling covers the usual set: **bold text** uses the typeface's Black cut, since
+there is nothing between Regular and 900, _italic text_ has its own face, and a
+[link to the homepage](/) is underlined. Links to
+[somewhere else entirely](https://example.com) look the same.
+
+## Lists
+
+Bullets, for anything unordered:
+
+- A first point, short enough to stay on one line.
+- A second point that runs long enough to wrap, so the hanging indent is visible and the
+  marker keeps its own column instead of sitting inside the text block.
+- A third point with **bold** inside it and a [link](/) too.
+
+Numbers, for anything with an order:
+
+1. Read the frontmatter and pick the cover.
+2. Compile the body, mapping each markdown element onto its component.
+3. Render the result into the prose column.
+
+Lists can also nest:
+
+- A parent item
+  - A nested child
+  - Another nested child
+- Back to the parent level
+
+## Imagery
+
+Images are framed with the same black rule as everything else on the site, and the caption
+sits under the frame rather than inside it. Colocated files are imported, so they arrive
+with their intrinsic size and a blur placeholder already attached.
+
+<Image src={figma} alt="A Figma file with the dashboard layout in progress" caption="An image with a caption" />
+
+Without a caption the frame just closes on the image.
+
+<Image src={model} alt="A 3D model of the enclosure, rendered in grey clay" />
+
+The markdown shorthand works for anything already served under a URL, and takes its caption
+from the image title. Colocated files still have to be imported: markdown gives the loader
+no way to resolve a relative path or to learn the image's size.
+
+![A grey placeholder rectangle](/assets/placeholder.svg "A caption written in markdown")
+
+## Video
+
+Body video is framed and captioned like an image. Clips loop silently by default, so they
+behave like moving stills; the poster covers the frame until the first frame is decoded.
+
+<Video
+  src={recommendations}
+  poster={recommendationsPoster.src}
+  width={1920}
+  height={1080}
+  caption="A silent loop, autoplaying"
+/>
+
+Turning autoplay off brings the browser's own controls back, for anything worth listening
+to.
+
+<Video
+  src={recommendations}
+  poster={recommendationsPoster.src}
+  width={1920}
+  height={1080}
+  autoplay={false}
+  caption="The same clip with controls instead"
+/>
+
+And a closing paragraph, so the last block is never a piece of media.

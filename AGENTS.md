@@ -39,6 +39,8 @@ Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`) are *
   - `headline-1` … `headline-5`
   - `body-1` … `body-5`
 - Each utility pairs the mobile and desktop cut from Figma, switching at `lg`. `headline-5` is the only Black (900) style in the scale; everything else is Regular (400).
+- Leading tightens as the scale grows (`body-1`/`body-2` 2.0, `body-3`/`body-4` 1.8, `body-5` 1.6), so a larger step never ends up with a smaller line box than the step below it. Keep that true when editing any cut.
+- `body-3` is the long-form reading step (18/20px). `Tag` and `Button` set their own height per size (from Figma) rather than deriving it from the line box, so retuning a type step no longer resizes them — but it still moves anything that does size to its text, such as `Marquee`.
 - **Never use** raw tailwind text size classes (`text-display-1`, `text-headline-1`, `text-body-2`, etc.) directly — these are the underlying tokens used by the utilities above.
 - Body copy defaults to `body-2` (16px), set on `body` in `global.css`. `body-1` is the 14px caption-sized step.
 - Primitives in `app/features/ui/*` never hardcode font styles — the caller passes the typography utility in.
