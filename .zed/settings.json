@@ -1,0 +1,69 @@
+{
+  // Biome ships as an extension; Tailwind's language server is built into Zed.
+  "auto_install_extensions": {
+    "biome": true
+  },
+  "languages": {
+    "TypeScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TSX": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "JavaScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "JSON": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "format_on_save": "on"
+    },
+    "JSONC": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "format_on_save": "on"
+    },
+    "CSS": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "format_on_save": "on"
+    }
+  },
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        // vtsls prefers its own bundled TypeScript, so point it at the version in node_modules.
+        "vtsls": { "autoUseWorkspaceTsdk": true },
+        "typescript": {
+          "tsdk": "node_modules/typescript/lib",
+          "preferences": { "importModuleSpecifier": "non-relative" },
+          // Biome owns formatting; the TS server would otherwise fight it.
+          "format": { "enable": false }
+        },
+        "javascript": {
+          "preferences": { "importModuleSpecifier": "non-relative" },
+          "format": { "enable": false }
+        }
+      }
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "rootFontSize": 10,
+        // Completions and hovers inside the two class helpers, not just className.
+        "classFunctions": ["cva", "cx"]
+      }
+    }
+  }
+}
