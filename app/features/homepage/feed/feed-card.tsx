@@ -1,6 +1,7 @@
 import type { StaticImageData } from "next/image";
 import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentTag, type ContentType } from "@/app/features/content/config";
 import { FeedCardShell } from "@/app/features/homepage/feed/feed-card-shell";
+import type { Accent } from "@/app/features/style/accents";
 import { Card } from "@/app/features/ui/card";
 import { Tag } from "@/app/features/ui/tag";
 
@@ -13,7 +14,7 @@ export type FeedCardProps = {
   title: string;
   tags: readonly ContentTag[];
   cover?: StaticImageData;
-  accent?: string;
+  accent?: Accent;
   /** Skips lazy loading and preloads the cover, for the cards that land above the fold. */
   priority?: boolean;
 };

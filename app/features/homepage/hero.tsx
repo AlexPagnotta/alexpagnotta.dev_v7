@@ -25,6 +25,12 @@ const Highlight = ({ className, color, ...props }: HighlightProps) => (
   <mark className={cx(highlightStyles({ color }), className)} {...props} />
 );
 
+// The CSS stroke is centred, so it runs at twice Figma's 1px outside cut.
+const curiousStyles = cx(
+  "font-black text-yellow-2 [paint-order:stroke_fill]",
+  "[-webkit-text-stroke-width:0.05em] [-webkit-text-stroke-color:var(--color-black)]"
+);
+
 export const Hero = () => {
   return (
     // `data-navbar-boundary` keeps the revealed navbar off the hero, see `nav/navbar.tsx`.
@@ -38,7 +44,7 @@ export const Hero = () => {
             I'M <Highlight color="grey-1">ALEX</Highlight> WELCOME TO MY LITTLE{" "}
             <Highlight color="yellow-1">DIGITAL PLACE.</Highlight> HERE I SHARE MY{" "}
             <Highlight color="black">DEV</Highlight> WORK, THOUGHTS, PHOTOS, THINGS I MAKE, AND WHATEVER I HAPPEN TO BE{" "}
-            <em className="font-black">CURIOUS</em> ABOUT.
+            <em className={curiousStyles}>CURIOUS</em> ABOUT.
           </p>
         </Container>
       </div>

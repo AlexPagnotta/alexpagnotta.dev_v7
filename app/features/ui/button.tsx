@@ -25,6 +25,7 @@ const buttonStyles = cva({
     color: {
       white: "[--btn-fill:var(--color-white)]",
       "yellow-1": "[--btn-fill:var(--color-yellow-1)]",
+      "yellow-2": "[--btn-fill:var(--color-yellow-2)]",
       "green-1": "[--btn-fill:var(--color-green-1)]",
       "blue-1": "[--btn-fill:var(--color-blue-1)]",
       "pink-1": "[--btn-fill:var(--color-pink-1)]",

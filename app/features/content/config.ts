@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ACCENTS, type Accent } from "@/app/features/style/accents";
 
 export const CONTENT_TAGS = ["work", "personal", "make"] as const;
 export type ContentTag = (typeof CONTENT_TAGS)[number];
@@ -15,12 +16,8 @@ const baseEntrySchema = z.object({
   date: z.coerce.date(),
   // Filename of an image colocated with the entry, e.g. `cover.png`.
   cover: z.string().optional(),
-  // Per-entry accent, as a 6-digit hex. Free-form rather than a token name, so an entry
-  // can carry a colour pulled from its own artwork.
-  accent: z
-    .string()
-    .regex(/^#[0-9a-fA-F]{6}$/, "Expected a 6-digit hex colour, e.g. #33cc92")
-    .optional(),
+  // Per-entry accent, named by palette family; each consumer picks the cut it needs.
+  accent: z.enum(ACCENTS).optional(),
   tags: z.array(z.enum(CONTENT_TAGS)),
   draft: z.boolean().default(false),
 });
@@ -56,5 +53,5 @@ export type ProjectEntry = EntryFor<"project">;
 export type ContentCardProps = {
   href: string;
   tags: readonly ContentTag[];
-  accent?: string;
+  accent?: Accent;
 };

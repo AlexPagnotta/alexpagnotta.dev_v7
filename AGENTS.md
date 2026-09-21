@@ -58,6 +58,8 @@ Rule of thumb: if you'd `<Render />` it as markup, import as a component; if it'
 
 - Default to writing no comments. Only add one when it explains something not obvious or understandable by looking at the code itself — a hidden constraint, a subtle invariant, a workaround for a specific bug.
 - Never write a comment that just restates what the code does.
+- Don't narrate a styling choice. The utility or token name already says what the value is, and noting that something differs from the rest of the system ("the one place that...") goes stale as soon as a second place appears.
+- Before keeping a comment, delete it and re-read the line. If nothing is lost that a reader couldn't get from the code, leave it deleted.
 - Keep comments to one line where possible, two at most. If it takes several sentences to explain, either the code needs a better name or the comment needs to be cut down to just the one fact that isn't obvious — don't stack multiple facts (styling rationale, cross-references, edge cases) into a single block.
 
 # Accessibility

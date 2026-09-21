@@ -1,6 +1,7 @@
 import type { StaticImageData } from "next/image";
 import type { ContentTag } from "@/app/features/content/config";
 import { DetailPageHero } from "@/app/features/detail-page/hero/hero";
+import type { Accent } from "@/app/features/style/accents";
 
 const pad = (part: number) => String(part).padStart(2, "0");
 
@@ -14,7 +15,7 @@ export type WritingHeroProps = {
   tags: readonly ContentTag[];
   date: Date;
   cover?: StaticImageData;
-  accent?: string;
+  accent?: Accent;
 };
 
 export const WritingHero = ({ title, tags, date, cover, accent }: WritingHeroProps) => (

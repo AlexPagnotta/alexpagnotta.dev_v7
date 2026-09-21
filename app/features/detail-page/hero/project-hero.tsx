@@ -2,6 +2,7 @@ import { ExternalLink } from "lucide-react";
 import type { StaticImageData } from "next/image";
 import type { ContentTag } from "@/app/features/content/config";
 import { DetailPageHero } from "@/app/features/detail-page/hero/hero";
+import type { Accent } from "@/app/features/style/accents";
 import { ButtonLink } from "@/app/features/ui/button";
 
 const CTA_LABEL = "Visit the site";
@@ -13,7 +14,7 @@ export type ProjectHeroProps = {
   client?: string;
   link?: string;
   cover?: StaticImageData;
-  accent?: string;
+  accent?: Accent;
 };
 
 export const ProjectHero = ({ title, tags, date, client, link, cover, accent }: ProjectHeroProps) => (

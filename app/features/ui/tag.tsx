@@ -17,7 +17,7 @@ const tagStyles = cva({
       pill: "rounded-full",
     },
     size: {
-      sm: "border px-16 h-34 body-2",
+      sm: "border px-16 h-30 body-1",
       md: "border-2 px-16 h-44 body-3 lg:px-24 lg:h-56",
     },
   },

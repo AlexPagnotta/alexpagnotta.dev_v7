@@ -9,6 +9,7 @@ import { Button, type ButtonColor } from "@/app/features/ui/button";
 const tabPressedColorStyles = {
   white: "data-pressed:[--btn-fill:var(--color-white)]",
   "yellow-1": "data-pressed:[--btn-fill:var(--color-yellow-1)]",
+  "yellow-2": "data-pressed:[--btn-fill:var(--color-yellow-2)]",
   "green-1": "data-pressed:[--btn-fill:var(--color-green-1)]",
   "blue-1": "data-pressed:[--btn-fill:var(--color-blue-1)]",
   "pink-1": "data-pressed:[--btn-fill:var(--color-pink-1)]",
@@ -20,7 +21,7 @@ const tabStyles = cva({
     pressedColor: tabPressedColorStyles,
   },
   defaultVariants: {
-    pressedColor: "yellow-1",
+    pressedColor: "yellow-2",
   },
 });
 

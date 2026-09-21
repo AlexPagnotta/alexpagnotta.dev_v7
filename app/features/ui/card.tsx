@@ -13,7 +13,8 @@ const cardPaddingStyles = "p-24 pb-32";
 
 // `isolate`: CustomBody's z-index has to stay inside the card, or it paints over the navbar.
 const cardStyles = cx(
-  "relative isolate flex w-full flex-col items-start gap-24 rounded-lg border-2 border-black bg-white shadow-depth-md",
+  "relative isolate flex w-full flex-col items-start gap-24 rounded-lg border border-black bg-white",
+  "shadow-depth-md shadow-black/5",
   cardPaddingStyles
 );
 
@@ -111,7 +112,7 @@ const CardCustomBody = ({ className, cardSpacing, render, ...props }: CardCustom
 export type CardImageProps = ImageProps;
 
 const CardImage = ({ className, ...props }: CardImageProps) => (
-  <div className={cx("h-280 w-full shrink-0 overflow-hidden rounded-md border border-black bg-grey-2", className)}>
+  <div className={cx("h-280 w-full shrink-0 overflow-hidden rounded-md bg-grey-2", className)}>
     <Image {...props} className="size-full object-cover" />
   </div>
 );

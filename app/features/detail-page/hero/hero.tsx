@@ -1,5 +1,6 @@
 import type { StaticImageData } from "next/image";
 import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentTag, type ContentType } from "@/app/features/content/config";
+import { type Accent, mutedAccent } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/utils";
 import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
@@ -16,8 +17,8 @@ export type DetailPageHeroProps = {
   /** One short line, set on its side in the desktop margin: a date, or a client and year. */
   meta: string;
   cover?: StaticImageData;
-  /** Hex from the page's frontmatter; fills the whole header. */
-  accent?: string;
+  /** Named in the page's frontmatter; fills the whole header with its muted cut. */
+  accent?: Accent;
   /** Sits opposite the tags, straddling the header's bottom border. */
   cta?: React.ReactNode;
 };
@@ -26,8 +27,8 @@ export type DetailPageHeroProps = {
 export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: DetailPageHeroProps) => (
   <section
     className="relative border-b-2 border-black bg-(--hero-accent) py-72 [--hero-accent:var(--color-grey-1)] lg:pt-120 lg:pb-96"
-    // The one value that cannot be a utility class: it comes from content, not the theme.
-    style={accent ? ({ "--hero-accent": accent } as React.CSSProperties) : undefined}
+    // The one value that cannot be a utility class: the family comes from content.
+    style={accent ? ({ "--hero-accent": mutedAccent(accent) } as React.CSSProperties) : undefined}
   >
     <Container size="md" className="relative flex flex-col gap-32 px-(--page-side-spacing) lg:gap-48">
       <div className="relative flex items-start">
