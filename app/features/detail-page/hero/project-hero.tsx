@@ -34,8 +34,8 @@ export const ProjectHero = ({ title, tags, date, client, link, cover, accent }: 
             href={link}
             target="_blank"
             rel="noreferrer"
-            color="yellow-1"
-            size="icon-md"
+            color="yellow-dark"
+            size="icon"
             aria-label={CTA_LABEL}
             className="lg:hidden"
           >
@@ -45,8 +45,8 @@ export const ProjectHero = ({ title, tags, date, client, link, cover, accent }: 
             href={link}
             target="_blank"
             rel="noreferrer"
-            color="yellow-1"
-            size="lg"
+            color="yellow-dark"
+            size="md"
             className="hidden rotate-4 lg:inline-flex"
           >
             {CTA_LABEL}

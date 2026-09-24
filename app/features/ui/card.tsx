@@ -9,12 +9,12 @@ import { Image, type ImageProps } from "@/app/features/ui/image";
   against the shell's `relative` — a pinned tag row, a rotated image bleeding out.
 */
 // Shared so CustomBody's `cardSpacing` lines up with the shell's own padding exactly.
-const cardPaddingStyles = "p-24 pb-32";
+const cardPaddingStyles = "p-20";
 
 // `isolate`: CustomBody's z-index has to stay inside the card, or it paints over the navbar.
 const cardStyles = cx(
-  "relative isolate flex w-full flex-col items-start gap-24 rounded-lg border border-black bg-white",
-  "shadow-depth-md shadow-black/5",
+  "relative isolate flex w-full flex-col items-start gap-16 rounded-xl border border-black bg-white",
+  "shadow-depth-6 shadow-black/4",
   cardPaddingStyles
 );
 
@@ -35,7 +35,7 @@ const CardHeader = ({ className, render, ...props }: CardHeaderProps) => {
   return useRender({
     defaultTagName: "div",
     render,
-    props: mergeProps<"div">({ className: cx("flex w-full flex-col gap-12", className) }, props),
+    props: mergeProps<"div">({ className: cx("flex w-full flex-col gap-8", className) }, props),
   });
 };
 
@@ -112,7 +112,7 @@ const CardCustomBody = ({ className, cardSpacing, render, ...props }: CardCustom
 export type CardImageProps = ImageProps;
 
 const CardImage = ({ className, ...props }: CardImageProps) => (
-  <div className={cx("h-280 w-full shrink-0 overflow-hidden rounded-md bg-grey-2", className)}>
+  <div className={cx("h-224 w-full shrink-0 overflow-hidden rounded-md bg-gray-300", className)}>
     <Image {...props} className="size-full object-cover" />
   </div>
 );

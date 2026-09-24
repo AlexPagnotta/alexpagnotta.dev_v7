@@ -5,8 +5,8 @@ import type { Accent } from "@/app/features/style/accents";
 import { Card } from "@/app/features/ui/card";
 import { Tag } from "@/app/features/ui/tag";
 
-// Three columns at `lg`, two from `md`, one below — see FeedList.
-const CARD_SIZES = "(min-width: 64rem) 379px, (min-width: 48rem) 50vw, 100vw";
+// Four columns at `xl`, three at `lg`, two from `md`, one below — see FeedList.
+const CARD_SIZES = "(min-width: 80rem) 302px, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, 100vw";
 
 export type FeedCardProps = {
   type: ContentType;
@@ -31,7 +31,7 @@ export const FeedCard = ({ type, href, title, tags, cover, accent, priority }: F
           <Tag key={tag}>{CONTENT_TAG_LABELS[tag]}</Tag>
         ))}
       </Card.Tags>
-      <Card.Title className="body-4">{title}</Card.Title>
+      <Card.Title className="body-3">{title}</Card.Title>
     </Card.Header>
   </FeedCardShell>
 );

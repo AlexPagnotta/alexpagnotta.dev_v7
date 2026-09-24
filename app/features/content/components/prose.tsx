@@ -14,16 +14,15 @@ export const Prose = ({ children, className }: ProseProps) => (
   <div
     className={cx(
       // The wide step: prose to media.
-      "flex flex-col gap-40 lg:gap-64",
+      "flex flex-col gap-64 lg:gap-80",
       /*
         Running text closes up to roughly one line of leading, so consecutive paragraphs read
         as one argument rather than as separate cards. A list counts as running text: it is
         nearly always introduced by the line above it.
       */
-      "[&_:is(p,ul,ol)+:is(p,ul,ol)]:-mt-8 lg:[&_:is(p,ul,ol)+:is(p,ul,ol)]:-mt-28",
-      // A section break takes the widest step above, and the tightest below.
-      "[&_h2:not(:first-child)]:mt-24 lg:[&_h2:not(:first-child)]:mt-32",
-      "[&_h2+*]:-mt-16 lg:[&_h2+*]:-mt-24",
+      "[&_:is(p,ul,ol)+:is(p,ul,ol)]:-mt-40 lg:[&_:is(p,ul,ol)+:is(p,ul,ol)]:-mt-48",
+      // A section break takes the wide step above, and the tightest below.
+      "[&_h2+*]:-mt-40 lg:[&_h2+*]:-mt-56",
       className
     )}
   >

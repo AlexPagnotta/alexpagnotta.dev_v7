@@ -13,12 +13,12 @@ const tagStyles = cva({
   base: "inline-flex items-center justify-center gap-8 whitespace-nowrap border-black bg-white text-black",
   variants: {
     shape: {
-      rounded: "rounded-md",
+      rounded: "rounded-xs",
       pill: "rounded-full",
     },
     size: {
-      sm: "border px-16 h-30 body-1",
-      md: "border-2 px-16 h-44 body-3 lg:px-24 lg:h-56",
+      sm: "border px-8 h-26 label-1",
+      lg: "border px-16 h-52 body-1 lg:h-56 lg:body-3",
     },
   },
   defaultVariants: {

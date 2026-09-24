@@ -24,7 +24,7 @@
   /* The three content-column widths, consumed by <Container> sizes. */
   --content-sm: --spacing(720);
   --content-md: --spacing(960);
-  --content-lg: --spacing(1200);
+  --content-lg: --spacing(1280);
 
   /* Side spacing between a section's content and the viewport edges, used as
      `px-(--page-side-spacing)`. Define per breakpoint (via media queries) if it ever differs. */
@@ -42,48 +42,53 @@
 
   --color-white: #ffffff;
   --color-black: #0c0c0c;
-  --color-grey-1: #f2f2f2;
-  --color-grey-2: #e0e0e0;
+  --color-gray-100: #f2f2f2;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d9d9d9;
 
-  /* Accents: `-1` is the muted cut, `-2` the bright one. The two steps are separate
-     hues rather than tints of each other, so they are not interchangeable. */
-  --color-green-1: #33cc92;
-  --color-green-2: #62f671;
-  --color-yellow-1: #ffd435;
-  --color-yellow-2: #f6f662;
-  --color-blue-1: #3ed2ff;
-  --color-blue-2: #62f6f6;
-  --color-pink-1: #ff99e2;
-  --color-pink-2: #fd93b1;
-  --color-violet-1: #b393fd;
-  --color-violet-2: #e762f6;
+  /* Accents: `-dark` fills large areas, `-light` is the small bright mark. */
+  --color-green-dark: #33cc92;
+  --color-green-light: #5cffa0;
+  --color-yellow-dark: #ffd435;
+  --color-yellow-light: #fff352;
+  --color-pink-dark: #ff99e2;
+  --color-pink-light: #ffccf1;
+
+  /* The display wordmark's fill, one per accent. */
+  --gradient-green: linear-gradient(to bottom, var(--color-white) 25%, #97ebcb);
+  --gradient-yellow: linear-gradient(to bottom, rgb(255 255 255 / 0.5), rgb(255 230 136 / 0.5));
+  --gradient-pink: linear-gradient(to bottom, rgb(255 255 255 / 0.5), rgb(255 204 240 / 0.5));
 
   --blur-\*: initial;
 
   --shadow-\*: initial;
   --shadow-none: none;
 
-  /* The site's hard offset shadow, used on buttons, cards, logos and display text.
-     Buttons build their own from `--btn-shadow-offset` so the offset can animate. */
-  --shadow-depth-sm: 2px 2px 0 0 var(--color-black);
-  --shadow-depth-md: 4px 4px 0 0 var(--color-black);
-  --shadow-depth-lg: 8px 8px 0 0 var(--color-black);
+  /* The site's hard offset shadow, named by its offset in px. Buttons build their own
+     from `--btn-shadow-offset` so the offset can animate. */
+  --shadow-depth-2: 2px 2px 0 0 var(--color-black);
+  --shadow-depth-4: 4px 4px 0 0 var(--color-black);
+  --shadow-depth-6: 6px 6px 0 0 var(--color-black);
+  --shadow-depth-8: 8px 8px 0 0 var(--color-black);
 
   --drop-shadow-\*: initial;
   --drop-shadow-none: none;
 
-  /* The same offsets as `--shadow-depth-*`, for text and SVG where a box-shadow would
-     trace the box instead of the shape. A filter takes no spread, hence the three values. */
-  --drop-shadow-depth-sm: 2px 2px 0 var(--color-black);
-  --drop-shadow-depth-md: 4px 4px 0 var(--color-black);
-  --drop-shadow-depth-lg: 8px 8px 0 var(--color-black);
+  /* The same offsets for text and SVG, where a box-shadow would trace the box instead of the shape. */
+  --drop-shadow-depth-2: 2px 2px 0 var(--color-black);
+  --drop-shadow-depth-6: 6px 6px 0 var(--color-black);
+  --drop-shadow-depth-12: 12px 12px 0 var(--color-black);
+  /* The soft lift under the cut-out photos in the homepage intro. */
+  --drop-shadow-soft: 2px 4px 4px rgb(0 0 0 / 0.25);
 
   --rounded-\*: initial;
 
   --radius-none: 0;
+  --radius-xs: --spacing(2);
   --radius-sm: --spacing(4);
-  --radius-md: --spacing(8);
-  --radius-lg: --spacing(12);
+  --radius-md: --spacing(6);
+  --radius-lg: --spacing(8);
+  --radius-xl: --spacing(10);
   --radius-full: 9999px;
 }
 

@@ -24,20 +24,20 @@ const buttonStyles = cva({
   variants: {
     color: {
       white: "[--btn-fill:var(--color-white)]",
-      "yellow-1": "[--btn-fill:var(--color-yellow-1)]",
-      "yellow-2": "[--btn-fill:var(--color-yellow-2)]",
-      "green-1": "[--btn-fill:var(--color-green-1)]",
-      "blue-1": "[--btn-fill:var(--color-blue-1)]",
-      "pink-1": "[--btn-fill:var(--color-pink-1)]",
-      "violet-1": "[--btn-fill:var(--color-violet-1)]",
+      "yellow-dark": "[--btn-fill:var(--color-yellow-dark)]",
+      "yellow-light": "[--btn-fill:var(--color-yellow-light)]",
+      "green-dark": "[--btn-fill:var(--color-green-dark)]",
+      "green-light": "[--btn-fill:var(--color-green-light)]",
+      "pink-dark": "[--btn-fill:var(--color-pink-dark)]",
+      "pink-light": "[--btn-fill:var(--color-pink-light)]",
     },
     size: {
-      sm: "border px-16 h-42 body-3 lg:h-46",
-      md: "border px-24 h-46 body-4 lg:h-54",
-      lg: "border px-24 h-62 body-5",
-      xl: "border-2 px-24 h-100 headline-2 lg:px-48 lg:h-154",
-      "icon-sm": "border-2 size-40 p-0 body-1",
-      "icon-md": "border-2 size-52 p-0 body-1",
+      sm: "border px-16 h-52 body-1",
+      md: "border px-16 h-56 body-3",
+      // `sm` on phones, `md` from `lg`.
+      "sm-md": "border px-16 h-52 body-1 lg:h-56 lg:body-3",
+      xl: "border-2 px-32 h-96 heading-2 lg:px-48 lg:h-124",
+      icon: "border size-52 p-0 body-1",
     },
   },
   defaultVariants: {
@@ -54,10 +54,9 @@ export type ButtonSize = NonNullable<ButtonVariants["size"]>;
 const shadowDepth: Record<ButtonSize, { rest: number; hover: number; press: number }> = {
   sm: { rest: 4, hover: 8, press: 2 },
   md: { rest: 4, hover: 8, press: 2 },
-  lg: { rest: 4, hover: 8, press: 2 },
+  "sm-md": { rest: 4, hover: 8, press: 2 },
   xl: { rest: 8, hover: 14, press: 4 },
-  "icon-sm": { rest: 2, hover: 4, press: 1 },
-  "icon-md": { rest: 2, hover: 4, press: 1 },
+  icon: { rest: 4, hover: 8, press: 2 },
 };
 
 const liftSpring: Transition = { type: "spring", stiffness: 400, damping: 22, mass: 0.6 };

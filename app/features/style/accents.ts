@@ -1,14 +1,14 @@
 /*
   An entry names an accent family rather than a colour, and each consumer picks the cut it
-  needs: `-1` where the accent fills a large area, `-2` where it is a small bright mark.
+  needs: `-dark` where the accent fills a large area, `-light` where it is a small bright mark.
   The names are the token families themselves, so both cuts resolve by interpolation.
 */
-export const ACCENTS = ["green", "yellow", "blue", "pink", "violet"] as const;
+export const ACCENTS = ["green", "yellow", "pink"] as const;
 
 export type Accent = (typeof ACCENTS)[number];
 
-/** The muted cut, for a wash the page's text has to stay readable against. */
-export const mutedAccent = (accent: Accent | undefined) => (accent ? `var(--color-${accent}-1)` : undefined);
+/** The dark cut, for a wash the page's text has to stay readable against. */
+export const darkAccent = (accent: Accent | undefined) => (accent ? `var(--color-${accent}-dark)` : undefined);
 
-/** The bright cut, for a small mark that should carry across the page. */
-export const brightAccent = (accent: Accent | undefined) => (accent ? `var(--color-${accent}-2)` : undefined);
+/** The light cut, for a small mark that should carry across the page. */
+export const lightAccent = (accent: Accent | undefined) => (accent ? `var(--color-${accent}-light)` : undefined);

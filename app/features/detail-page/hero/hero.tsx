@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
 import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentTag, type ContentType } from "@/app/features/content/config";
-import { type Accent, mutedAccent } from "@/app/features/style/accents";
+import { type Accent, darkAccent } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/utils";
 import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
@@ -17,7 +17,7 @@ export type DetailPageHeroProps = {
   /** One short line, set on its side in the desktop margin: a date, or a client and year. */
   meta: string;
   cover?: StaticImageData;
-  /** Named in the page's frontmatter; fills the whole header with its muted cut. */
+  /** Named in the page's frontmatter; fills the whole header with its dark cut, and the footer with it. */
   accent?: Accent;
   /** Sits opposite the tags, straddling the header's bottom border. */
   cta?: React.ReactNode;
@@ -26,9 +26,10 @@ export type DetailPageHeroProps = {
 /** The header both detail pages open with; only the meta line and the call to action differ. */
 export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: DetailPageHeroProps) => (
   <section
-    className="relative border-b-2 border-black bg-(--hero-accent) py-72 [--hero-accent:var(--color-grey-1)] lg:pt-120 lg:pb-96"
+    data-page-accent={accent}
+    className="relative border-b-2 border-black bg-(--hero-accent) py-64 [--hero-accent:var(--color-gray-100)] lg:pt-96 lg:pb-80"
     // The one value that cannot be a utility class: the family comes from content.
-    style={accent ? ({ "--hero-accent": mutedAccent(accent) } as React.CSSProperties) : undefined}
+    style={accent ? ({ "--hero-accent": darkAccent(accent) } as React.CSSProperties) : undefined}
   >
     <Container size="md" className="relative flex flex-col gap-32 px-(--page-side-spacing) lg:gap-48">
       <div className="relative flex items-start">
@@ -46,38 +47,48 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
               sizes={COVER_SIZES}
               priority
               placeholder="empty"
-              className="aspect-[4/3] w-full border-2 border-black bg-grey-2 object-cover lg:aspect-[8/5]"
+              className="aspect-[4/3] w-full border-2 border-black bg-gray-300 object-cover lg:aspect-[8/5]"
             />
           </figure>
         )}
         {/* Hooked over the cover's top-left corner; without a cover it just opens the column. */}
-        <ButtonLink href="/" className={cx("-rotate-4", cover && "absolute -top-26 -left-8 lg:-top-22 lg:-left-18")}>
+        <ButtonLink
+          href="/"
+          size="sm-md"
+          className={cx("-rotate-4", cover && "absolute -top-26 -left-8 lg:-top-22 lg:-left-18")}
+        >
           ← BACK
         </ButtonLink>
       </div>
 
       <div className="flex flex-col gap-8">
         {/*
-          Set on its side in the column's left margin from `xl`, where the margin is finally
-          wide enough to hold it; above the title at every narrower width.
+          Beside a cover it is set on its side in the column's left margin from `xl`, where the
+          margin is finally wide enough to hold it; above the title everywhere else.
         */}
-        <p className="body-4 xl:absolute xl:top-1/2 xl:right-full xl:mr-24 xl:-translate-y-1/2 xl:rotate-180 xl:[writing-mode:vertical-rl]">
+        <p
+          className={cx(
+            "body-3",
+            cover &&
+              "xl:absolute xl:top-1/2 xl:right-full xl:mr-24 xl:-translate-y-1/2 xl:rotate-180 xl:[writing-mode:vertical-rl]"
+          )}
+        >
           {meta}
         </p>
-        <h1 className="headline-3 text-balance">{title}</h1>
+        <h1 className="heading-3 text-balance">{title}</h1>
       </div>
     </Container>
 
     {/* Straddles the header's bottom border, the way the wordmark straddles the navbar's. */}
     <div className="absolute inset-x-0 bottom-0 translate-y-1/2">
       <Container size="md" className="flex items-center justify-between gap-16 px-(--page-side-spacing)">
-        <div className="flex items-center gap-4 lg:gap-8">
+        <div className="flex items-center -space-x-1">
           {/* The design leads with the content type, squared off against the pill tags. */}
-          <Tag shape="rounded" size="md">
+          <Tag shape="rounded" size="lg">
             {CONTENT_TYPES[type].label}
           </Tag>
           {tags.map((tag) => (
-            <Tag key={tag} size="md">
+            <Tag key={tag} size="lg">
               {CONTENT_TAG_LABELS[tag]}
             </Tag>
           ))}

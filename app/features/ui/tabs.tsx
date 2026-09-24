@@ -3,25 +3,33 @@
 import { Toggle } from "@base-ui-components/react/toggle";
 import * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
-import { Button, type ButtonColor } from "@/app/features/ui/button";
-
-// Keyed by Button's own color type, so a color added there can't silently skip the pills.
-const tabPressedColorStyles = {
-  white: "data-pressed:[--btn-fill:var(--color-white)]",
-  "yellow-1": "data-pressed:[--btn-fill:var(--color-yellow-1)]",
-  "yellow-2": "data-pressed:[--btn-fill:var(--color-yellow-2)]",
-  "green-1": "data-pressed:[--btn-fill:var(--color-green-1)]",
-  "blue-1": "data-pressed:[--btn-fill:var(--color-blue-1)]",
-  "pink-1": "data-pressed:[--btn-fill:var(--color-pink-1)]",
-  "violet-1": "data-pressed:[--btn-fill:var(--color-violet-1)]",
-} satisfies Record<ButtonColor, string>;
 
 const tabStyles = cva({
+  base: [
+    "inline-flex shrink-0 items-center justify-center whitespace-nowrap select-none cursor-pointer",
+    "h-46 border border-black bg-white px-16 text-black body-2 lg:h-54",
+    "not-data-pressed:hover:bg-gray-100",
+    // The button's lift at half its depth. Travel is derived from the offset, so the shadow's corner stays put.
+    "relative shadow-[var(--tab-shadow-offset)_var(--tab-shadow-offset)_0_0_var(--color-black)] [--tab-shadow-offset:2px]",
+    "translate-[calc(2px_-_var(--tab-shadow-offset))]",
+    "transition-[translate,box-shadow] duration-150 ease-out motion-reduce:transition-none",
+    "hover:z-10 hover:[--tab-shadow-offset:4px] active:[--tab-shadow-offset:1px]",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black",
+  ],
   variants: {
-    pressedColor: tabPressedColorStyles,
+    shape: {
+      rounded: "rounded-sm",
+      pill: "rounded-full",
+    },
+    pressedColor: {
+      "yellow-light": "data-pressed:bg-yellow-light",
+      "green-light": "data-pressed:bg-green-light",
+      "pink-light": "data-pressed:bg-pink-light",
+    },
   },
   defaultVariants: {
-    pressedColor: "yellow-2",
+    shape: "rounded",
+    pressedColor: "yellow-light",
   },
 });
 
@@ -51,9 +59,9 @@ export const Tabs = ({ value, onValueChange, className, ...props }: TabsProps) =
       <div
         role="group"
         className={cx(
-          "flex gap-12 overflow-x-auto scrollbar-hidden",
-          // A scroll container clips both axes, and the pills' shadow and hover travel fall
-          // outside their box — pad the scroll box, then pull the space back with margins.
+          "flex overflow-x-auto scrollbar-hidden",
+          // A scroll container clips both axes, and the shadow and focus ring fall outside the
+          // pills — pad the scroll box, then pull the space back with margins.
           "px-8 -mx-8 py-8 -my-8",
           className
         )}
@@ -64,12 +72,13 @@ export const Tabs = ({ value, onValueChange, className, ...props }: TabsProps) =
 };
 
 export type TabVariants = VariantProps<typeof tabStyles>;
+export type TabShape = NonNullable<TabVariants["shape"]>;
 export type TabPressedColor = NonNullable<TabVariants["pressedColor"]>;
 
 export type TabProps = Omit<React.ComponentProps<typeof Toggle>, "render" | "pressed" | "onPressedChange"> &
   TabVariants & { value: string };
 
-export const Tab = ({ className, pressedColor, value, ...props }: TabProps) => {
+export const Tab = ({ className, shape, pressedColor, value, ...props }: TabProps) => {
   const context = React.useContext(TabsContext);
 
   if (!context) throw new Error("Tab must be rendered inside Tabs.");
@@ -79,8 +88,7 @@ export const Tab = ({ className, pressedColor, value, ...props }: TabProps) => {
       pressed={context.value === value}
       // Unpressing the active pill would leave nothing selected; re-select it instead.
       onPressedChange={() => context.onValueChange(value)}
-      render={<Button size="sm" />}
-      className={cx(tabStyles({ pressedColor }), className)}
+      className={cx(tabStyles({ shape, pressedColor }), className)}
       {...props}
     />
   );

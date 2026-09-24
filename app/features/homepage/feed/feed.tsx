@@ -5,7 +5,7 @@ import { facetsFor } from "@/app/features/homepage/feed/filters";
 import { Container } from "@/app/features/ui/container";
 
 // One row of the widest grid, so the covers above the fold load eagerly and preload.
-const EAGER_COVERS = 3;
+const EAGER_COVERS = 4;
 
 const toNode = async (entry: FeedEntry, index: number) => {
   const href = hrefFor(entry.type, entry.slug);
@@ -36,8 +36,8 @@ export const Feed = async () => {
   const items = await Promise.all(getFeedEntries().map(toItem));
 
   return (
-    <section className="bg-grey-1 pt-56 pb-120 lg:pt-80 lg:pb-160">
-      <Container className="flex flex-col gap-64 px-(--page-side-spacing) lg:gap-80">
+    <section className="bg-gray-100 pt-48 pb-80 lg:pt-64 lg:pb-160">
+      <Container className="flex flex-col gap-40 px-(--page-side-spacing) lg:gap-80">
         <FeedList items={items} />
       </Container>
     </section>

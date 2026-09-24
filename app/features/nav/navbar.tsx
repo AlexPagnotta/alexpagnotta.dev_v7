@@ -102,11 +102,16 @@ const NavbarLogo = ({ className }: NavbarLogoProps) => (
     href="/"
     variant="plain"
     className={cx(
-      "headline-4 inline-block -rotate-2 border-2 border-black bg-white px-8 whitespace-nowrap uppercase shadow-depth-lg lg:px-12",
+      "logo inline-block border border-black bg-white px-8 py-4 whitespace-nowrap uppercase shadow-depth-4",
+      "lg:-rotate-2 lg:border-2 lg:px-16 lg:py-8",
       className
     )}
   >
-    Alex Pagnotta
+    {/* Initials on a phone, where the full name would crowd the button out of the row. */}
+    <span aria-hidden="true" className="lg:hidden">
+      AP
+    </span>
+    <span className="max-lg:sr-only">Alex Pagnotta</span>
   </Link>
 );
 
@@ -116,12 +121,12 @@ export const Navbar = () => {
 
   return (
     // Holds the bar's height in the document, so the page below never shifts when it goes fixed.
-    <div ref={anchorRef} className={cx("relative", floating ? "h-0" : "h-96")}>
+    <div ref={anchorRef} className={cx("relative", floating ? "h-0" : "h-86 lg:h-90")}>
       <header
         ref={headerRef}
         // The desktop wordmark hangs past the bottom border, so the bar has to paint over the page below it.
         className={cx(
-          "inset-x-0 top-0 z-10 h-96 min-w-360 border-b-2 border-black bg-grey-1",
+          "inset-x-0 top-0 z-10 h-86 min-w-360 border-b-2 border-black bg-gray-100 lg:h-90",
           mode === "flow" ? "absolute" : "fixed",
           // Twice the bar's height, so the parked bar takes the overhanging wordmark out of sight with it.
           mode === "hidden" && "-translate-y-[200%]",
@@ -129,12 +134,12 @@ export const Navbar = () => {
         )}
       >
         <Container
-          size="lg"
+          size="md"
           className="relative flex h-full items-center justify-between px-(--page-side-spacing) lg:justify-end"
         >
           {/* Centred and overhanging on desktop, so it leaves the row rather than sitting in it. */}
-          <NavbarLogo className="lg:absolute lg:top-44 lg:left-1/2 lg:-translate-x-1/2" />
-          <ButtonLink href={`mailto:${siteConfig.author.email}`} color="yellow-1">
+          <NavbarLogo className="lg:absolute lg:top-51 lg:left-1/2 lg:-translate-x-1/2" />
+          <ButtonLink href={`mailto:${siteConfig.author.email}`} color="yellow-dark" size="sm-md">
             Say Hi!
           </ButtonLink>
         </Container>

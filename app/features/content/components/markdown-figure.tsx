@@ -8,7 +8,7 @@ export type MarkdownFigureProps = {
 export const MarkdownFigure = ({ caption, children }: MarkdownFigureProps) => (
   <figure className="flex flex-col gap-16">
     {/* The fill shows through while the media loads, and behind anything transparent. */}
-    <div className="border-2 border-black bg-grey-2">{children}</div>
-    {caption ? <figcaption className="body-2">{caption}</figcaption> : null}
+    <div className="border-2 border-black bg-gray-300">{children}</div>
+    {caption ? <figcaption className="body-1">{caption}</figcaption> : null}
   </figure>
 );

@@ -37,7 +37,7 @@ export default async function WritingPage({ params }: Props) {
   return (
     <article>
       <WritingHero title={entry.title} tags={entry.tags} date={entry.date} cover={cover} accent={entry.accent} />
-      <Container size="sm" className="px-(--page-side-spacing) pt-120 pb-120 lg:pb-160">
+      <Container size="sm" className="px-(--page-side-spacing) pt-80 pb-96 lg:pt-96 lg:pb-160">
         <Prose>
           <Writing />
         </Prose>

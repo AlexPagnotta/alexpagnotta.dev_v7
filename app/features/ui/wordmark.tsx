@@ -3,31 +3,30 @@ import { useRender } from "@base-ui-components/react/use-render";
 import type * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 
-// What a space and its tracking cost the ratio below, which holds for any words either side of it.
-const SPACE_RATIO = 0.2;
-
 /*
   The line is sized from the width it should cover rather than from a type token: dividing that width
-  by the ratio gives the size that fills it, bleed and all. It stops at `display-1`, past which the
-  line sits in full and the gutters grow around it instead.
+  by the ratio gives the size that fills it, bleed and all. It is held between the two `display-1`
+  cuts: past the desktop one the gutters grow instead, below the mobile one the line overflows.
 */
 const wordmarkStyles = cva({
   base: [
     // The line carries the size so the space between the words scales with them, and the tracking so
     // that space is tracked like the letters are.
-    "font-sans leading-xs tracking-xs whitespace-nowrap text-center",
-    "text-(length:--wordmark-size) [--wordmark-bleed:calc(69*var(--spacing))]",
-    "[--wordmark-size:min(var(--text-display-1),calc((100cqw_+_2*var(--wordmark-bleed))/var(--wordmark-ratio)))]",
+    "font-sans font-black tracking-xs whitespace-nowrap text-center",
+    // After the size, which tailwind-merge would otherwise let reset the leading.
+    "text-(length:--wordmark-size) leading-none [--wordmark-bleed:calc(69*var(--spacing))]",
+    "[--wordmark-fit:calc((100cqw_+_2*var(--wordmark-bleed))/var(--wordmark-ratio))]",
+    "[--wordmark-size:min(var(--text-display-1),max(var(--text-display-1-mobile),var(--wordmark-fit)))]",
   ],
   variants: {
-    // Below `md` the words split onto their own cuts, each held at its own token size.
+    // Below `md` the words split onto their own lines, staggered so each runs off one edge.
     stacked: {
-      true: "flex flex-col items-center md:block max-md:[--wordmark-size:var(--text-display-2-mobile)]",
+      true: "flex w-full flex-col items-start md:block md:w-auto",
       false: "",
     },
     // Drops the line past the bottom of whatever clips it, so that edge crops the letters.
     sunk: {
-      true: "-mb-[0.45em]",
+      true: "-mb-[0.3em]",
       false: "",
     },
   },
@@ -37,10 +36,14 @@ const wordmarkStyles = cva({
   },
 });
 
-// Tracking and stroke are both `em`, and the words are sized apart when stacked, so they sit on the words.
+/*
+  The fill is a background clipped to the glyphs, set by the caller through `--wordmark-fill`. The
+  stroke paints over its inner edge, so it runs at Figma's visible 2px rather than twice that.
+*/
 const wordStyles = cx(
-  "tracking-xs drop-shadow-depth-md sm:drop-shadow-depth-lg [paint-order:stroke_fill]",
-  "[-webkit-text-stroke-width:0.023em] [-webkit-text-stroke-color:var(--color-black)]"
+  "tracking-xs drop-shadow-depth-6 lg:drop-shadow-depth-12",
+  "bg-(image:--wordmark-fill) bg-clip-text text-transparent",
+  "[-webkit-text-stroke-width:2px] [-webkit-text-stroke-color:var(--color-black)]"
 );
 
 export type WordmarkVariants = VariantProps<typeof wordmarkStyles>;
@@ -55,8 +58,6 @@ export type WordmarkProps = useRender.ComponentProps<"p"> &
      * only drifts the bleed by a pixel or two.
      */
     ratio: number;
-    /** Runs the words together, with no space between them. */
-    joined?: boolean;
     /**
      * Flanks the line with a copy each side from `lg`, so a viewport wider than the capped line still
      * reads as a full band rather than one centred line between two empty gutters.
@@ -70,31 +71,29 @@ export const Wordmark = ({
   ratio,
   className,
   stacked,
-  joined,
   sunk,
   repeated,
   render,
   ...props
 }: WordmarkProps) => {
-  const pair = (start: string, end: string) => (
+  const pair = (
     <>
-      <span className={cx(wordStyles, stacked && "max-md:text-(length:--text-display-1-mobile)")}>{start}</span>
-      {!joined && " "}
-      {/* Stacked, the second word tucks up under the first. */}
-      <span className={cx(wordStyles, stacked && "max-md:mt-[-0.444em]")}>{end}</span>
+      <span className={cx(wordStyles, stacked && "max-md:-ml-24")}>{first}</span>{" "}
+      <span className={cx(wordStyles, stacked && "max-md:ml-63")}>{second}</span>
     </>
   );
 
-  /*
-    Where the pair ends on the letter it starts with, the copies drop it so the band reads as one run:
-    ALEX PAGNOTT-A-LEX PAGNOTT-A-LEX PAGNOTTA. They hang off the line rather than sitting beside it,
-    because the two kern differently at the join and would otherwise push the line off centre.
-  */
-  const shared = second.at(-1) === first.at(0) ? 1 : 0;
-  const copy = (start: string, end: string, side: string) =>
+  // The copies hang off the line rather than sitting beside it, so they cannot push it off centre.
+  // `whitespace-pre` keeps the space at their inner edge, which `nowrap` would trim at the line end.
+  const copy = (side: "start" | "end") =>
     repeated ? (
-      <span aria-hidden className={cx("absolute top-0 hidden lg:block", side)}>
-        {pair(start, end)}
+      <span
+        aria-hidden
+        className={cx("absolute top-0 hidden whitespace-pre lg:block", side === "start" ? "right-full" : "left-full")}
+      >
+        {side === "end" && " "}
+        {pair}
+        {side === "start" && " "}
       </span>
     ) : null;
 
@@ -105,12 +104,12 @@ export const Wordmark = ({
       {
         className: cx(wordmarkStyles({ stacked, sunk }), repeated && "relative", className),
         // The one value that cannot be a utility class: it is measured off the words, not the theme.
-        style: { "--wordmark-ratio": joined ? ratio - SPACE_RATIO : ratio } as React.CSSProperties,
+        style: { "--wordmark-ratio": ratio } as React.CSSProperties,
         children: (
           <>
-            {copy(first, second.slice(0, second.length - shared), "right-full")}
-            {pair(first, second)}
-            {copy(first.slice(shared), second, "left-full")}
+            {copy("start")}
+            {pair}
+            {copy("end")}
           </>
         ),
       },

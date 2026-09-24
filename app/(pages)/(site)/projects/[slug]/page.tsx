@@ -45,7 +45,7 @@ export default async function ProjectPage({ params }: Props) {
         cover={cover}
         accent={entry.accent}
       />
-      <Container size="sm" className="px-(--page-side-spacing) pt-120 pb-120 lg:pb-160">
+      <Container size="sm" className="px-(--page-side-spacing) pt-80 pb-96 lg:pt-96 lg:pb-160">
         <Prose>
           <Project />
         </Prose>

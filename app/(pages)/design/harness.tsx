@@ -51,12 +51,12 @@ export const Matrix = <T extends Axes>({ axes, children, className }: MatrixProp
 };
 
 export const Label = ({ children, className }: { children: React.ReactNode; className?: string }) => (
-  <span className={cx("body-1 text-black/50", className)}>{children}</span>
+  <span className={cx("label-2 text-black/50", className)}>{children}</span>
 );
 
 export const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="flex flex-col gap-32 border-t-2 border-black pt-32">
-    <h2 className="headline-3">{title}</h2>
+    <h2 className="heading-3">{title}</h2>
     {children}
   </section>
 );

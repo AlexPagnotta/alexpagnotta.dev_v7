@@ -1,7 +1,7 @@
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 
 const listStyles = cva({
-  base: "body-3 flex flex-col gap-8 pl-24 lg:gap-12 lg:pl-32",
+  base: "body-1 flex flex-col gap-8 pl-24 lg:body-3 lg:gap-12 lg:pl-32",
   variants: {
     ordered: {
       true: "list-decimal",

@@ -11,11 +11,11 @@ import { useIsClient } from "@/app/features/utils/use-is-client";
   would otherwise collapse to its borders for a frame and drag the whole page up with it.
 */
 const marqueeStyles = cva({
-  base: "w-full overflow-hidden border-y-2 border-black py-4 text-black",
+  base: "w-full overflow-hidden border-black py-8 text-black",
   variants: {
     size: {
-      sm: "h-44 lg:h-48",
-      lg: "h-76 lg:h-114",
+      sm: "h-56 border-b-2",
+      lg: "h-64 border-y-2 lg:h-108 lg:py-16",
     },
   },
   defaultVariants: {
@@ -29,7 +29,7 @@ const marqueeItemStyles = cva({
   variants: {
     size: {
       sm: "body-3",
-      lg: "headline-2",
+      lg: "heading-2",
     },
   },
   defaultVariants: {

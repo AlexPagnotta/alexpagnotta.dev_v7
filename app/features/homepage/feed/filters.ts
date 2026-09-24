@@ -1,4 +1,5 @@
 import type { ContentTag, ContentType } from "@/app/features/content/config";
+import type { TabShape } from "@/app/features/ui/tabs";
 
 /*
   A tab matches an entry when its value is one of the entry's facets: its content type
@@ -6,14 +7,15 @@ import type { ContentTag, ContentType } from "@/app/features/content/config";
 */
 export type FeedFacet = ContentType | ContentTag;
 
+// Like the tags on a card, content types are squared off and leave the pills to the tags.
 export const FEED_FILTERS = [
-  { value: "all", label: "All" },
-  { value: "work", label: "Work" },
-  { value: "personal", label: "Personal" },
-  { value: "project", label: "Projects" },
-  { value: "writing", label: "Writing" },
-  { value: "make", label: "Make" },
-] as const satisfies readonly { value: "all" | FeedFacet; label: string }[];
+  { value: "all", label: "All", shape: "rounded" },
+  { value: "project", label: "Projects", shape: "rounded" },
+  { value: "writing", label: "Writing", shape: "rounded" },
+  { value: "work", label: "Work", shape: "pill" },
+  { value: "personal", label: "Personal", shape: "pill" },
+  { value: "make", label: "Make", shape: "pill" },
+] as const satisfies readonly { value: "all" | FeedFacet; label: string; shape: TabShape }[];
 
 export type FeedFilterValue = (typeof FEED_FILTERS)[number]["value"];
 

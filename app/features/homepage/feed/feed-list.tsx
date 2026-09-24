@@ -31,21 +31,17 @@ export const FeedList = ({ items }: FeedListProps) => {
         onValueChange={(value) => setFilter(value as FeedFilterValue)}
         className="max-lg:-mx-(--page-side-spacing) max-lg:px-(--page-side-spacing) lg:justify-center-safe"
       >
-        {FEED_FILTERS.map(({ value, label }) => (
-          <Tab key={value} value={value}>
+        {FEED_FILTERS.map(({ value, label, shape }) => (
+          <Tab key={value} value={value} shape={shape}>
             {label}
           </Tab>
         ))}
       </Tabs>
       {/* Masonry by multi-column: the browser balances the columns, so cards of different
           heights stack without gaps. Reading order runs down a column, then to the next. */}
-      <ul className="gap-x-32 md:columns-2 lg:columns-3">
+      <ul className="gap-x-24 md:columns-2 lg:columns-3 xl:columns-4">
         {items.map((item) => (
-          <li
-            key={item.key}
-            hidden={!matchesFeedFilter(item.facets, filter)}
-            className="mb-40 break-inside-avoid lg:mb-32"
-          >
+          <li key={item.key} hidden={!matchesFeedFilter(item.facets, filter)} className="mb-24 break-inside-avoid">
             {item.node}
           </li>
         ))}

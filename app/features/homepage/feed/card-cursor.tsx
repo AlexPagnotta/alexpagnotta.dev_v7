@@ -17,7 +17,7 @@ const revealSpring: Transition = { type: "spring", stiffness: 600, damping: 32, 
 const pillStyles = cx(
   "pointer-events-none absolute top-0 left-0 -translate-x-1/2 translate-y-24",
   "inline-flex items-center rounded-full border border-black px-24 py-8",
-  "body-2 whitespace-nowrap bg-white text-black shadow-depth-md shadow-black/25"
+  "label-2 whitespace-nowrap bg-white text-black shadow-depth-4 shadow-black/10"
 );
 
 export type CardCursorProps = {
@@ -71,7 +71,7 @@ export const CardCursor = ({ fill }: CardCursorProps) => {
   return (
     <div
       aria-hidden
-      className="absolute inset-0 z-20 rounded-lg pointer-coarse:hidden"
+      className="absolute inset-0 z-20 rounded-xl pointer-coarse:hidden"
       onPointerEnter={reveal}
       onPointerMove={track}
       onPointerLeave={() => setVisible(false)}

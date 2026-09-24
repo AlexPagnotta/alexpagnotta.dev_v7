@@ -1,5 +1,5 @@
 import { CardCursor } from "@/app/features/homepage/feed/card-cursor";
-import { type Accent, brightAccent } from "@/app/features/style/accents";
+import { type Accent, lightAccent } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/utils";
 import { Card, type CardProps } from "@/app/features/ui/card";
 import { BaseLink } from "@/app/features/ui/link";
@@ -20,6 +20,6 @@ export type FeedCardShellProps = CardProps & {
 export const FeedCardShell = ({ href, accent, className, children, ...props }: FeedCardShellProps) => (
   <Card render={<BaseLink href={href} />} className={cx(feedCardShellStyles, className)} {...props}>
     {children}
-    <CardCursor fill={brightAccent(accent)} />
+    <CardCursor fill={lightAccent(accent)} />
   </Card>
 );

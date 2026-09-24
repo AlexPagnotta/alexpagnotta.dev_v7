@@ -20,7 +20,7 @@ Port 3000 belongs to the user's own `npm run dev`. Never start, restart, or kill
 - For components with complex conditional variants, use `cva`. Name the `cva` styles object `{componentName}Styles` (e.g. `buttonStyles`, `selectStyles`).
 - Always use the design tokens defined in the Tailwind config — colors, typography, spacing, etc. Do not hardcode raw values.
 - If a style requirement cannot be satisfied with existing tokens, **ask the user** before adding anything new. Once confirmed, add the new token to the appropriate Tailwind config file.
-- Colors are `white`, `black`, `grey-1`, `grey-2` plus the accents `green-1/-2`, `yellow-1/-2`, `blue-1/-2`, `pink-1/-2`, `violet-1/-2`. On the accents `-1` is the muted cut and `-2` the bright one — they are different hues, not tints of each other, so don't treat them as a light/dark pair.
+- Colors are `white`, `black`, `gray-100`, `gray-200`, `gray-300` plus the accents `green-dark/-light`, `yellow-dark/-light`, `pink-dark/-light`, named as in Figma. `-dark` fills large areas, `-light` is the small bright mark. Each accent also has a `--gradient-{accent}` for the display wordmark.
 - Prefer CSS over JS: reach for container queries, `calc()` and custom properties before adding a measuring client component.
 
 # Spacing units
@@ -30,19 +30,20 @@ The spacing scale is **rem-only**, driven by a single base token (`--spacing: 0.
 - Use the bare numeric tokens for all padding, gaps, margins, `width`/`height`/`size`, and `max-width`: `px-24 py-12`, `gap-8`, `size-14`, `max-w-600`. Any positive integer works (e.g. `w-205`); it resolves to that many px in rem.
 - **Never** hardcode px arbitrary values for spacing/sizing (no `size-[14px]`, `h-[180px]`) — use the scale token instead (`size-14`, `h-180`).
 
-Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`) are **not** part of the spacing scale — they remain their own fixed-px utilities and are unaffected by this.
+Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`, `drop-shadow-depth-*`, named by their px offset) are **not** part of the spacing scale — they remain their own fixed-px utilities and are unaffected by this.
 
 # Typography
 
-- **Always use the custom typography utilities** defined in `app/features/style/typography.css` for text styling:
-  - `display-1`, `display-2`
-  - `headline-1` … `headline-5`
-  - `body-1` … `body-5`
-- Each utility pairs the mobile and desktop cut from Figma, switching at `lg`. `headline-5` is the only Black (900) style in the scale; everything else is Regular (400).
-- Leading tightens as the scale grows (`body-1`/`body-2` 2.0, `body-3`/`body-4` 1.8, `body-5` 1.6), so a larger step never ends up with a smaller line box than the step below it. Keep that true when editing any cut.
-- `body-3` is the long-form reading step (18/20px). `Tag` and `Button` set their own height per size (from Figma) rather than deriving it from the line box, so retuning a type step no longer resizes them — but it still moves anything that does size to its text, such as `Marquee`.
-- **Never use** raw tailwind text size classes (`text-display-1`, `text-headline-1`, `text-body-2`, etc.) directly — these are the underlying tokens used by the utilities above.
-- Body copy defaults to `body-2` (16px), set on `body` in `global.css`. `body-1` is the 14px caption-sized step.
+- **Always use the custom typography utilities** defined in `app/features/style/typography.css` for text styling, named as the Figma text styles:
+  - `display-1`, `logo`
+  - `heading-1` … `heading-4`
+  - `body-1` … `body-4`
+  - `label-1`, `label-2`
+- `display-1`, `logo` and the headings pair the mobile and desktop cut from Figma, switching at `lg`. Body and label steps are the same on every breakpoint, so a responsive change there is two utilities (e.g. `body-1 lg:body-3`, the article paragraph). `display-1` is the only Black (900) style; everything else is Regular (400).
+- Line heights are fixed px values from Figma, expressed through the spacing scale.
+- `Tag` and `Button` set their own height per size (from Figma) rather than deriving it from the line box, so retuning a type step does not resize them, but it still moves anything that sizes to its text, such as `Marquee`.
+- **Never use** raw tailwind text size classes (`text-display-1`, `text-heading-1`, `text-body-2`, etc.) directly — these are the underlying tokens used by the utilities above.
+- Body copy defaults to `body-1` (16px), set on `body` in `global.css`. `label-1`/`label-2` (12/14px) are the tag and caption steps.
 - Primitives in `app/features/ui/*` never hardcode font styles — the caller passes the typography utility in.
 
 # SVG imports

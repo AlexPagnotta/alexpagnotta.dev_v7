@@ -11,190 +11,150 @@
 
   --leading-\*: initial;
 
-  --leading-xs: 1.4;
-  --leading-sm: 1.6;
-  --leading-md: 1.8;
-  --leading-lg: 2;
-
   --text-\*: initial;
 
-  /* Display 1 */
+  /* Display 1 — the only Black cut in the scale. */
   --text-display-1: --spacing(220);
-  --text-display-1--font-weight: 400;
-  --text-display-1--line-height: var(--leading-xs);
+  --text-display-1--font-weight: 900;
+  --text-display-1--line-height: --spacing(220);
   --text-display-1--letter-spacing: var(--tracking-xs);
 
-  --text-display-1-mobile: --spacing(200);
-  --text-display-1-mobile--font-weight: 400;
-  --text-display-1-mobile--line-height: var(--leading-xs);
+  --text-display-1-mobile: --spacing(96);
+  --text-display-1-mobile--font-weight: 900;
+  --text-display-1-mobile--line-height: --spacing(96);
   --text-display-1-mobile--letter-spacing: var(--tracking-xs);
 
-  /* Display 2 */
-  --text-display-2: --spacing(220);
-  --text-display-2--font-weight: 400;
-  --text-display-2--line-height: var(--leading-xs);
-  --text-display-2--letter-spacing: var(--tracking-xs);
+  /* Logo */
+  --text-logo: --spacing(36);
+  --text-logo--font-weight: 400;
+  --text-logo--line-height: --spacing(36);
+  --text-logo--letter-spacing: -0.03em;
 
-  --text-display-2-mobile: --spacing(90);
-  --text-display-2-mobile--font-weight: 400;
-  --text-display-2-mobile--line-height: var(--leading-xs);
-  --text-display-2-mobile--letter-spacing: var(--tracking-xs);
+  --text-logo-mobile: --spacing(28);
+  --text-logo-mobile--font-weight: 400;
+  --text-logo-mobile--line-height: --spacing(28);
+  --text-logo-mobile--letter-spacing: -0.1em;
 
-  /* Headline 1 */
-  --text-headline-1: --spacing(80);
-  --text-headline-1--font-weight: 400;
-  --text-headline-1--line-height: var(--leading-xs);
-  --text-headline-1--letter-spacing: var(--tracking-sm);
+  /* Heading 1 */
+  --text-heading-1: --spacing(80);
+  --text-heading-1--font-weight: 400;
+  --text-heading-1--line-height: --spacing(88);
+  --text-heading-1--letter-spacing: var(--tracking-sm);
 
-  --text-headline-1-mobile: --spacing(56);
-  --text-headline-1-mobile--font-weight: 400;
-  --text-headline-1-mobile--line-height: var(--leading-sm);
-  --text-headline-1-mobile--letter-spacing: var(--tracking-sm);
+  --text-heading-1-mobile: --spacing(48);
+  --text-heading-1-mobile--font-weight: 400;
+  --text-heading-1-mobile--line-height: --spacing(52);
+  --text-heading-1-mobile--letter-spacing: var(--tracking-sm);
 
-  /* Headline 2 */
-  --text-headline-2: --spacing(64);
-  --text-headline-2--font-weight: 400;
-  --text-headline-2--line-height: var(--leading-sm);
-  --text-headline-2--letter-spacing: var(--tracking-sm);
+  /* Heading 2 */
+  --text-heading-2: --spacing(64);
+  --text-heading-2--font-weight: 400;
+  --text-heading-2--line-height: --spacing(72);
+  --text-heading-2--letter-spacing: var(--tracking-sm);
 
-  --text-headline-2-mobile: --spacing(40);
-  --text-headline-2-mobile--font-weight: 400;
-  --text-headline-2-mobile--line-height: var(--leading-sm);
-  --text-headline-2-mobile--letter-spacing: var(--tracking-sm);
+  --text-heading-2-mobile: --spacing(40);
+  --text-heading-2-mobile--font-weight: 400;
+  --text-heading-2-mobile--line-height: --spacing(44);
+  --text-heading-2-mobile--letter-spacing: var(--tracking-sm);
 
-  /* Headline 3 */
-  --text-headline-3: --spacing(48);
-  --text-headline-3--font-weight: 400;
-  --text-headline-3--line-height: var(--leading-sm);
-  --text-headline-3--letter-spacing: var(--tracking-sm);
+  /* Heading 3 */
+  --text-heading-3: --spacing(40);
+  --text-heading-3--font-weight: 400;
+  --text-heading-3--line-height: --spacing(48);
+  --text-heading-3--letter-spacing: var(--tracking-lg);
 
-  --text-headline-3-mobile: --spacing(32);
-  --text-headline-3-mobile--font-weight: 400;
-  --text-headline-3-mobile--line-height: var(--leading-sm);
-  --text-headline-3-mobile--letter-spacing: var(--tracking-sm);
+  --text-heading-3-mobile: --spacing(28);
+  --text-heading-3-mobile--font-weight: 400;
+  --text-heading-3-mobile--line-height: --spacing(36);
+  --text-heading-3-mobile--letter-spacing: var(--tracking-lg);
 
-  /* Headline 4 */
-  --text-headline-4: --spacing(40);
-  --text-headline-4--font-weight: 400;
-  --text-headline-4--line-height: var(--leading-sm);
-  --text-headline-4--letter-spacing: var(--tracking-lg);
+  /* Heading 4 */
+  --text-heading-4: --spacing(32);
+  --text-heading-4--font-weight: 400;
+  --text-heading-4--line-height: --spacing(40);
+  --text-heading-4--letter-spacing: var(--tracking-lg);
 
-  --text-headline-4-mobile: --spacing(20);
-  --text-headline-4-mobile--font-weight: 400;
-  --text-headline-4-mobile--line-height: var(--leading-md);
-  --text-headline-4-mobile--letter-spacing: var(--tracking-xl);
+  --text-heading-4-mobile: --spacing(24);
+  --text-heading-4-mobile--font-weight: 400;
+  --text-heading-4-mobile--line-height: --spacing(32);
+  --text-heading-4-mobile--letter-spacing: var(--tracking-lg);
 
-  /* Headline 5 — the only Black cut in the scale. */
-  --text-headline-5: --spacing(42);
-  --text-headline-5--font-weight: 900;
-  --text-headline-5--line-height: var(--leading-sm);
-  --text-headline-5--letter-spacing: var(--tracking-sm);
-
-  --text-headline-5-mobile: --spacing(28);
-  --text-headline-5-mobile--font-weight: 900;
-  --text-headline-5-mobile--line-height: var(--leading-md);
-  --text-headline-5-mobile--letter-spacing: var(--tracking-md);
-
-  /* Body 5 */
-  --text-body-5: --spacing(32);
-  --text-body-5--font-weight: 400;
-  --text-body-5--line-height: var(--leading-sm);
-  --text-body-5--letter-spacing: var(--tracking-md);
-
-  --text-body-5-mobile: --spacing(32);
-  --text-body-5-mobile--font-weight: 400;
-  --text-body-5-mobile--line-height: var(--leading-sm);
-  --text-body-5-mobile--letter-spacing: var(--tracking-md);
-
-  /* Body 4 */
-  --text-body-4: --spacing(24);
+  /* Body and label steps are the same on every breakpoint. */
+  --text-body-4: --spacing(26);
   --text-body-4--font-weight: 400;
-  --text-body-4--line-height: var(--leading-md);
-  --text-body-4--letter-spacing: var(--tracking-xl);
+  --text-body-4--line-height: --spacing(42);
+  --text-body-4--letter-spacing: var(--tracking-md);
 
-  --text-body-4-mobile: --spacing(20);
-  --text-body-4-mobile--font-weight: 400;
-  --text-body-4-mobile--line-height: var(--leading-md);
-  --text-body-4-mobile--letter-spacing: var(--tracking-sm);
-
-  /* Body 3 */
   --text-body-3: --spacing(20);
   --text-body-3--font-weight: 400;
-  --text-body-3--line-height: var(--leading-md);
+  --text-body-3--line-height: --spacing(38);
   --text-body-3--letter-spacing: var(--tracking-xl);
 
-  --text-body-3-mobile: --spacing(18);
-  --text-body-3-mobile--font-weight: 400;
-  --text-body-3-mobile--line-height: var(--leading-md);
-  --text-body-3-mobile--letter-spacing: var(--tracking-xl);
-
-  /* Body 2 */
-  --text-body-2: --spacing(16);
+  --text-body-2: --spacing(18);
   --text-body-2--font-weight: 400;
-  --text-body-2--line-height: var(--leading-lg);
+  --text-body-2--line-height: --spacing(36);
   --text-body-2--letter-spacing: var(--tracking-xl);
 
-  --text-body-2-mobile: --spacing(16);
-  --text-body-2-mobile--font-weight: 400;
-  --text-body-2-mobile--line-height: var(--leading-lg);
-  --text-body-2-mobile--letter-spacing: var(--tracking-xl);
-
-  /* Body 1 */
-  --text-body-1: --spacing(14);
+  --text-body-1: --spacing(16);
   --text-body-1--font-weight: 400;
-  --text-body-1--line-height: var(--leading-lg);
+  --text-body-1--line-height: --spacing(34);
   --text-body-1--letter-spacing: var(--tracking-xl);
 
-  --text-body-1-mobile: --spacing(14);
-  --text-body-1-mobile--font-weight: 400;
-  --text-body-1-mobile--line-height: var(--leading-lg);
-  --text-body-1-mobile--letter-spacing: var(--tracking-xl);
+  --text-label-2: --spacing(14);
+  --text-label-2--font-weight: 400;
+  --text-label-2--line-height: --spacing(20);
+  --text-label-2--letter-spacing: var(--tracking-xl);
+
+  --text-label-1: --spacing(12);
+  --text-label-1--font-weight: 400;
+  --text-label-1--line-height: --spacing(16);
+  --text-label-1--letter-spacing: var(--tracking-xl);
 }
 
 @utility display-1 {
   @apply text-display-1-mobile lg:text-display-1 font-sans;
 }
 
-@utility display-2 {
-  @apply text-display-2-mobile lg:text-display-2 font-sans;
+@utility logo {
+  @apply text-logo-mobile lg:text-logo font-sans;
 }
 
-@utility headline-1 {
-  @apply text-headline-1-mobile lg:text-headline-1 font-sans;
+@utility heading-1 {
+  @apply text-heading-1-mobile lg:text-heading-1 font-sans;
 }
 
-@utility headline-2 {
-  @apply text-headline-2-mobile lg:text-headline-2 font-sans;
+@utility heading-2 {
+  @apply text-heading-2-mobile lg:text-heading-2 font-sans;
 }
 
-@utility headline-3 {
-  @apply text-headline-3-mobile lg:text-headline-3 font-sans;
+@utility heading-3 {
+  @apply text-heading-3-mobile lg:text-heading-3 font-sans;
 }
 
-@utility headline-4 {
-  @apply text-headline-4-mobile lg:text-headline-4 font-sans;
-}
-
-@utility headline-5 {
-  @apply text-headline-5-mobile lg:text-headline-5 font-sans;
-}
-
-@utility body-5 {
-  @apply text-body-5-mobile lg:text-body-5 font-sans;
+@utility heading-4 {
+  @apply text-heading-4-mobile lg:text-heading-4 font-sans;
 }
 
 @utility body-4 {
-  @apply text-body-4-mobile lg:text-body-4 font-sans;
+  @apply text-body-4 font-sans;
 }
 
 @utility body-3 {
-  @apply text-body-3-mobile lg:text-body-3 font-sans;
+  @apply text-body-3 font-sans;
 }
 
 @utility body-2 {
-  @apply text-body-2-mobile lg:text-body-2 font-sans;
+  @apply text-body-2 font-sans;
 }
 
 @utility body-1 {
-  @apply text-body-1-mobile lg:text-body-1 font-sans;
+  @apply text-body-1 font-sans;
+}
+
+@utility label-2 {
+  @apply text-label-2 font-sans;
+}
+
+@utility label-1 {
+  @apply text-label-1 font-sans;
 }

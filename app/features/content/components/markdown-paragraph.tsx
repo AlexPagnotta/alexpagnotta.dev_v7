@@ -8,5 +8,5 @@ export type MarkdownParagraphProps = React.ComponentPropsWithRef<"p">;
   and hyphen breaks. `text-pretty` keeps a paragraph from ending on a lone word.
 */
 export const MarkdownParagraph = ({ className, ...props }: MarkdownParagraphProps) => (
-  <p className={cx("body-3 text-pretty", className)} {...props} />
+  <p className={cx("body-1 text-pretty lg:body-3", className)} {...props} />
 );
