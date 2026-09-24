@@ -4,7 +4,7 @@ import { FeedList, type FeedListItem } from "@/app/features/homepage/feed/feed-l
 import { facetsFor } from "@/app/features/homepage/feed/filters";
 import { Container } from "@/app/features/ui/container";
 
-// One row of the widest grid, so the covers above the fold load eagerly and preload.
+// One row of the widest grid, so the covers above the fold skip lazy loading.
 const EAGER_COVERS = 4;
 
 const toNode = async (entry: FeedEntry, index: number) => {
@@ -21,7 +21,7 @@ const toNode = async (entry: FeedEntry, index: number) => {
       tags={entry.tags}
       cover={await getCover(entry.type, entry.slug, entry.cover)}
       accent={entry.accent}
-      priority={index < EAGER_COVERS}
+      eager={index < EAGER_COVERS}
     />
   );
 };

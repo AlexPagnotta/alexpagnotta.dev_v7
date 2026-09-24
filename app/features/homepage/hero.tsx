@@ -1,21 +1,29 @@
+import type { StaticImageData } from "next/image";
 import type * as React from "react";
+import bread from "@/app/features/homepage/assets/bread.png";
+import camera from "@/app/features/homepage/assets/camera.png";
+import face from "@/app/features/homepage/assets/face.png";
+import printer from "@/app/features/homepage/assets/printer.png";
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 import { Container } from "@/app/features/ui/container";
+import { Image } from "@/app/features/ui/image";
 import { Wordmark } from "@/app/features/ui/wordmark";
+import { NAME_WORDMARK } from "@/app/features/utils/config";
+
+const wordmarkFillStyles = "[--wordmark-fill:var(--gradient-green)]";
 
 const highlightStyles = cva({
   // Inline, so the pill takes its height from the line's own content box and never shifts the copy.
   // `text-black` is explicit because the UA paints `mark` with the system `marktext` colour.
-  base: "rounded-md border border-black px-8 text-black whitespace-nowrap",
+  base: "rounded-lg px-8 text-black whitespace-nowrap",
   variants: {
     color: {
-      "grey-1": "bg-grey-1",
-      "yellow-1": "bg-yellow-1",
-      black: "bg-black text-grey-1",
+      "yellow-dark": "border border-black bg-yellow-dark",
+      black: "bg-black text-gray-100",
     },
   },
   defaultVariants: {
-    color: "grey-1",
+    color: "yellow-dark",
   },
 });
 
@@ -25,26 +33,42 @@ const Highlight = ({ className, color, ...props }: HighlightProps) => (
   <mark className={cx(highlightStyles({ color }), className)} {...props} />
 );
 
-// The CSS stroke is centred, so it runs at twice Figma's 1px outside cut.
 const curiousStyles = cx(
-  "font-black text-yellow-2 [paint-order:stroke_fill]",
-  "[-webkit-text-stroke-width:0.05em] [-webkit-text-stroke-color:var(--color-black)]"
+  "font-black italic text-yellow-dark drop-shadow-depth-2",
+  "[-webkit-text-stroke-width:1px] [-webkit-text-stroke-color:var(--color-black)]"
+);
+
+type IntroImageProps = { src: StaticImageData; alt: string; className: string };
+
+// The photos stand in for words, so each one's alt text is the word it replaces.
+const IntroImage = ({ src, alt, className }: IntroImageProps) => (
+  <Image
+    src={src}
+    alt={alt}
+    sizes="80px"
+    loading="eager"
+    // Cut-outs, so a blur placeholder would show as a smudge around the shape.
+    placeholder="empty"
+    className={cx("inline-block w-auto align-middle drop-shadow-soft", className)}
+  />
 );
 
 export const Hero = () => {
   return (
     // `data-navbar-boundary` keeps the revealed navbar off the hero, see `nav/navbar.tsx`.
-    <section data-navbar-boundary className="border-b-2 border-black bg-green-1 pb-64 lg:pb-96 lg:pt-32">
-      <div className="flex flex-col items-center gap-32 lg:gap-48">
+    <section data-navbar-boundary className="border-b-2 border-black bg-green-dark pt-48 pb-64 lg:pt-64 lg:pb-80">
+      <div className="flex flex-col items-center gap-48 lg:gap-64">
         {/* biome-ignore lint/a11y/useHeadingContent: the rule cannot see the words Wordmark renders into it. */}
-        <Wordmark words={["ALEX", "PAGNOTTA"]} ratio={7.5} stacked render={<h1 />} className="text-white" />
+        <Wordmark {...NAME_WORDMARK} stacked repeated render={<h1 />} className={wordmarkFillStyles} />
 
         <Container className="px-(--page-side-spacing)">
-          <p className="headline-4 text-balance text-center">
-            I'M <Highlight color="grey-1">ALEX</Highlight> WELCOME TO MY LITTLE{" "}
-            <Highlight color="yellow-1">DIGITAL PLACE.</Highlight> HERE I SHARE MY{" "}
-            <Highlight color="black">DEV</Highlight> WORK, THOUGHTS, PHOTOS, THINGS I MAKE, AND WHATEVER I HAPPEN TO BE{" "}
-            <em className={curiousStyles}>CURIOUS</em> ABOUT.
+          <p className="heading-4 mx-auto max-w-320 text-center max-lg:leading-48 md:max-w-416 lg:max-w-720">
+            I'm <IntroImage src={face} alt="Alex" className="h-37 -rotate-7 lg:h-53" />{" "}
+            <IntroImage src={bread} alt="Pagnotta" className="h-22 rotate-27 lg:h-31" /> welcome to my little{" "}
+            <Highlight>DIGITAL PLACE</Highlight> here I share my <Highlight color="black">DEV</Highlight> work,{" "}
+            <IntroImage src={camera} alt="photos" className="h-34 rotate-4 lg:h-48" />, thoughts,{" "}
+            <IntroImage src={printer} alt="things I make" className="h-40 -rotate-5 lg:h-71" /> and whatever I am{" "}
+            <em className={curiousStyles}>CURIOUS</em> about.
           </p>
         </Container>
       </div>

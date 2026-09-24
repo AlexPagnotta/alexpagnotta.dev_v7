@@ -45,7 +45,7 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
               src={cover}
               alt=""
               sizes={COVER_SIZES}
-              priority
+              preload
               placeholder="empty"
               className="aspect-[4/3] w-full border-2 border-black bg-gray-300 object-cover lg:aspect-[8/5]"
             />

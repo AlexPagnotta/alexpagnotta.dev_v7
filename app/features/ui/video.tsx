@@ -10,7 +10,10 @@ export type VideoProps = {
 } & Omit<React.VideoHTMLAttributes<HTMLVideoElement>, "autoPlay" | "muted" | "loop" | "controls" | "src">;
 
 export const Video = ({ autoplay, className, src, ...props }: VideoProps) => {
-  const autoplayAttrs = autoplay ? { autoPlay: true, muted: true, loop: true } : { controls: true };
+  // With controls, only the metadata loads until someone presses play.
+  const autoplayAttrs = autoplay
+    ? { autoPlay: true, muted: true, loop: true }
+    : ({ controls: true, preload: "metadata" } as const);
   const sources = Array.isArray(src) ? src : undefined;
   const singleSrc = typeof src === "string" ? src : undefined;
 

@@ -22,7 +22,7 @@ export const Image = ({ className, sizes, ...props }: ImageProps) => {
         src={svgUrl}
         alt={props.alt}
         // next/image's own loading rule, applied by hand since this bypasses it.
-        loading={props.priority ? "eager" : "lazy"}
+        loading={props.loading ?? (props.preload ? "eager" : "lazy")}
         decoding="async"
         className={cx("block h-auto w-full", className)}
       />

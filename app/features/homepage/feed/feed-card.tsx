@@ -6,7 +6,7 @@ import { Card } from "@/app/features/ui/card";
 import { Tag } from "@/app/features/ui/tag";
 
 // Four columns at `xl`, three at `lg`, two from `md`, one below — see FeedList.
-const CARD_SIZES = "(min-width: 80rem) 302px, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, 100vw";
+const CARD_SIZES = "(min-width: 80rem) 290px, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, 100vw";
 
 export type FeedCardProps = {
   type: ContentType;
@@ -15,14 +15,14 @@ export type FeedCardProps = {
   tags: readonly ContentTag[];
   cover?: StaticImageData;
   accent?: Accent;
-  /** Skips lazy loading and preloads the cover, for the cards that land above the fold. */
-  priority?: boolean;
+  /** Skips lazy loading, for the cards that land above the fold. Not preloaded: any of them can be the LCP. */
+  eager?: boolean;
 };
 
-export const FeedCard = ({ type, href, title, tags, cover, accent, priority }: FeedCardProps) => (
+export const FeedCard = ({ type, href, title, tags, cover, accent, eager }: FeedCardProps) => (
   <FeedCardShell href={href} accent={accent}>
     {/* The title carries the link, so the cover is decorative. */}
-    {cover && <Card.Image src={cover} alt="" sizes={CARD_SIZES} priority={priority} />}
+    {cover && <Card.Image src={cover} alt="" sizes={CARD_SIZES} loading={eager ? "eager" : "lazy"} />}
     <Card.Header>
       <Card.Tags>
         {/* The design leads with the content type, squared off against the pill tags. */}

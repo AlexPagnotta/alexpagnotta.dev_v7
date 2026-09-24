@@ -5,6 +5,12 @@ import type { NextConfig } from "next";
 import "./env";
 
 const nextConfig: NextConfig = {
+  images: {
+    // AVIF first: smaller than WebP, and encoded once per size before the optimizer caches it.
+    formats: ["image/avif", "image/webp"],
+    // The defaults plus 1440, so a 2x phone filling the 672px text column doesn't jump from 1200 to 1920.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1440, 1920, 2048, 3840],
+  },
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   turbopack: {
     rules: {
