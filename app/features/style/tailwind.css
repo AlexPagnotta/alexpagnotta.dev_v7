@@ -99,3 +99,23 @@
 
   scrollbar-width: none;
 }
+
+/* Chrome ignores `::-webkit-scrollbar` once `scrollbar-color` is set, so only Firefox gets the latter. */
+@utility scrollbar-* {
+  --scrollbar-thumb: --value(--color-\*);
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: --spacing(12);
+    height: --spacing(12);
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: var(--radius-full);
+  }
+}
