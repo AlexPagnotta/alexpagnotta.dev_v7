@@ -34,7 +34,7 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
     <Container size="md" className="relative flex flex-col gap-32 px-(--page-side-spacing) lg:gap-48">
       <div className="relative flex items-start">
         {cover && (
-          <figure className="w-full">
+          <figure className="w-full animate-intro-rise">
             {/* Landscape frame rather than the cover's own ratio, so a tall cover cannot own the page. */}
             {/*
               The ratio sits on the image itself: a percentage height against a parent sized only
@@ -55,7 +55,10 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
         <ButtonLink
           href="/"
           size="sm-md"
-          className={cx("-rotate-4", cover && "absolute -top-26 -left-8 lg:-top-22 lg:-left-18")}
+          className={cx(
+            "-rotate-4 animate-intro-appear animation-delay-150",
+            cover && "absolute -top-26 -left-8 lg:-top-22 lg:-left-18"
+          )}
         >
           ← BACK
         </ButtonLink>

@@ -17,6 +17,7 @@
   --animate-intro-rise: intro-rise 800ms var(--ease-intro) backwards;
   --animate-intro-fade: intro-fade 500ms var(--ease-intro) backwards;
   --animate-intro-pop: intro-pop 500ms var(--ease-pop) backwards;
+  --animate-intro-appear: intro-appear 400ms var(--ease-intro) backwards;
 
   @keyframes intro-rise {
     from {
@@ -37,6 +38,13 @@
   @keyframes intro-pop {
     from {
       scale: calc(1 - 0.7 * var(--intro-motion));
+    }
+  }
+
+  @keyframes intro-appear {
+    from {
+      opacity: 0;
+      scale: calc(1 - 0.2 * var(--intro-motion));
     }
   }
 }

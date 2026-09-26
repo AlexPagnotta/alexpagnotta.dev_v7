@@ -37,7 +37,7 @@ export const ProjectHero = ({ title, tags, date, client, link, cover, accent }: 
             color="yellow-dark"
             size="icon"
             aria-label={CTA_LABEL}
-            className="lg:hidden"
+            className="animate-intro-appear animation-delay-150 lg:hidden"
           >
             <ExternalLink aria-hidden="true" className="size-16" />
           </ButtonLink>
@@ -47,7 +47,7 @@ export const ProjectHero = ({ title, tags, date, client, link, cover, accent }: 
             rel="noreferrer"
             color="yellow-dark"
             size="md"
-            className="hidden rotate-4 lg:inline-flex"
+            className="hidden rotate-4 animate-intro-appear animation-delay-150 lg:inline-flex"
           >
             {CTA_LABEL}
           </ButtonLink>
