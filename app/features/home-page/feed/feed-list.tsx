@@ -60,7 +60,8 @@ const FeedListCard = ({ item, column = 0, className }: FeedListCardProps) => (
   <m.li
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.15 }}
+    // Any sliver counts, or a row that only peeks over the fold stays blank until the page scrolls.
+    viewport={{ once: true, amount: "some" }}
     transition={{ ...cardRevealTransition, delay: column * COLUMN_DELAY }}
     className={className}
   >
