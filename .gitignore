@@ -39,6 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# licensed fonts — PP Frama may not be redistributed, see the README
-public/fonts
