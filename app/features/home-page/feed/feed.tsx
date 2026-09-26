@@ -38,6 +38,7 @@ export const Feed = async () => {
   return (
     <section className="bg-gray-100 pt-48 pb-80 lg:pt-64 lg:pb-160">
       <Container className="flex flex-col gap-40 px-(--page-side-spacing) lg:gap-80">
+        <h2 className="sr-only">Projects and writing</h2>
         <FeedList items={items} />
       </Container>
     </section>

@@ -61,7 +61,7 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
             cover && "absolute -top-26 -left-8 lg:-top-22 lg:-left-18"
           )}
         >
-          ← BACK
+          <span aria-hidden="true">←</span> BACK
         </ButtonLink>
       </div>
 

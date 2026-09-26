@@ -30,8 +30,7 @@ export const Footer = () => {
       >
         <div className="flex flex-col items-start gap-32 lg:gap-40">
           <h2 className="heading-1 flex flex-col items-start uppercase">
-            <span>Want to</span>
-            <span className="pl-80 lg:pl-248">Say hi?</span>
+            <span>Want to</span> <span className="pl-80 lg:pl-248">Say hi?</span>
           </h2>
           <ButtonLink href={`mailto:${siteConfig.author.email}`} size="lg" className="-rotate-2">
             Contact Me

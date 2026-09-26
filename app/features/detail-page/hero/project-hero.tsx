@@ -6,6 +6,7 @@ import type { Accent } from "@/app/features/style/accents";
 import { ButtonLink } from "@/app/features/ui/button";
 
 const CTA_LABEL = "Visit the site";
+const NEW_TAB_HINT = "(opens in a new tab)";
 
 export type ProjectHeroProps = {
   title: string;
@@ -36,7 +37,7 @@ export const ProjectHero = ({ title, tags, date, client, link, cover, accent }: 
             rel="noreferrer"
             color="yellow-dark"
             size="icon"
-            aria-label={CTA_LABEL}
+            aria-label={`${CTA_LABEL} ${NEW_TAB_HINT}`}
             className="animate-intro-appear animation-delay-150 lg:hidden"
           >
             <ExternalLink aria-hidden="true" className="size-16" />
@@ -50,6 +51,7 @@ export const ProjectHero = ({ title, tags, date, client, link, cover, accent }: 
             className="hidden rotate-4 animate-intro-appear animation-delay-150 lg:inline-flex"
           >
             {CTA_LABEL}
+            <span className="sr-only"> {NEW_TAB_HINT}</span>
           </ButtonLink>
         </>
       )

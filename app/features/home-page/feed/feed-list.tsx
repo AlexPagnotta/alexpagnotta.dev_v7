@@ -89,6 +89,9 @@ export const FeedList = ({ items }: FeedListProps) => {
           </Tab>
         ))}
       </Tabs>
+      <output className="sr-only">
+        {`Showing ${visibleItems.length} ${visibleItems.length === 1 ? "entry" : "entries"}`}
+      </output>
       <CardCursorProvider>
         {isClient ? (
           // Filtering moves the cards between columns anyway, so the grid leaves as one and the new set reveals.

@@ -31,7 +31,10 @@ export const FeedCard = ({ type, href, title, tags, cover, accent, eager }: Feed
           <Tag key={tag}>{CONTENT_TAG_LABELS[tag]}</Tag>
         ))}
       </Card.Tags>
-      <Card.Title className="body-3">{title}</Card.Title>
+      {/* biome-ignore lint/a11y/useHeadingContent: the rule cannot see the title Card.Title renders into it. */}
+      <Card.Title render={<h3 />} className="body-3">
+        {title}
+      </Card.Title>
     </Card.Header>
   </FeedCardShell>
 );
