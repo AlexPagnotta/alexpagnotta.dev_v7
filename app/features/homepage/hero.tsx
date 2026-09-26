@@ -11,7 +11,10 @@ import { BaseLink } from "@/app/features/ui/link";
 import { Wordmark } from "@/app/features/ui/wordmark";
 import { NAME_WORDMARK } from "@/app/features/utils/config";
 
-const wordmarkStyles = cx("[--wordmark-fill:var(--gradient-green)]", "animate-intro-rise animation-delay-60");
+const wordmarkStyles = cx(
+  "[--wordmark-fill:var(--gradient-green)] max-md:gap-16",
+  "animate-intro-rise animation-delay-60"
+);
 
 const highlightStyles = cva({
   // Inline, so the pill takes its height from the line's own content box and never shifts the copy.
@@ -79,10 +82,21 @@ const IntroLink = ({ href, children }: IntroLinkProps) => (
 export const Hero = () => {
   return (
     // `data-navbar-boundary` keeps the revealed navbar off the hero, see `nav/navbar.tsx`.
-    <section data-navbar-boundary className="border-b-2 border-black bg-green-dark pt-48 pb-64 lg:pt-64 lg:pb-80">
+    <section
+      data-navbar-boundary
+      className="border-b-2 border-black bg-green-dark pt-64 pb-64 md:pt-48 lg:pt-64 lg:pb-80"
+    >
       <div className="flex flex-col items-center gap-48 lg:gap-64">
-        {/* biome-ignore lint/a11y/useHeadingContent: the rule cannot see the words Wordmark renders into it. */}
-        <Wordmark {...NAME_WORDMARK} stacked repeated render={<h1 />} className={wordmarkStyles} />
+        <Wordmark
+          {...NAME_WORDMARK}
+          stacked
+          drift
+          slideOnScroll
+          repeated
+          // biome-ignore lint/a11y/useHeadingContent: the rule cannot see the words Wordmark renders into it.
+          render={<h1 />}
+          className={wordmarkStyles}
+        />
 
         <Container className="px-(--page-side-spacing)">
           <p className={introCopyStyles}>

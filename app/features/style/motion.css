@@ -18,6 +18,8 @@
   --animate-intro-fade: intro-fade 500ms var(--ease-intro) backwards;
   --animate-intro-pop: intro-pop 500ms var(--ease-pop) backwards;
   --animate-intro-appear: intro-appear 400ms var(--ease-intro) backwards;
+  /* Moves by `--drift-x` and loops; set it to exactly one repeat of the content so the restart never shows. */
+  --animate-drift: drift 20s linear infinite;
 
   @keyframes intro-rise {
     from {
@@ -41,6 +43,12 @@
     }
   }
 
+  @keyframes drift {
+    to {
+      translate: var(--drift-x) 0;
+    }
+  }
+
   @keyframes intro-appear {
     from {
       opacity: 0;
@@ -52,4 +60,22 @@
 /* Not `animate-delay-*`: tailwind-merge would read it as an `animate-*` class and drop the animation. */
 @utility animation-delay-* {
   animation-delay: calc(--value(integer) * 1ms);
+}
+
+/* Slides by `--scroll-slide-x` over the first 400px of page scroll; without scroll timelines it stays put. */
+@utility scroll-slide-x {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      /* The timeline after the shorthand, which would reset it. */
+      animation: scroll-slide-x linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 --spacing(400);
+    }
+  }
+}
+
+@keyframes scroll-slide-x {
+  to {
+    translate: var(--scroll-slide-x) 0;
+  }
 }
