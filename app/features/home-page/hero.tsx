@@ -42,6 +42,27 @@ const curiousStyles = cx(
   "[-webkit-text-stroke-width:1px] [-webkit-text-stroke-color:var(--color-black)]"
 );
 
+type WaveWordProps = { children: string; className?: string };
+
+const WaveWord = ({ children, className }: WaveWordProps) => (
+  <em className={className}>
+    {/* Split into letters for the wave, so the word is exposed once to assistive tech instead. */}
+    <span className="sr-only">{children}</span>
+    <span aria-hidden="true">
+      {[...children].map((letter, index) => (
+        <span
+          // biome-ignore lint/suspicious/noArrayIndexKey: the letters never reorder.
+          key={index}
+          className="inline-block motion-safe:animate-wave"
+          style={{ "--wave-index": index } as React.CSSProperties}
+        >
+          {letter}
+        </span>
+      ))}
+    </span>
+  </em>
+);
+
 const introCopyStyles = cx(
   "heading-4 mx-auto max-w-320 text-center max-lg:leading-48 md:max-w-416 lg:max-w-720",
   "animate-intro-rise animation-delay-120"
@@ -115,7 +136,7 @@ export const Hero = () => {
             <IntroLink href="#">
               <IntroImage src={printer} alt="things I make" className="h-40 -rotate-5 lg:h-71" />
             </IntroLink>{" "}
-            and whatever I am <em className={curiousStyles}>CURIOUS</em> about.
+            and whatever I am <WaveWord className={curiousStyles}>CURIOUS</WaveWord> about.
           </p>
         </Container>
       </div>

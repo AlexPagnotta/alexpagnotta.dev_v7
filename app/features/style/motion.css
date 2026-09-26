@@ -49,8 +49,22 @@
   }
 }
 
-/* `inline` so `--drift-duration` resolves on the animated element rather than on `:root`. */
+/* `inline` so `--drift-duration` and `--wave-index` resolve on the animated element rather than on `:root`. */
 @theme inline {
+  /* Idle for most of the loop, so the first wave only plays once the page has settled; `--wave-index` staggers the letters. */
+  --animate-wave: wave 5s var(--ease-intro) calc(var(--wave-index, 0) * 60ms) infinite;
+
+  @keyframes wave {
+    0%,
+    90%,
+    100% {
+      translate: 0 0;
+    }
+    94% {
+      translate: 0 -0.2em;
+    }
+  }
+
   /* Moves by `--drift-x` and loops; set it to exactly one repeat of the content so the restart never shows. */
   --animate-drift: drift var(--drift-duration, 20s) linear infinite;
 
