@@ -16,11 +16,15 @@ export const Image = ({ className, sizes, ...props }: ImageProps) => {
   // SVGs have no blur data and gain nothing from next/image's raster optimization —
   // render them as a plain <img>.
   if (svgUrl) {
+    // Without an intrinsic size the lazy <img> sits at 0px until it loads, then shoves the page down.
+    const intrinsic = typeof props.src === "object" && "width" in props.src ? props.src : undefined;
     return (
       // biome-ignore lint/performance/noImgElement: vector SVG, next/image adds no value
       <img
         src={svgUrl}
         alt={props.alt}
+        width={props.width ?? intrinsic?.width}
+        height={props.height ?? intrinsic?.height}
         // next/image's own loading rule, applied by hand since this bypasses it.
         loading={props.loading ?? (props.preload ? "eager" : "lazy")}
         decoding="async"
