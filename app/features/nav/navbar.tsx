@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import * as React from "react";
-import { siteConfig } from "@/app/features/site/config";
 import { cx } from "@/app/features/style/cva";
 import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
@@ -115,7 +114,12 @@ const NavbarLogo = ({ className }: NavbarLogoProps) => (
   </Link>
 );
 
-export const Navbar = () => {
+export type NavbarProps = {
+  // Passed in rather than read from siteConfig, which would pull env validation (zod) into the client bundle.
+  contactEmail: string;
+};
+
+export const Navbar = ({ contactEmail }: NavbarProps) => {
   const floating = FLOATING_ROUTES.has(usePathname());
   const { mode, animated, anchorRef, headerRef } = useNavbarMode(floating);
 
@@ -139,7 +143,7 @@ export const Navbar = () => {
         >
           {/* Centred and overhanging on desktop, so it leaves the row rather than sitting in it. */}
           <NavbarLogo className="lg:absolute lg:top-51 lg:left-1/2 lg:-translate-x-1/2" />
-          <ButtonLink href={`mailto:${siteConfig.author.email}`} color="yellow-dark" size="md">
+          <ButtonLink href={`mailto:${contactEmail}`} color="yellow-dark" size="md">
             Say Hi!
           </ButtonLink>
         </Container>
