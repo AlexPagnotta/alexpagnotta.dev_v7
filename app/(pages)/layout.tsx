@@ -12,8 +12,6 @@ import { isProduction } from "@/app/features/utils/release-channel";
 
 const ppframa = localFont({
   src: [
-    { path: "../../public/fonts/ppframa-extralight.otf", weight: "200", style: "normal" },
-    { path: "../../public/fonts/ppframa-extralight-italic.otf", weight: "200", style: "italic" },
     { path: "../../public/fonts/ppframa-regular.otf", weight: "400", style: "normal" },
     { path: "../../public/fonts/ppframa-regular-italic.otf", weight: "400", style: "italic" },
     { path: "../../public/fonts/ppframa-black.otf", weight: "900", style: "normal" },
