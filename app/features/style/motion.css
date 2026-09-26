@@ -85,7 +85,7 @@
 }
 
 /*
-  Sits on a hard black shadow of `n`px and lifts off it: hover doubles the offset, press halves it,
+  Sits on a hard black shadow of `n`px and lifts off it: hover and keyboard focus double the offset, press halves it,
   and the element travels by the difference so the shadow's outer corner stays put.
 */
 @utility lift-* {
@@ -100,6 +100,10 @@
       &:hover {
         --lift: calc(var(--lift-rest) * 2);
       }
+    }
+
+    &:focus-visible {
+      --lift: calc(var(--lift-rest) * 2);
     }
 
     &:active {

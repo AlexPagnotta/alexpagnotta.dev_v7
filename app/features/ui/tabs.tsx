@@ -8,10 +8,10 @@ const tabStyles = cva({
   base: [
     "inline-flex shrink-0 items-center justify-center whitespace-nowrap select-none cursor-pointer",
     "h-46 border border-black bg-white px-16 text-black body-2 lg:h-54",
-    "not-data-pressed:hover:bg-gray-100",
+    "not-data-pressed:hover:bg-gray-100 not-data-pressed:focus-visible:bg-gray-100",
     // The button's lift at half its depth.
-    "relative lift-2 duration-150 ease-out hover:z-10",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black",
+    "relative lift-2 duration-150 ease-out hover:z-10 focus-visible:z-10",
+    "focus-visible:outline-hidden",
   ],
   variants: {
     shape: {

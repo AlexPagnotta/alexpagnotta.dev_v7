@@ -133,7 +133,8 @@ export const Navbar = ({ contactEmail }: NavbarProps) => {
           "inset-x-0 top-0 z-10 h-86 min-w-360 border-b-2 border-black bg-gray-100 lg:h-90",
           mode === "flow" ? "absolute" : "fixed",
           // Twice the bar's height, so the parked bar takes the overhanging wordmark out of sight with it.
-          mode === "hidden" && "translate-y-[-200%]",
+          // Tabbing into the parked bar brings it back, so keyboard focus never lands out of sight.
+          mode === "hidden" && "translate-y-[-200%] focus-within:translate-y-0",
           animated && "transition-transform duration-300 ease-out motion-reduce:transition-none"
         )}
       >

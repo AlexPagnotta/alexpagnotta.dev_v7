@@ -66,8 +66,8 @@ const IntroImage = ({ src, alt, className }: IntroImageProps) => (
 const introLinkStyles = cx(
   "inline-block rounded-sm align-middle",
   "transition-[scale,rotate] duration-200 ease-pop motion-reduce:transition-none",
-  "hover:scale-115 hover:rotate-6 active:scale-90",
-  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+  "hover:scale-115 hover:rotate-6 focus-visible:scale-115 focus-visible:rotate-6 active:scale-90",
+  "focus-visible:outline-hidden"
 );
 
 type IntroLinkProps = { href: string; children: React.ReactNode };

@@ -14,7 +14,7 @@ const buttonStyles = cva({
     "inline-flex items-center justify-center gap-8 rounded-full whitespace-nowrap select-none",
     "cursor-pointer border-black text-black bg-(--btn-fill)",
     "duration-200 ease-pop",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black",
+    "focus-visible:outline-hidden",
     "disabled:cursor-not-allowed disabled:opacity-40",
   ],
   variants: {
