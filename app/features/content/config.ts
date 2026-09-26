@@ -24,6 +24,9 @@ const baseEntrySchema = z.object({
 
 const writingSchema = baseEntrySchema;
 
+// A short post whose title is the thought itself, so there is no cover to frame it.
+const thoughtSchema = baseEntrySchema.omit({ cover: true });
+
 const projectSchema = baseEntrySchema.extend({
   // Who the work was for. The detail header reads "x WILD - 2024", taking the year from `date`.
   client: z.string().optional(),
@@ -35,6 +38,7 @@ export const CONTENT_TYPES = {
   // `label` names one entry, so it stays singular where the feed tabs read "Projects".
   writing: { dir: "writings", basePath: "/writings", label: "Writing", schema: writingSchema },
   project: { dir: "projects", basePath: "/projects", label: "Project", schema: projectSchema },
+  thought: { dir: "thoughts", basePath: "/thoughts", label: "Thought", schema: thoughtSchema },
 } as const;
 
 export type ContentType = keyof typeof CONTENT_TYPES;

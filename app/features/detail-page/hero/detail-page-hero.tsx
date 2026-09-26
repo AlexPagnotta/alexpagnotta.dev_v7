@@ -22,10 +22,11 @@ export type DetailPageHeroProps = {
   accent?: Accent;
   /** Sits opposite the tags, straddling the header's bottom border. */
   cta?: React.ReactNode;
+  back?: boolean;
 };
 
-/** The header both detail pages open with; only the meta line and the call to action differ. */
-export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: DetailPageHeroProps) => (
+/** The header every detail page opens with; only the meta line and the call to action differ. */
+export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta, back = true }: DetailPageHeroProps) => (
   <section
     data-page-accent={accent}
     className="relative border-b-2 border-black bg-(--hero-accent) py-64 [--hero-accent:var(--color-gray-100)] lg:pt-96 lg:pb-80"
@@ -33,37 +34,41 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
     style={accent ? ({ "--hero-accent": darkAccent(accent) } as React.CSSProperties) : undefined}
   >
     <Container size="md" className="relative flex flex-col gap-32 px-(--page-side-spacing) lg:gap-48">
-      <div className="relative flex items-start">
-        {cover && (
-          <figure className="w-full animate-intro-rise">
-            {/* Landscape frame rather than the cover's own ratio, so a tall cover cannot own the page. */}
-            {/*
-              The ratio sits on the image itself: a percentage height against a parent sized only
-              by `aspect-ratio` is what left the frame empty until a resize forced a second layout.
-              Always the page's topmost image too, so it preloads rather than lazy-loads.
-            */}
-            <Image
-              src={cover}
-              alt=""
-              sizes={COVER_SIZES}
-              preload
-              placeholder="empty"
-              className="aspect-3/2 w-full border-2 border-black bg-gray-300 object-cover md:aspect-video"
-            />
-          </figure>
-        )}
-        {/* Hooked over the cover's top-left corner; without a cover it just opens the column. */}
-        <ButtonLink
-          href="/"
-          size="sm"
-          className={cx(
-            "-rotate-4 animate-intro-appear animation-delay-150",
-            cover && "absolute -top-20 -left-8 lg:-top-16 lg:-left-18"
+      {(cover || back) && (
+        <div className="relative flex items-start">
+          {cover && (
+            <figure className="w-full animate-intro-rise">
+              {/* Landscape frame rather than the cover's own ratio, so a tall cover cannot own the page. */}
+              {/*
+                The ratio sits on the image itself: a percentage height against a parent sized only
+                by `aspect-ratio` is what left the frame empty until a resize forced a second layout.
+                Always the page's topmost image too, so it preloads rather than lazy-loads.
+              */}
+              <Image
+                src={cover}
+                alt=""
+                sizes={COVER_SIZES}
+                preload
+                placeholder="empty"
+                className="aspect-3/2 w-full border-2 border-black bg-gray-300 object-cover md:aspect-video"
+              />
+            </figure>
           )}
-        >
-          <span aria-hidden="true">←</span> Back
-        </ButtonLink>
-      </div>
+          {/* Hooked over the cover's top-left corner; without a cover it just opens the column. */}
+          {back && (
+            <ButtonLink
+              href="/"
+              size="sm"
+              className={cx(
+                "-rotate-4 animate-intro-appear animation-delay-150",
+                cover && "absolute -top-20 -left-8 lg:-top-16 lg:-left-18"
+              )}
+            >
+              <span aria-hidden="true">←</span> Back
+            </ButtonLink>
+          )}
+        </div>
+      )}
 
       <div className="flex flex-col gap-8">
         {/*
@@ -79,7 +84,7 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
         >
           {meta}
         </p>
-        <h1 className="heading-3 text-balance">{title}</h1>
+        <h1 className="heading-3 max-w-(--content-sm) text-balance">{title}</h1>
       </div>
     </Container>
 

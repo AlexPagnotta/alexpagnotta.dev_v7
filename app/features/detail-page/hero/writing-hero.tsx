@@ -7,7 +7,7 @@ const pad = (part: number) => String(part).padStart(2, "0");
 
 // The design spells the date out as "18 - 09 - 2025". Read in UTC, because frontmatter
 // dates carry no time and `z.coerce.date()` parks them at UTC midnight.
-const formatDate = (date: Date) =>
+export const formatDate = (date: Date) =>
   `${pad(date.getUTCDate())} - ${pad(date.getUTCMonth() + 1)} - ${date.getUTCFullYear()}`;
 
 export type WritingHeroProps = {

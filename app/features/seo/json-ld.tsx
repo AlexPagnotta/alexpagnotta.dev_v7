@@ -48,6 +48,7 @@ export const SiteJsonLd = () => <JsonLdScript data={siteGraph} />;
 const SCHEMA_TYPE = {
   writing: "BlogPosting",
   project: "CreativeWork",
+  thought: "BlogPosting",
 } as const satisfies Record<ContentType, string>;
 
 export type ArticleJsonLdProps = {

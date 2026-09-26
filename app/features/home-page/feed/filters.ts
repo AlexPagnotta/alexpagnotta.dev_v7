@@ -3,7 +3,7 @@ import type { TabShape } from "@/app/features/ui/tabs";
 
 /*
   A tab matches an entry when its value is one of the entry's facets: its content type
-  (Projects/Writing) plus its tags (Work/Personal/Make). `all` matches everything.
+  (Projects/Writing/Thoughts) plus its tags (Work/Personal/Make). `all` matches everything.
 */
 export type FeedFacet = ContentType | ContentTag;
 
@@ -12,6 +12,7 @@ export const FEED_FILTERS = [
   { value: "all", label: "All", shape: "rounded" },
   { value: "project", label: "Projects", shape: "rounded" },
   { value: "writing", label: "Writing", shape: "rounded" },
+  { value: "thought", label: "Thoughts", shape: "rounded" },
   { value: "work", label: "Work", shape: "pill" },
   { value: "personal", label: "Personal", shape: "pill" },
   { value: "make", label: "Make", shape: "pill" },

@@ -23,6 +23,7 @@ const FILTER_DELAYS = [
   "animation-delay-300",
   "animation-delay-340",
   "animation-delay-380",
+  "animation-delay-420",
 ] as const;
 
 // Matches `--ease-intro`, so the cards settle like the hero does.

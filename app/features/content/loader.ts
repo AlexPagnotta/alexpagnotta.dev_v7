@@ -20,6 +20,8 @@ const dirFor = (type: ContentType) => path.join(CONTENT_DIR, CONTENT_TYPES[type]
 // Entries colocate their assets in `<slug>/index.mdx`.
 const fileFor = (type: ContentType, slug: string) => path.join(dirFor(type), slug, "index.mdx");
 
+type CoverType = Exclude<ContentType, "thought">;
+
 /*
   The bundler resolves each of these into a module per matching file, so the prefix has to
   be a literal — hence one entry per type rather than an interpolated directory.
@@ -27,14 +29,14 @@ const fileFor = (type: ContentType, slug: string) => path.join(dirFor(type), slu
 const coverImports = {
   writing: (file: string) => import(`@/content/writings/${file}`),
   project: (file: string) => import(`@/content/projects/${file}`),
-} satisfies Record<ContentType, (file: string) => Promise<{ default: StaticImageData }>>;
+} satisfies Record<CoverType, (file: string) => Promise<{ default: StaticImageData }>>;
 
 /**
  * The entry's colocated cover, named by its `cover` frontmatter and statically imported so
  * it keeps its dimensions and blur placeholder. A name that resolves to nothing throws.
  */
 export const getCover = async (
-  type: ContentType,
+  type: CoverType,
   slug: string,
   file: string | undefined
 ): Promise<StaticImageData | undefined> => {
@@ -50,6 +52,7 @@ export const getCover = async (
 const cardImports = {
   writing: (file: string) => import(`@/content/writings/${file}`),
   project: (file: string) => import(`@/content/projects/${file}`),
+  thought: (file: string) => import(`@/content/thoughts/${file}`),
 } satisfies Record<ContentType, (file: string) => Promise<{ default: React.ComponentType<CustomFeedCardProps> }>>;
 
 /**
@@ -92,7 +95,10 @@ export const getAllEntries = <T extends ContentType>(type: T): EntryFor<T>[] =>
     .sort(byDateDesc);
 
 // Every type in one list, newest first — what the homepage feed renders.
-export type FeedEntry = { type: ContentType } & EntryFor<ContentType>;
+// Keyed by `type`, so narrowing on it narrows the entry's fields too.
+export type FeedEntry = { [T in ContentType]: { type: T } & EntryFor<T> }[ContentType];
 
 export const getFeedEntries = (): FeedEntry[] =>
-  CONTENT_TYPE_KEYS.flatMap((type) => getAllEntries(type).map((entry) => ({ type, ...entry }))).sort(byDateDesc);
+  CONTENT_TYPE_KEYS.flatMap((type) => getAllEntries(type).map((entry) => ({ type, ...entry }) as FeedEntry)).sort(
+    byDateDesc
+  );
