@@ -7,6 +7,7 @@ import printer from "@/app/features/homepage/assets/printer.png";
 import { cva, cx, type VariantProps } from "@/app/features/style/utils";
 import { Container } from "@/app/features/ui/container";
 import { Image } from "@/app/features/ui/image";
+import { BaseLink } from "@/app/features/ui/link";
 import { Wordmark } from "@/app/features/ui/wordmark";
 import { NAME_WORDMARK } from "@/app/features/utils/config";
 
@@ -58,6 +59,23 @@ const IntroImage = ({ src, alt, className }: IntroImageProps) => (
   />
 );
 
+// `scale` and `rotate` sit on the link, so they compose with the photo's own tilt and intro pop.
+const introLinkStyles = cx(
+  "inline-block rounded-sm align-middle",
+  "transition-[scale,rotate] duration-200 ease-pop motion-reduce:transition-none",
+  "hover:scale-115 hover:rotate-6 active:scale-90",
+  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+);
+
+type IntroLinkProps = { href: string; children: React.ReactNode };
+
+// The link's name comes from the alt text of the photos inside it.
+const IntroLink = ({ href, children }: IntroLinkProps) => (
+  <BaseLink href={href} className={introLinkStyles}>
+    {children}
+  </BaseLink>
+);
+
 export const Hero = () => {
   return (
     // `data-navbar-boundary` keeps the revealed navbar off the hero, see `nav/navbar.tsx`.
@@ -68,12 +86,22 @@ export const Hero = () => {
 
         <Container className="px-(--page-side-spacing)">
           <p className={introCopyStyles}>
-            I'm <IntroImage src={face} alt="Alex" className="h-37 -rotate-7 lg:h-53" />{" "}
-            <IntroImage src={bread} alt="Pagnotta" className="h-22 rotate-27 lg:h-31" /> welcome to my little{" "}
-            <Highlight>DIGITAL PLACE</Highlight> here I share my <Highlight color="black">DEV</Highlight> work,{" "}
-            <IntroImage src={camera} alt="photos" className="h-34 rotate-4 lg:h-48" />, thoughts,{" "}
-            <IntroImage src={printer} alt="things I make" className="h-40 -rotate-5 lg:h-71" /> and whatever I am{" "}
-            <em className={curiousStyles}>CURIOUS</em> about.
+            {/* TODO: replace the placeholder hrefs with the real destinations. */}
+            I'm{" "}
+            <IntroLink href="#">
+              <IntroImage src={face} alt="Alex" className="h-37 -rotate-7 lg:h-53" />{" "}
+              <IntroImage src={bread} alt="Pagnotta" className="h-22 rotate-27 lg:h-31" />
+            </IntroLink>{" "}
+            welcome to my little <Highlight>DIGITAL PLACE</Highlight> here I share my{" "}
+            <Highlight color="black">DEV</Highlight> work,{" "}
+            <IntroLink href="#">
+              <IntroImage src={camera} alt="photos" className="h-34 rotate-4 lg:h-48" />
+            </IntroLink>
+            , thoughts,{" "}
+            <IntroLink href="#">
+              <IntroImage src={printer} alt="things I make" className="h-40 -rotate-5 lg:h-71" />
+            </IntroLink>{" "}
+            and whatever I am <em className={curiousStyles}>CURIOUS</em> about.
           </p>
         </Container>
       </div>
