@@ -43,7 +43,7 @@ const SHORT_SAMPLE = "Lorem Ipsum Dolor";
 const LONG_SAMPLE = "Duis cillum in ea ut non duis mollit incididunt laborum voluptate nulla.";
 
 const TYPE_STYLES = [
-  { utility: "display-1", specs: "220 / 96 px · Black", sample: DISPLAY_SAMPLE },
+  { utility: "display-1", specs: "220 / 120 px · Black", sample: DISPLAY_SAMPLE },
   { utility: "logo", specs: "36 / 28 px · Regular", sample: "ALEX PAGNOTTA" },
   { utility: "heading-1", specs: "80 / 48 px · Regular", sample: SHORT_SAMPLE },
   { utility: "heading-2", specs: "64 / 40 px · Regular", sample: SHORT_SAMPLE },

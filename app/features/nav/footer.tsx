@@ -14,7 +14,7 @@ const LINKS = [
 ];
 
 const wordmarkStyles = cx(
-  "mt-88 lg:mt-125",
+  "mt-88 lg:mt-125 [--wordmark-floor:var(--text-display-2-mobile)]",
   // Laid over the footer colour, since Figma knocks the shadow out behind the translucent fill.
   "[--wordmark-fill:var(--page-gradient),linear-gradient(var(--page-accent),var(--page-accent))]",
   "max-md:translate-x-[calc(50%_-_50cqw_-_var(--page-side-spacing))]"

@@ -16,7 +16,9 @@ const wordmarkStyles = cva({
     // After the size, which tailwind-merge would otherwise let reset the leading.
     "text-(length:--wordmark-size) leading-none [--wordmark-bleed:calc(69*var(--spacing))]",
     "[--wordmark-fit:calc((100cqw_+_2*var(--wordmark-bleed))/var(--wordmark-ratio))]",
-    "[--wordmark-size:min(var(--text-display-1),max(var(--text-display-1-mobile),var(--wordmark-fit)))]",
+    // The floor is a variable so a caller can change the smallest size, as the footer does.
+    "[--wordmark-floor:var(--text-display-1-mobile)]",
+    "[--wordmark-size:min(var(--text-display-1),max(var(--wordmark-floor),var(--wordmark-fit)))]",
   ],
   variants: {
     // Below `md` the words split onto their own lines, staggered so each runs off one edge.
