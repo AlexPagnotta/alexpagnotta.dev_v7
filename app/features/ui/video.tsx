@@ -5,6 +5,9 @@ import * as React from "react";
 import { cx } from "@/app/features/style/cva";
 import { useIsClient } from "@/app/features/utils/use-is-client";
 
+// Starts buffering just before the clip scrolls in, so its first frame is usually ready when it arrives.
+const IN_VIEW_MARGIN = "200px 0px";
+
 export type VideoSource = { src: string; type: string };
 
 export type VideoProps = {
@@ -20,15 +23,32 @@ export const Video = ({ autoplay, className, src, ...props }: VideoProps) => {
   const isClient = useIsClient();
   // Held until mounted, so the first client render matches the server's.
   const stilled = autoplay && isClient && prefersReducedMotion;
+  const looping = autoplay && !prefersReducedMotion;
 
-  // The server-rendered `autoplay` starts the loop before hydration, so reduced motion has to stop it by hand.
+  // Plays only while on screen, so a loop far down the page downloads nothing until it is reached.
   React.useEffect(() => {
-    if (stilled) videoRef.current?.pause();
-  }, [stilled]);
+    const video = videoRef.current;
+    if (!looping || !video) return;
 
-  // With controls, only the metadata loads until someone presses play.
-  const autoplayAttrs = autoplay
-    ? { autoPlay: !stilled, muted: true, loop: true, controls: !!stilled }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Rejects when the browser blocks autoplay, which leaves the poster up.
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { rootMargin: IN_VIEW_MARGIN }
+    );
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
+  }, [looping]);
+
+  // Nothing loads up front for a loop, and only the metadata for a clip with controls.
+  const playbackAttrs = autoplay
+    ? ({ muted: true, loop: true, preload: "none", controls: !!stilled } as const)
     : ({ controls: true, preload: "metadata" } as const);
   const sources = Array.isArray(src) ? src : undefined;
   const singleSrc = typeof src === "string" ? src : undefined;
@@ -39,7 +59,7 @@ export const Video = ({ autoplay, className, src, ...props }: VideoProps) => {
       playsInline
       src={singleSrc}
       className={cx("block h-auto w-full", className)}
-      {...autoplayAttrs}
+      {...playbackAttrs}
       {...props}
     >
       {sources?.map((source) => (
