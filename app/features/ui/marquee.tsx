@@ -45,9 +45,19 @@ export type MarqueeProps = Omit<ReactFastMarqueeProps, "children"> &
     text: string;
     /** Mark repeated between copies of `text`. Omit for no separator. */
     separator?: string;
+    /** Styles the row inside the band, which stays mounted across the swap from the static row. */
+    trackClassName?: string;
   };
 
-export const Marquee = ({ className, size = "sm", text, separator, play = true, ...props }: MarqueeProps) => {
+export const Marquee = ({
+  className,
+  trackClassName,
+  size = "sm",
+  text,
+  separator,
+  play = true,
+  ...props
+}: MarqueeProps) => {
   const prefersReducedMotion = useReducedMotion();
   const isClient = useIsClient();
   // The trailing space is what keeps the last repeat off the first one.
@@ -57,23 +67,17 @@ export const Marquee = ({ className, size = "sm", text, separator, play = true, 
     <div className={cx(marqueeStyles({ size }), className)}>
       {/* The scrolling copy is repeated, so expose the text once to assistive tech instead. */}
       <span className="sr-only">{text}</span>
-      {isClient ? (
-        <ReactFastMarquee
-          aria-hidden="true"
-          autoFill
-          className="overflow-y-hidden"
-          play={play && !prefersReducedMotion}
-          {...props}
-        >
-          <span className={marqueeItemStyles({ size })}>{content}</span>
-        </ReactFastMarquee>
-      ) : (
-        // react-fast-marquee measures its content before rendering anything, so the band
-        // would collapse to its borders until hydration; one static row holds the height.
-        <span aria-hidden="true" className={cx(marqueeItemStyles({ size }), "block")}>
-          {content}
-        </span>
-      )}
+      <div aria-hidden="true" className={trackClassName}>
+        {isClient ? (
+          <ReactFastMarquee autoFill className="overflow-y-hidden" play={play && !prefersReducedMotion} {...props}>
+            <span className={marqueeItemStyles({ size })}>{content}</span>
+          </ReactFastMarquee>
+        ) : (
+          // react-fast-marquee measures its content before rendering anything, so the band
+          // would collapse to its borders until hydration; one static row holds the height.
+          <span className={cx(marqueeItemStyles({ size }), "block")}>{content}</span>
+        )}
+      </div>
     </div>
   );
 };

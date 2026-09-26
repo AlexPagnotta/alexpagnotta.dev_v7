@@ -10,7 +10,7 @@ import { Image } from "@/app/features/ui/image";
 import { Wordmark } from "@/app/features/ui/wordmark";
 import { NAME_WORDMARK } from "@/app/features/utils/config";
 
-const wordmarkFillStyles = "[--wordmark-fill:var(--gradient-green)]";
+const wordmarkStyles = cx("[--wordmark-fill:var(--gradient-green)]", "animate-intro-rise animation-delay-60");
 
 const highlightStyles = cva({
   // Inline, so the pill takes its height from the line's own content box and never shifts the copy.
@@ -38,6 +38,11 @@ const curiousStyles = cx(
   "[-webkit-text-stroke-width:1px] [-webkit-text-stroke-color:var(--color-black)]"
 );
 
+const introCopyStyles = cx(
+  "heading-4 mx-auto max-w-320 text-center max-lg:leading-48 md:max-w-416 lg:max-w-720",
+  "animate-intro-rise animation-delay-120"
+);
+
 type IntroImageProps = { src: StaticImageData; alt: string; className: string };
 
 // The photos stand in for words, so each one's alt text is the word it replaces.
@@ -49,7 +54,7 @@ const IntroImage = ({ src, alt, className }: IntroImageProps) => (
     loading="eager"
     // Cut-outs, so a blur placeholder would show as a smudge around the shape.
     placeholder="empty"
-    className={cx("inline-block w-auto align-middle drop-shadow-soft", className)}
+    className={cx("inline-block w-auto align-middle drop-shadow-soft animate-intro-pop animation-delay-120", className)}
   />
 );
 
@@ -59,10 +64,10 @@ export const Hero = () => {
     <section data-navbar-boundary className="border-b-2 border-black bg-green-dark pt-48 pb-64 lg:pt-64 lg:pb-80">
       <div className="flex flex-col items-center gap-48 lg:gap-64">
         {/* biome-ignore lint/a11y/useHeadingContent: the rule cannot see the words Wordmark renders into it. */}
-        <Wordmark {...NAME_WORDMARK} stacked repeated render={<h1 />} className={wordmarkFillStyles} />
+        <Wordmark {...NAME_WORDMARK} stacked repeated render={<h1 />} className={wordmarkStyles} />
 
         <Container className="px-(--page-side-spacing)">
-          <p className="heading-4 mx-auto max-w-320 text-center max-lg:leading-48 md:max-w-416 lg:max-w-720">
+          <p className={introCopyStyles}>
             I'm <IntroImage src={face} alt="Alex" className="h-37 -rotate-7 lg:h-53" />{" "}
             <IntroImage src={bread} alt="Pagnotta" className="h-22 rotate-27 lg:h-31" /> welcome to my little{" "}
             <Highlight>DIGITAL PLACE</Highlight> here I share my <Highlight color="black">DEV</Highlight> work,{" "}

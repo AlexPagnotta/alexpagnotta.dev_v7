@@ -16,7 +16,7 @@ const pageAccentStyles = cx(
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={pageAccentStyles}>
-      <Marquee size="sm" text={HEADER_MARQUEE_TEXT} separator="•" />
+      <Marquee size="sm" text={HEADER_MARQUEE_TEXT} separator="•" trackClassName="animate-intro-rise" />
       <Navbar />
       <main className="flex flex-col">{children}</main>
       <Marquee size="lg" text={FOOTER_MARQUEE_TEXT} separator="-" className="uppercase" />

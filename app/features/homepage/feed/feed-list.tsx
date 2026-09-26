@@ -8,7 +8,18 @@ import {
   type FeedFilterValue,
   matchesFeedFilter,
 } from "@/app/features/homepage/feed/filters";
+import { cx } from "@/app/features/style/utils";
 import { Tab, Tabs } from "@/app/features/ui/tabs";
+
+// Spelled out so Tailwind generates each one; the row picks up right after the hero copy.
+const FILTER_DELAYS = [
+  "animation-delay-180",
+  "animation-delay-220",
+  "animation-delay-260",
+  "animation-delay-300",
+  "animation-delay-340",
+  "animation-delay-380",
+] as const;
 
 export type FeedListItem = {
   key: string;
@@ -31,8 +42,8 @@ export const FeedList = ({ items }: FeedListProps) => {
         onValueChange={(value) => setFilter(value as FeedFilterValue)}
         className="max-lg:-mx-(--page-side-spacing) max-lg:px-(--page-side-spacing) lg:justify-center-safe"
       >
-        {FEED_FILTERS.map(({ value, label, shape }) => (
-          <Tab key={value} value={value} shape={shape}>
+        {FEED_FILTERS.map(({ value, label, shape }, index) => (
+          <Tab key={value} value={value} shape={shape} className={cx("animate-intro-fade", FILTER_DELAYS[index])}>
             {label}
           </Tab>
         ))}
