@@ -53,7 +53,7 @@
   --color-yellow-dark: #ffd435;
   --color-yellow-light: #fff352;
   --color-pink-dark: #ff99e2;
-  --color-pink-light: #ffccf1;
+  --color-pink-light: #ffb3e9;
 
   /* The display wordmark's fill, one per accent. */
   --gradient-green: linear-gradient(to bottom, var(--color-white) 25%, #97ebcb);

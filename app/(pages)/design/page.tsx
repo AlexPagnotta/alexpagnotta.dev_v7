@@ -29,7 +29,7 @@ const ACCENTS = [
   { name: "pink-dark", className: "bg-pink-dark", hex: "#ff99e2" },
   { name: "green-light", className: "bg-green-light", hex: "#5cffa0" },
   { name: "yellow-light", className: "bg-yellow-light", hex: "#fff352" },
-  { name: "pink-light", className: "bg-pink-light", hex: "#ffccf1" },
+  { name: "pink-light", className: "bg-pink-light", hex: "#ffb3e9" },
 ] as const;
 
 const GRADIENTS = [
