@@ -15,7 +15,7 @@ const wordmarkStyles = cva({
     "font-sans font-black tracking-xs whitespace-nowrap text-center",
     // After the size, which tailwind-merge would otherwise let reset the leading.
     "text-(length:--wordmark-size) leading-none [--wordmark-bleed:calc(69*var(--spacing))]",
-    "[--wordmark-fit:calc((100cqw_+_2*var(--wordmark-bleed))/var(--wordmark-ratio))]",
+    "[--wordmark-fit:calc((100cqw+2*var(--wordmark-bleed))/var(--wordmark-ratio))]",
     // The floor is a variable so a caller can change the smallest size, as the footer does.
     "[--wordmark-floor:var(--text-display-1-mobile)]",
     "[--wordmark-size:min(var(--text-display-1),max(var(--wordmark-floor),var(--wordmark-fit)))]",
@@ -28,7 +28,7 @@ const wordmarkStyles = cva({
     },
     // Drops the line past the bottom of whatever clips it, so that edge crops the letters.
     sunk: {
-      true: "-mb-[0.3em]",
+      true: "mb-[-0.3em]",
       false: "",
     },
   },
@@ -67,8 +67,8 @@ const driftStyles = {
 
 // Both rows travel the same distance in opposite directions.
 const slideStyles = {
-  first: cx("max-md:scroll-slide-x", "max-md:[--scroll-slide-x:calc(var(--spacing)*320)]"),
-  second: cx("max-md:scroll-slide-x", "max-md:[--scroll-slide-x:calc(var(--spacing)*-320)]"),
+  first: cx("max-md:scroll-slide-x", "max-md:[--scroll-slide-x:--spacing(320)]"),
+  second: cx("max-md:scroll-slide-x", "max-md:[--scroll-slide-x:--spacing(-320)]"),
 };
 
 const offsetStyles = { first: "max-md:-ml-24", second: "max-md:ml-63" };

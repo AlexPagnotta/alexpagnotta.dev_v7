@@ -64,7 +64,7 @@ const useNavbarMode = (floating: boolean) => {
       const boundary = document.querySelector(BOUNDARY_SELECTOR);
       const input = {
         flowTop: anchor.getBoundingClientRect().top,
-        parked: header.offsetHeight * 2, // Mirrors `-translate-y-[200%]` below.
+        parked: header.offsetHeight * 2, // Mirrors `translate-y-[-200%]` below.
         scrollingUp,
         pastBoundary: !boundary || boundary.getBoundingClientRect().bottom <= 0,
         floating,
@@ -129,7 +129,7 @@ export const Navbar = () => {
           "inset-x-0 top-0 z-10 h-86 min-w-360 border-b-2 border-black bg-gray-100 lg:h-90",
           mode === "flow" ? "absolute" : "fixed",
           // Twice the bar's height, so the parked bar takes the overhanging wordmark out of sight with it.
-          mode === "hidden" && "-translate-y-[200%]",
+          mode === "hidden" && "translate-y-[-200%]",
           animated && "transition-transform duration-300 ease-out motion-reduce:transition-none"
         )}
       >

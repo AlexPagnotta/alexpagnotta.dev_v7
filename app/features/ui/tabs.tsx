@@ -11,7 +11,7 @@ const tabStyles = cva({
     "not-data-pressed:hover:bg-gray-100",
     // The button's lift at half its depth. Travel is derived from the offset, so the shadow's corner stays put.
     "relative shadow-[var(--tab-shadow-offset)_var(--tab-shadow-offset)_0_0_var(--color-black)] [--tab-shadow-offset:2px]",
-    "translate-[calc(2px_-_var(--tab-shadow-offset))]",
+    "translate-[calc(2px-var(--tab-shadow-offset))]",
     "transition-[translate,box-shadow] duration-150 ease-out motion-reduce:transition-none",
     "hover:z-10 hover:[--tab-shadow-offset:4px] active:[--tab-shadow-offset:1px]",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black",

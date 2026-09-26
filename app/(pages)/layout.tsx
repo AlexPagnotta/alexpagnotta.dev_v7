@@ -82,7 +82,7 @@ export default function RootLayout({
         ppframa.variable,
         "scroll-smooth scrollbar-green-dark",
         // A detail page names its accent with `data-page-accent`, see `(site)/layout.tsx`.
-        "has-[[data-page-accent=yellow]]:scrollbar-yellow-dark has-[[data-page-accent=pink]]:scrollbar-pink-dark"
+        "has-data-[page-accent=yellow]:scrollbar-yellow-dark has-data-[page-accent=pink]:scrollbar-pink-dark"
       )}
     >
       <body>
