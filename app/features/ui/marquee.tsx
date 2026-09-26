@@ -2,11 +2,11 @@ import type * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 
 const marqueeStyles = cva({
-  base: "w-full overflow-hidden border-black py-8 text-black",
+  base: "w-full overflow-hidden border-black text-black",
   variants: {
     size: {
-      sm: "h-56 border-b-2",
-      lg: "h-64 border-y-2 lg:h-108 lg:py-16",
+      sm: "flex h-48 items-center border-b-2 py-4",
+      lg: "h-64 border-y-2 py-8 lg:h-108 lg:py-16",
     },
   },
   defaultVariants: {
@@ -23,7 +23,7 @@ const marqueeItemStyles = cva({
   ],
   variants: {
     size: {
-      sm: "body-3 [--marquee-char-time:190ms]",
+      sm: "body-2 [--marquee-char-time:211ms]",
       lg: "heading-2 [--marquee-char-time:400ms] lg:[--marquee-char-time:630ms]",
     },
   },
