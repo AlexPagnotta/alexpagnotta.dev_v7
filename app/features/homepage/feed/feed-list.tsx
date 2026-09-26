@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, type Transition, useReducedMotion } from "motion/react";
 import * as React from "react";
+import { CardCursorProvider } from "@/app/features/homepage/feed/card-cursor";
 import {
   DEFAULT_FEED_FILTER,
   FEED_FILTERS,
@@ -91,29 +92,31 @@ export const FeedList = ({ items }: FeedListProps) => {
           </Tab>
         ))}
       </Tabs>
-      {isClient ? (
-        // Filtering moves the cards between columns anyway, so the grid leaves as one and the new set reveals.
-        <AnimatePresence mode="wait">
-          <motion.div key={filter} exit={gridExit} className="flex items-start gap-24">
-            {toColumns(visibleItems, columnCount).map((column, index) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: a column has no identity beyond its position.
-              <ul key={index} className="flex min-w-0 flex-1 flex-col gap-24">
-                {column.map((item) => (
-                  <FeedListCard key={item.key} item={item} column={index} />
-                ))}
-              </ul>
+      <CardCursorProvider>
+        {isClient ? (
+          // Filtering moves the cards between columns anyway, so the grid leaves as one and the new set reveals.
+          <AnimatePresence mode="wait">
+            <motion.div key={filter} exit={gridExit} className="flex items-start gap-24">
+              {toColumns(visibleItems, columnCount).map((column, index) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: a column has no identity beyond its position.
+                <ul key={index} className="flex min-w-0 flex-1 flex-col gap-24">
+                  {column.map((item) => (
+                    <FeedListCard key={item.key} item={item} column={index} />
+                  ))}
+                </ul>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        ) : (
+          // The column count is only known once mounted, so until then the browser balances the columns.
+          // Every card is still hidden before its reveal, so the switch never shows.
+          <ul className="gap-x-24 md:columns-2 lg:columns-3 xl:columns-4">
+            {visibleItems.map((item) => (
+              <FeedListCard key={item.key} item={item} className="mb-24 break-inside-avoid" />
             ))}
-          </motion.div>
-        </AnimatePresence>
-      ) : (
-        // The column count is only known once mounted, so until then the browser balances the columns.
-        // Every card is still hidden before its reveal, so the switch never shows.
-        <ul className="gap-x-24 md:columns-2 lg:columns-3 xl:columns-4">
-          {visibleItems.map((item) => (
-            <FeedListCard key={item.key} item={item} className="mb-24 break-inside-avoid" />
-          ))}
-        </ul>
-      )}
+          </ul>
+        )}
+      </CardCursorProvider>
     </>
   );
 };
