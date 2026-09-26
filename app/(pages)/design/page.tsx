@@ -144,7 +144,7 @@ const DesignPage = () => {
 
       <Section title="Button">
         <Subsection title="Sizes">
-          <Matrix axes={{ size: ["md", "lg"] } as const}>{(props) => <Button {...props}>Button</Button>}</Matrix>
+          <Matrix axes={{ size: ["sm", "md", "lg"] } as const}>{(props) => <Button {...props}>Button</Button>}</Matrix>
         </Subsection>
 
         <Subsection title="Colors">

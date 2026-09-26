@@ -55,10 +55,10 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
         {/* Hooked over the cover's top-left corner; without a cover it just opens the column. */}
         <ButtonLink
           href="/"
-          size="md"
+          size="sm"
           className={cx(
             "-rotate-4 animate-intro-appear animation-delay-150",
-            cover && "absolute -top-26 -left-8 lg:-top-22 lg:-left-18"
+            cover && "absolute -top-20 -left-8 lg:-top-16 lg:-left-18"
           )}
         >
           <span aria-hidden="true">←</span> BACK
