@@ -1,8 +1,12 @@
-import type * as React from "react";
+import * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 
 const marqueeStyles = cva({
-  base: "w-full overflow-hidden border-black text-black",
+  base: [
+    "group/marquee w-full overflow-hidden border-black text-black",
+    // Inset, since the band runs edge to edge and an outer ring would fall off the viewport.
+    "focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-black",
+  ],
   variants: {
     size: {
       sm: "flex h-48 items-center border-b-2 py-4",
@@ -32,6 +36,12 @@ const marqueeItemStyles = cva({
   },
 });
 
+// Plain focus rather than `focus-visible`, so a tap holds the row on touch screens, which have no hover.
+const pausedStyles = cx(
+  "group-hover/marquee:[animation-play-state:paused]",
+  "group-focus/marquee:[animation-play-state:paused]"
+);
+
 // Characters per half, enough to cover a 4K-wide viewport at the smallest size.
 const MIN_CHARS = 400;
 
@@ -49,17 +59,26 @@ export type MarqueeProps = MarqueeVariants & {
 };
 
 export const Marquee = ({ className, trackClassName, size = "sm", text, separator, play = true }: MarqueeProps) => {
+  const labelId = React.useId();
   // The trailing space is what keeps the last repeat off the first one.
   const content = separator ? `${text} ${separator} ` : `${text} `;
   const half = content.repeat(Math.ceil(MIN_CHARS / content.length));
 
   return (
-    <div className={cx(marqueeStyles({ size }), className)}>
+    <div
+      role="marquee"
+      aria-labelledby={labelId}
+      // Moving text needs a way to stop it (WCAG 2.2.2), and focus is how a keyboard holds the row.
+      tabIndex={play ? 0 : undefined}
+      className={cx(marqueeStyles({ size }), className)}
+    >
       {/* The scrolling copy is repeated, so expose the text once to assistive tech instead. */}
-      <span className="sr-only">{text}</span>
+      <span id={labelId} className="sr-only">
+        {text}
+      </span>
       <div aria-hidden="true" className={trackClassName}>
         <span
-          className={cx(marqueeItemStyles({ size }), play && "motion-safe:animate-drift")}
+          className={cx(marqueeItemStyles({ size }), play && ["motion-safe:animate-drift", pausedStyles])}
           // The one value that cannot be a utility class: it is counted off the text.
           style={{ "--marquee-chars": half.length } as React.CSSProperties}
         >
