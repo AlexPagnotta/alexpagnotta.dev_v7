@@ -44,7 +44,7 @@ const LONG_SAMPLE = "Duis cillum in ea ut non duis mollit incididunt laborum vol
 
 const TYPE_STYLES = [
   { utility: "display-1", specs: "220 / 120 px · Black", sample: DISPLAY_SAMPLE },
-  { utility: "logo", specs: "36 / 28 px · Regular", sample: "ALEX PAGNOTTA" },
+  { utility: "logo", specs: "24 / 20 px · Regular", sample: "ALEX PAGNOTTA" },
   { utility: "heading-1", specs: "80 / 48 px · Regular", sample: SHORT_SAMPLE },
   { utility: "heading-2", specs: "64 / 40 px · Regular", sample: SHORT_SAMPLE },
   { utility: "heading-3", specs: "40 / 28 px · Regular", sample: SHORT_SAMPLE },

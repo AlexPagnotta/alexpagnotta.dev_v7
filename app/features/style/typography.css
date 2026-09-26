@@ -31,15 +31,15 @@
   --text-display-2-mobile--letter-spacing: var(--tracking-xs);
 
   /* Logo */
-  --text-logo: --spacing(36);
+  --text-logo: --spacing(24);
   --text-logo--font-weight: 400;
-  --text-logo--line-height: --spacing(36);
+  --text-logo--line-height: --spacing(24);
   --text-logo--letter-spacing: -0.03em;
 
-  --text-logo-mobile: --spacing(28);
+  --text-logo-mobile: --spacing(20);
   --text-logo-mobile--font-weight: 400;
-  --text-logo-mobile--line-height: --spacing(28);
-  --text-logo-mobile--letter-spacing: -0.1em;
+  --text-logo-mobile--line-height: --spacing(20);
+  --text-logo-mobile--letter-spacing: -0.03em;
 
   /* Heading 1 */
   --text-heading-1: --spacing(80);

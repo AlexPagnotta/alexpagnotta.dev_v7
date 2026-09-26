@@ -63,7 +63,7 @@ const useNavbarMode = (floating: boolean) => {
       const boundary = document.querySelector(BOUNDARY_SELECTOR);
       const input = {
         flowTop: anchor.getBoundingClientRect().top,
-        parked: header.offsetHeight * 2, // Mirrors `translate-y-[-200%]` below.
+        parked: header.offsetHeight, // Mirrors `-translate-y-full` below.
         scrollingUp,
         pastBoundary: !boundary || boundary.getBoundingClientRect().bottom <= 0,
         floating,
@@ -94,6 +94,8 @@ const useNavbarMode = (floating: boolean) => {
   return { mode, animated, anchorRef, headerRef };
 };
 
+const navbarFillStyles = "bg-[color-mix(in_srgb,var(--navbar-fill),var(--color-white)_40%)]";
+
 type NavbarLogoProps = { className?: string };
 
 const NavbarLogo = ({ className }: NavbarLogoProps) => (
@@ -101,16 +103,12 @@ const NavbarLogo = ({ className }: NavbarLogoProps) => (
     href="/"
     variant="plain"
     className={cx(
-      "logo inline-block border border-black bg-white px-8 py-4 whitespace-nowrap uppercase shadow-depth-4",
-      "lg:-rotate-2 lg:border-2 lg:px-16 lg:py-8",
+      "logo inline-block -rotate-2 border border-black bg-white px-8 py-6 whitespace-nowrap uppercase",
+      "lg:border-2 lg:px-16 lg:py-8",
       className
     )}
   >
-    {/* Initials on a phone, where the full name would crowd the button out of the row. */}
-    <span aria-hidden="true" className="lg:hidden">
-      AP
-    </span>
-    <span className="max-lg:sr-only">Alex Pagnotta</span>
+    Alex Pagnotta
   </Link>
 );
 
@@ -128,23 +126,19 @@ export const Navbar = ({ contactEmail }: NavbarProps) => {
     <div ref={anchorRef} className={cx("relative", floating ? "h-0" : "h-86 lg:h-90")}>
       <header
         ref={headerRef}
-        // The desktop wordmark hangs past the bottom border, so the bar has to paint over the page below it.
         className={cx(
-          "inset-x-0 top-0 z-10 h-86 min-w-360 border-b-2 border-black bg-gray-100 lg:h-90",
+          "inset-x-0 top-0 z-10 h-86 min-w-360 border-b-2 border-black lg:h-90",
+          navbarFillStyles,
+          floating ? "[--navbar-fill:var(--color-green-dark)]" : "[--navbar-fill:var(--page-accent)]",
           mode === "flow" ? "absolute" : "fixed",
-          // Twice the bar's height, so the parked bar takes the overhanging wordmark out of sight with it.
           // Keyboard focus in the parked bar brings it back; a clicked logo keeps focus across navigation, so plain focus would too.
-          mode === "hidden" && "translate-y-[-200%] has-focus-visible:translate-y-0",
+          mode === "hidden" && "-translate-y-full has-focus-visible:translate-y-0",
           animated && "transition-transform duration-300 ease-out motion-reduce:transition-none"
         )}
       >
-        <Container
-          size="md"
-          className="relative flex h-full items-center justify-between px-(--page-side-spacing) lg:justify-end"
-        >
-          {/* Centred and overhanging on desktop, so it leaves the row rather than sitting in it. */}
-          <NavbarLogo className="lg:absolute lg:top-51 lg:left-1/2 lg:-translate-x-1/2" />
-          <ButtonLink href={`mailto:${contactEmail}`} color="yellow-dark" size="md">
+        <Container size="md" className="flex h-full items-center justify-between px-(--page-side-spacing)">
+          <NavbarLogo />
+          <ButtonLink href={`mailto:${contactEmail}`} size="sm" className="uppercase">
             Say Hi!
           </ButtonLink>
         </Container>
