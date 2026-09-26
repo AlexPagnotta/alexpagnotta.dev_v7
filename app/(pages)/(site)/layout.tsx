@@ -13,14 +13,22 @@ const pageAccentStyles = cx(
   "has-[[data-page-accent=pink]]:[--page-accent:var(--color-pink-dark)] has-[[data-page-accent=pink]]:[--page-gradient:var(--gradient-pink)]"
 );
 
+// Pinned under the page, which slides off it. On a window shorter than the footer the offset goes negative,
+// so it pins by its top instead and scrolls on for the rest, rather than hiding its top for good.
+const footerRevealStyles = cx("sticky", "bottom-[min(0px,100dvh_-_var(--footer-max-height))]");
+
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={pageAccentStyles}>
-      <Marquee size="sm" text={HEADER_MARQUEE_TEXT} separator="•" trackClassName="animate-intro-rise" />
-      <Navbar />
-      <main className="flex flex-col">{children}</main>
-      <Marquee size="lg" text={FOOTER_MARQUEE_TEXT} separator="-" className="uppercase" />
-      <Footer />
+      <div className="relative z-1 bg-white">
+        <Marquee size="sm" text={HEADER_MARQUEE_TEXT} separator="•" trackClassName="animate-intro-rise" />
+        <Navbar />
+        <main className="flex flex-col">{children}</main>
+        <Marquee size="lg" text={FOOTER_MARQUEE_TEXT} separator="-" className="uppercase" />
+      </div>
+      <div className={footerRevealStyles}>
+        <Footer />
+      </div>
     </div>
   );
 }

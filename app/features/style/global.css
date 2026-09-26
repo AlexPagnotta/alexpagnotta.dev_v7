@@ -4,7 +4,12 @@ body {
 
 /* Custom CSS variables for the site. */
 :root {
-  /* --example-height: calc(84 * var(--spacing)); */
+  /* At least the footer's tallest render per breakpoint (measured 643 / 715); only overshooting is safe. */
+  --footer-max-height: --spacing(648);
+
+  @variant lg {
+    --footer-max-height: --spacing(720);
+  }
 }
 
 ::selection {
