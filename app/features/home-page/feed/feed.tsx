@@ -4,10 +4,7 @@ import { FeedList, type FeedListItem } from "@/app/features/home-page/feed/feed-
 import { facetsFor } from "@/app/features/home-page/feed/filters";
 import { Container } from "@/app/features/ui/container";
 
-// One row of the widest grid, so the covers above the fold skip lazy loading.
-const EAGER_COVERS = 4;
-
-const toNode = async (entry: FeedEntry, index: number) => {
+const toNode = async (entry: FeedEntry) => {
   const href = hrefFor(entry.type, entry.slug);
 
   const CustomCard = await getCustomCard(entry.type, entry.slug);
@@ -21,15 +18,14 @@ const toNode = async (entry: FeedEntry, index: number) => {
       tags={entry.tags}
       cover={await getCover(entry.type, entry.slug, entry.cover)}
       accent={entry.accent}
-      eager={index < EAGER_COVERS}
     />
   );
 };
 
-const toItem = async (entry: FeedEntry, index: number): Promise<FeedListItem> => ({
+const toItem = async (entry: FeedEntry): Promise<FeedListItem> => ({
   key: `${entry.type}-${entry.slug}`,
   facets: facetsFor(entry),
-  node: await toNode(entry, index),
+  node: await toNode(entry),
 });
 
 export const Feed = async () => {

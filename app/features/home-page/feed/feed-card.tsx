@@ -15,14 +15,13 @@ export type FeedCardProps = {
   tags: readonly ContentTag[];
   cover?: StaticImageData;
   accent?: Accent;
-  /** Skips lazy loading, for the cards that land above the fold. Not preloaded: any of them can be the LCP. */
-  eager?: boolean;
 };
 
-export const FeedCard = ({ type, href, title, tags, cover, accent, eager }: FeedCardProps) => (
+export const FeedCard = ({ type, href, title, tags, cover, accent }: FeedCardProps) => (
   <FeedCardShell href={href} accent={accent}>
     {/* The title carries the link, so the cover is decorative. */}
-    {cover && <Card.Image src={cover} alt="" sizes={CARD_SIZES} loading={eager ? "eager" : "lazy"} />}
+    {/* Lazy even in the first row: React would preload an eager one in the head, ahead of the fonts. */}
+    {cover && <Card.Image src={cover} alt="" sizes={CARD_SIZES} />}
     <Card.Header>
       <Card.Tags>
         {/* The design leads with the content type, squared off against the pill tags. */}

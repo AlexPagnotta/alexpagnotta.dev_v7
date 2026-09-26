@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Transition, useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import { m, type Transition, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import * as React from "react";
 import { cx } from "@/app/features/style/cva";
 
@@ -145,7 +145,7 @@ export const CardCursorProvider = ({ children }: CardCursorProviderProps) => {
       <div ref={rootRef} className={cx(visible && "cursor-none")}>
         {children}
       </div>
-      <motion.span
+      <m.span
         aria-hidden
         className={pillStyles}
         style={{ x: springX, y: springY, rotate: springRotate, backgroundColor: fill }}
@@ -154,7 +154,7 @@ export const CardCursorProvider = ({ children }: CardCursorProviderProps) => {
         transition={revealSpring}
       >
         {LABEL}
-      </motion.span>
+      </m.span>
     </>
   );
 };
