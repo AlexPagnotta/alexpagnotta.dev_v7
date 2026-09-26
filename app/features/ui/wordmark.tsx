@@ -57,6 +57,9 @@ const RUNS = 3;
 // Hangs off a row's start to cover what the drift and slide expose there. The row's shadow filter already covers it.
 const leadStyles = cx(glyphStyles, "absolute top-0 right-full whitespace-pre md:hidden");
 
+// Filler letters are drawn from `data-text`, so only the words themselves are in the page's text.
+const fillerStyles = "before:content-[attr(data-text)]";
+
 // Inline boxes ignore `translate`, so the track is an inline-block sized by its runs alone.
 const trackStyles = "max-md:relative max-md:inline-block max-md:whitespace-pre";
 
@@ -117,18 +120,17 @@ export const Wordmark = ({
     drifting ? (
       <span className={cx(shadowStyles, offsetStyles[row], slide && slideStyles[row])}>
         <span className={cx(glyphStyles, trackStyles, driftStyles[row])}>
-          <span aria-hidden className={leadStyles}>
-            {`${text} `.repeat(RUNS)}
-          </span>
+          <span aria-hidden data-text={`${text} `.repeat(RUNS)} className={cx(leadStyles, fillerStyles)} />
           {text}
-          <span aria-hidden className="md:hidden">
-            {`${` ${text}`.repeat(RUNS - 1)} `}
-          </span>
+          <span aria-hidden data-text={`${` ${text}`.repeat(RUNS - 1)} `} className={cx("md:hidden", fillerStyles)} />
         </span>
       </span>
     ) : (
       <span className={cx(wordStyles, stacked && offsetStyles[row], slide && slideStyles[row])}>{text}</span>
     );
+
+  // The copies only show from `lg`, where no row drifts, so each word is a single run.
+  const copyWord = (text: string) => <span data-text={text} className={cx(wordStyles, fillerStyles)} />;
 
   const pair = (
     <>
@@ -145,7 +147,7 @@ export const Wordmark = ({
         className={cx("absolute top-0 hidden whitespace-pre lg:block", side === "start" ? "right-full" : "left-full")}
       >
         {side === "end" && " "}
-        {pair}
+        {copyWord(first)} {copyWord(second)}
         {side === "start" && " "}
       </span>
     ) : null;
