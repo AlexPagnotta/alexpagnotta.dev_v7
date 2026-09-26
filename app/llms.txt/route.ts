@@ -1,6 +1,6 @@
 import { CONTENT_TYPE_KEYS, CONTENT_TYPES } from "@/app/features/content/config";
 import { getAllEntries, hrefFor } from "@/app/features/content/loader";
-import { absoluteUrl, siteConfig } from "@/app/features/seo/config";
+import { absoluteUrl, siteConfig } from "@/app/features/site/config";
 
 export const dynamic = "force-static";
 

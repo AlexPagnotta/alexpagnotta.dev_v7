@@ -1,15 +1,15 @@
 import type { StaticImageData } from "next/image";
 import type * as React from "react";
-import bread from "@/app/features/homepage/assets/bread.png";
-import camera from "@/app/features/homepage/assets/camera.png";
-import face from "@/app/features/homepage/assets/face.png";
-import printer from "@/app/features/homepage/assets/printer.png";
-import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import bread from "@/app/features/home-page/assets/bread.png";
+import camera from "@/app/features/home-page/assets/camera.png";
+import face from "@/app/features/home-page/assets/face.png";
+import printer from "@/app/features/home-page/assets/printer.png";
+import { NAME_WORDMARK } from "@/app/features/site/config";
+import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { Container } from "@/app/features/ui/container";
 import { Image } from "@/app/features/ui/image";
 import { BaseLink } from "@/app/features/ui/link";
 import { Wordmark } from "@/app/features/ui/wordmark";
-import { NAME_WORDMARK } from "@/app/features/utils/config";
 
 const wordmarkStyles = cx(
   "[--wordmark-fill:var(--gradient-green)] max-md:gap-16",

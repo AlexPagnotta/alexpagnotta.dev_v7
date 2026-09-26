@@ -2,18 +2,15 @@
 
 import { Toggle } from "@base-ui-components/react/toggle";
 import * as React from "react";
-import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 
 const tabStyles = cva({
   base: [
     "inline-flex shrink-0 items-center justify-center whitespace-nowrap select-none cursor-pointer",
     "h-46 border border-black bg-white px-16 text-black body-2 lg:h-54",
     "not-data-pressed:hover:bg-gray-100",
-    // The button's lift at half its depth. Travel is derived from the offset, so the shadow's corner stays put.
-    "relative shadow-[var(--tab-shadow-offset)_var(--tab-shadow-offset)_0_0_var(--color-black)] [--tab-shadow-offset:2px]",
-    "translate-[calc(2px-var(--tab-shadow-offset))]",
-    "transition-[translate,box-shadow] duration-150 ease-out motion-reduce:transition-none",
-    "hover:z-10 hover:[--tab-shadow-offset:4px] active:[--tab-shadow-offset:1px]",
+    // The button's lift at half its depth.
+    "relative lift-2 duration-150 ease-out hover:z-10",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black",
   ],
   variants: {

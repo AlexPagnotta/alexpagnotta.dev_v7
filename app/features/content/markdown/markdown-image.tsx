@@ -1,4 +1,5 @@
-import { MarkdownFigure } from "@/app/features/content/components/markdown-figure";
+import type * as React from "react";
+import { MarkdownFigure } from "@/app/features/content/markdown/markdown-figure";
 import { Image, type ImageProps } from "@/app/features/ui/image";
 
 /*

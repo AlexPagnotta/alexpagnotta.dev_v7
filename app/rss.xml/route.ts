@@ -1,6 +1,6 @@
 import { CONTENT_TAG_LABELS, CONTENT_TYPES } from "@/app/features/content/config";
 import { getFeedEntries, hrefFor } from "@/app/features/content/loader";
-import { absoluteUrl, siteConfig } from "@/app/features/seo/config";
+import { absoluteUrl, siteConfig } from "@/app/features/site/config";
 
 export const dynamic = "force-static";
 

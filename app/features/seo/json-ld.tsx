@@ -1,10 +1,12 @@
 import type { ContentType } from "@/app/features/content/config";
-import { absoluteUrl, siteConfig } from "@/app/features/seo/config";
+import { absoluteUrl, siteConfig } from "@/app/features/site/config";
 
 const PERSON_ID = absoluteUrl("/#person");
 const WEBSITE_ID = absoluteUrl("/#website");
 
-const JsonLdScript = ({ data }: { data: object }) => (
+type JsonLdScriptProps = { data: object };
+
+const JsonLdScript = ({ data }: JsonLdScriptProps) => (
   <script
     type="application/ld+json"
     // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD must be injected as a raw script body.
@@ -48,7 +50,7 @@ const SCHEMA_TYPE = {
   project: "CreativeWork",
 } as const satisfies Record<ContentType, string>;
 
-type ArticleJsonLdProps = {
+export type ArticleJsonLdProps = {
   type: ContentType;
   title: string;
   description?: string;

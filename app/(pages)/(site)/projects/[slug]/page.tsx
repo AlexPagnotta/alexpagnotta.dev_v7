@@ -1,63 +1,43 @@
-import { Prose } from "@/app/features/content/components/prose";
-import { CONTENT_TAG_LABELS, CONTENT_TYPES } from "@/app/features/content/config";
-import { getAllEntries, getCover, getEntry, hrefFor } from "@/app/features/content/loader";
+import type { Metadata } from "next";
+import { getCover, getEntry } from "@/app/features/content/loader";
+import { DetailPage } from "@/app/features/detail-page/detail-page";
 import { ProjectHero } from "@/app/features/detail-page/hero/project-hero";
-import { ArticleJsonLd } from "@/app/features/seo/json-ld";
-import { pageMetadata } from "@/app/features/seo/metadata";
-import { Container } from "@/app/features/ui/container";
+import { detailPageMetadata, detailPageParams } from "@/app/features/detail-page/metadata";
 
 type Props = PageProps<"/projects/[slug]">;
 
 export const dynamicParams = false;
 
-export const generateStaticParams = () => getAllEntries("project").map((entry) => ({ slug: entry.slug }));
+export const generateStaticParams = () => detailPageParams("project");
 
-export const generateMetadata = async ({ params }: Props) => {
-  const { slug } = await params;
-  const { title, description, date, tags } = getEntry("project", slug);
-  return pageMetadata({
-    title,
-    description,
-    path: hrefFor("project", slug),
-    type: "article",
-    article: {
-      publishedTime: date,
-      section: CONTENT_TYPES.project.label,
-      tags: tags.map((tag) => CONTENT_TAG_LABELS[tag]),
-    },
-  });
-};
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> =>
+  detailPageMetadata("project", (await params).slug);
 
-export default async function ProjectPage({ params }: Props) {
+const ProjectPage = async ({ params }: Props) => {
   const { slug } = await params;
   const entry = getEntry("project", slug);
   const cover = await getCover("project", slug, entry.cover);
-  const { default: Project } = await import(`@/content/projects/${slug}/index.mdx`);
+  const { default: Body } = await import(`@/content/projects/${slug}/index.mdx`);
 
   return (
-    <article>
-      <ProjectHero
-        title={entry.title}
-        tags={entry.tags}
-        date={entry.date}
-        client={entry.client}
-        link={entry.link}
-        cover={cover}
-        accent={entry.accent}
-      />
-      <Container size="sm" className="px-(--page-side-spacing) pt-80 pb-96 lg:pt-96 lg:pb-160">
-        <Prose>
-          <Project />
-        </Prose>
-      </Container>
-      <ArticleJsonLd
-        type="project"
-        title={entry.title}
-        description={entry.description}
-        path={hrefFor("project", slug)}
-        date={entry.date}
-        tags={entry.tags.map((tag) => CONTENT_TAG_LABELS[tag])}
-      />
-    </article>
+    <DetailPage
+      type="project"
+      entry={entry}
+      hero={
+        <ProjectHero
+          title={entry.title}
+          tags={entry.tags}
+          date={entry.date}
+          client={entry.client}
+          link={entry.link}
+          cover={cover}
+          accent={entry.accent}
+        />
+      }
+    >
+      <Body />
+    </DetailPage>
   );
-}
+};
+
+export default ProjectPage;

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/app/features/seo/config";
+import { siteConfig } from "@/app/features/site/config";
 
 /** The Open Graph article facts a detail page carries on top of the shared fields. */
 type ArticleInput = {

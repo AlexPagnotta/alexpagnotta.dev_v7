@@ -1,16 +1,16 @@
 "use client";
 
-import { AnimatePresence, motion, type Transition, useReducedMotion } from "motion/react";
+import { AnimatePresence, MotionConfig, motion, type Transition } from "motion/react";
 import * as React from "react";
-import { CardCursorProvider } from "@/app/features/homepage/feed/card-cursor";
+import { CardCursorProvider } from "@/app/features/home-page/feed/card-cursor";
 import {
   DEFAULT_FEED_FILTER,
   FEED_FILTERS,
   type FeedFacet,
   type FeedFilterValue,
   matchesFeedFilter,
-} from "@/app/features/homepage/feed/filters";
-import { cx } from "@/app/features/style/utils";
+} from "@/app/features/home-page/feed/filters";
+import { cx } from "@/app/features/style/cva";
 import { Tab, Tabs } from "@/app/features/ui/tabs";
 import { useBreakpoint } from "@/app/features/utils/use-breakpoint";
 import { useIsClient } from "@/app/features/utils/use-is-client";
@@ -56,21 +56,17 @@ const toColumns = <T,>(items: T[], count: number) =>
 
 type FeedListCardProps = { item: FeedListItem; column?: number; className?: string };
 
-const FeedListCard = ({ item, column = 0, className }: FeedListCardProps) => {
-  const prefersReducedMotion = useReducedMotion();
-
-  return (
-    <motion.li
-      initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ ...cardRevealTransition, delay: column * COLUMN_DELAY }}
-      className={className}
-    >
-      {item.node}
-    </motion.li>
-  );
-};
+const FeedListCard = ({ item, column = 0, className }: FeedListCardProps) => (
+  <motion.li
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.15 }}
+    transition={{ ...cardRevealTransition, delay: column * COLUMN_DELAY }}
+    className={className}
+  >
+    {item.node}
+  </motion.li>
+);
 
 export const FeedList = ({ items }: FeedListProps) => {
   const [filter, setFilter] = React.useState<FeedFilterValue>(DEFAULT_FEED_FILTER);
@@ -79,7 +75,8 @@ export const FeedList = ({ items }: FeedListProps) => {
   const visibleItems = items.filter((item) => matchesFeedFilter(item.facets, filter));
 
   return (
-    <>
+    // Under reduced motion, drops the travel of every motion animation inside and keeps the fades.
+    <MotionConfig reducedMotion="user">
       <Tabs
         aria-label="Filter by"
         value={filter}
@@ -117,6 +114,6 @@ export const FeedList = ({ items }: FeedListProps) => {
           </ul>
         )}
       </CardCursorProvider>
-    </>
+    </MotionConfig>
   );
 };

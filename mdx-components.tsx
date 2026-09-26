@@ -1,7 +1,5 @@
 import type { MDXComponents } from "mdx/types";
-import { mdxComponents } from "@/app/features/content/mdx-components";
+import { mdxComponents } from "@/app/features/content/markdown/mdx-components";
 
 // Required by @next/mdx: a single `useMDXComponents` function, no arguments.
-export function useMDXComponents(): MDXComponents {
-  return mdxComponents;
-}
+export const useMDXComponents = (): MDXComponents => mdxComponents;

@@ -1,10 +1,12 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { siteConfig } from "@/app/features/seo/config";
+import type * as React from "react";
 import { SiteJsonLd } from "@/app/features/seo/json-ld";
 import { feedAlternates } from "@/app/features/seo/metadata";
-import { cx } from "@/app/features/style/utils";
+import { siteConfig } from "@/app/features/site/config";
+import { ACCENTS, PAGE_ACCENT_STYLES } from "@/app/features/style/accents";
+import { cx } from "@/app/features/style/cva";
 import "@/app/features/style/tailwind.css";
 import { isProduction } from "@/app/features/utils/release-channel";
 
@@ -69,11 +71,9 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+type Props = Readonly<{ children: React.ReactNode }>;
+
+const RootLayout = ({ children }: Props) => {
   return (
     <html
       lang={siteConfig.lang}
@@ -81,8 +81,7 @@ export default function RootLayout({
       className={cx(
         ppframa.variable,
         "scroll-smooth scrollbar-green-dark",
-        // A detail page names its accent with `data-page-accent`, see `(site)/layout.tsx`.
-        "has-data-[page-accent=yellow]:scrollbar-yellow-dark has-data-[page-accent=pink]:scrollbar-pink-dark"
+        ACCENTS.map((accent) => PAGE_ACCENT_STYLES[accent].scrollbar)
       )}
     >
       <body>
@@ -92,4 +91,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

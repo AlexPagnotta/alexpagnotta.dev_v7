@@ -1,5 +1,6 @@
 import NextLink from "next/link";
-import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import type * as React from "react";
+import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 
 /**
  * Next's Link, unstyled — for links that wrap a block and bring their own styles.

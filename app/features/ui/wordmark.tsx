@@ -1,7 +1,7 @@
 import { mergeProps } from "@base-ui-components/react/merge-props";
 import { useRender } from "@base-ui-components/react/use-render";
 import type * as React from "react";
-import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 
 /*
   The line is sized from the width it should cover rather than from a type token: dividing that width

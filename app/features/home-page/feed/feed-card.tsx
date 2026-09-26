@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
 import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentTag, type ContentType } from "@/app/features/content/config";
-import { FeedCardShell } from "@/app/features/homepage/feed/feed-card-shell";
+import { FeedCardShell } from "@/app/features/home-page/feed/feed-card-shell";
 import type { Accent } from "@/app/features/style/accents";
 import { Card } from "@/app/features/ui/card";
 import { Tag } from "@/app/features/ui/tag";

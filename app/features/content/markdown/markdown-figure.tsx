@@ -1,3 +1,4 @@
+import type * as React from "react";
 export type MarkdownFigureProps = {
   /** Sits under the frame, outside the border. */
   caption?: React.ReactNode;

@@ -1,7 +1,7 @@
 import { type FeedEntry, getCover, getCustomCard, getFeedEntries, hrefFor } from "@/app/features/content/loader";
-import { FeedCard } from "@/app/features/homepage/feed/feed-card";
-import { FeedList, type FeedListItem } from "@/app/features/homepage/feed/feed-list";
-import { facetsFor } from "@/app/features/homepage/feed/filters";
+import { FeedCard } from "@/app/features/home-page/feed/feed-card";
+import { FeedList, type FeedListItem } from "@/app/features/home-page/feed/feed-list";
+import { facetsFor } from "@/app/features/home-page/feed/filters";
 import { Container } from "@/app/features/ui/container";
 
 // One row of the widest grid, so the covers above the fold skip lazy loading.

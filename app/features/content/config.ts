@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ACCENTS, type Accent } from "@/app/features/style/accents";
+import { ACCENTS } from "@/app/features/style/accents";
 
 export const CONTENT_TAGS = ["work", "personal", "make"] as const;
 export type ContentTag = (typeof CONTENT_TAGS)[number];
@@ -42,16 +42,3 @@ export type ContentType = keyof typeof CONTENT_TYPES;
 export const CONTENT_TYPE_KEYS = Object.keys(CONTENT_TYPES) as ContentType[];
 
 export type EntryFor<T extends ContentType> = { slug: string } & z.infer<(typeof CONTENT_TYPES)[T]["schema"]>;
-
-export type WritingEntry = EntryFor<"writing">;
-export type ProjectEntry = EntryFor<"project">;
-
-/**
- * What an entry's own `card.tsx` receives: the values that have to stay in step with its
- * frontmatter. Everything else about the card — copy, art, layout — is authored by hand.
- */
-export type ContentCardProps = {
-  href: string;
-  tags: readonly ContentTag[];
-  accent?: Accent;
-};

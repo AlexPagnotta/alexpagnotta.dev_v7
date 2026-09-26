@@ -1,12 +1,12 @@
-import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentCardProps } from "@/app/features/content/config";
-import { FeedCardShell } from "@/app/features/homepage/feed/feed-card-shell";
+import { CONTENT_TAG_LABELS, CONTENT_TYPES } from "@/app/features/content/config";
+import { type CustomFeedCardProps, FeedCardShell } from "@/app/features/home-page/feed/feed-card-shell";
 import { Card } from "@/app/features/ui/card";
 import { Tag } from "@/app/features/ui/tag";
 import Logo from "./logo.svg";
 
 const CLIENT = "WILD";
 
-const PlaceholderOneCard = ({ href, tags, accent }: ContentCardProps) => (
+const PlaceholderOneCard = ({ href, tags, accent }: CustomFeedCardProps) => (
   <FeedCardShell href={href} accent={accent} className="h-288 gap-16">
     {/* The only child in flow, so `mt-auto` drops it into the card's bottom corner. */}
     <Card.Tags align="end" className="mt-auto">

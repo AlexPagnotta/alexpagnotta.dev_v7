@@ -1,4 +1,5 @@
-import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import type * as React from "react";
+import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 
 const listStyles = cva({
   base: "body-1 flex flex-col gap-8 pl-24 lg:body-3 lg:gap-12 lg:pl-32",

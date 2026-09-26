@@ -1,4 +1,5 @@
-import { cx } from "@/app/features/style/utils";
+import type * as React from "react";
+import { cx } from "@/app/features/style/cva";
 
 type Axes = Record<string, readonly string[]>;
 
@@ -50,18 +51,24 @@ export const Matrix = <T extends Axes>({ axes, children, className }: MatrixProp
   );
 };
 
-export const Label = ({ children, className }: { children: React.ReactNode; className?: string }) => (
+export type LabelProps = { children: React.ReactNode; className?: string };
+
+export const Label = ({ children, className }: LabelProps) => (
   <span className={cx("label-2 text-black/50", className)}>{children}</span>
 );
 
-export const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+export type SectionProps = { title: string; children: React.ReactNode };
+
+export const Section = ({ title, children }: SectionProps) => (
   <section className="flex flex-col gap-32 border-t-2 border-black pt-32">
     <h2 className="heading-3">{title}</h2>
     {children}
   </section>
 );
 
-export const Subsection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+export type SubsectionProps = { title: string; children: React.ReactNode };
+
+export const Subsection = ({ title, children }: SubsectionProps) => (
   <div className="flex flex-col gap-24">
     <h3 className="body-4">{title}</h3>
     {children}

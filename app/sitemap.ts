@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { CONTENT_TYPE_KEYS } from "@/app/features/content/config";
 import { getAllEntries, hrefFor } from "@/app/features/content/loader";
-import { absoluteUrl } from "@/app/features/seo/config";
+import { absoluteUrl } from "@/app/features/site/config";
 
 // `lastModified` is the only hint Google reads; `priority` and `changeFrequency` are ignored.
-export default function sitemap(): MetadataRoute.Sitemap {
+const sitemap = (): MetadataRoute.Sitemap => {
   const home: MetadataRoute.Sitemap[number] = {
     url: absoluteUrl("/"),
     lastModified: new Date(),
@@ -19,4 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   return [home, ...entries];
-}
+};
+
+export default sitemap;

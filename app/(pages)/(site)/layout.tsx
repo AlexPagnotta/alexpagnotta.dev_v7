@@ -1,6 +1,8 @@
+import type * as React from "react";
 import { Footer } from "@/app/features/nav/footer";
 import { Navbar } from "@/app/features/nav/navbar";
-import { cx } from "@/app/features/style/utils";
+import { ACCENTS, PAGE_ACCENT_STYLES } from "@/app/features/style/accents";
+import { cx } from "@/app/features/style/cva";
 import { Marquee } from "@/app/features/ui/marquee";
 
 const HEADER_MARQUEE_TEXT = "Checkout my latest blog post, I built a secondary screen for my mac";
@@ -9,15 +11,14 @@ const FOOTER_MARQUEE_TEXT = "Thanks for visiting";
 // A detail page names its accent with `data-page-accent`; the footer paints itself with it.
 const pageAccentStyles = cx(
   "[--page-accent:var(--color-yellow-dark)] [--page-gradient:var(--gradient-yellow)]",
-  "has-data-[page-accent=green]:[--page-accent:var(--color-green-dark)] has-data-[page-accent=green]:[--page-gradient:var(--gradient-green)]",
-  "has-data-[page-accent=pink]:[--page-accent:var(--color-pink-dark)] has-data-[page-accent=pink]:[--page-gradient:var(--gradient-pink)]"
+  ACCENTS.map((accent) => PAGE_ACCENT_STYLES[accent].page)
 );
 
-// Pinned under the page, which slides off it. On a window shorter than the footer the offset goes negative,
-// so it pins by its top instead and scrolls on for the rest, rather than hiding its top for good.
-const footerRevealStyles = cx("sticky", "bottom-[min(0px,100dvh-var(--footer-max-height))]");
+const footerWrapperStyles = cx("sticky", "bottom-[min(0px,100dvh-var(--footer-max-height))]");
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+type Props = { children: React.ReactNode };
+
+const SiteLayout = ({ children }: Props) => {
   return (
     <div className={pageAccentStyles}>
       <div className="relative z-1 bg-white">
@@ -26,9 +27,11 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <main className="flex flex-col">{children}</main>
         <Marquee size="lg" text={FOOTER_MARQUEE_TEXT} separator="-" className="uppercase" />
       </div>
-      <div className={footerRevealStyles}>
+      <div className={footerWrapperStyles}>
         <Footer />
       </div>
     </div>
   );
-}
+};
+
+export default SiteLayout;

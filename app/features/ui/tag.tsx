@@ -1,6 +1,6 @@
 import { mergeProps } from "@base-ui-components/react/merge-props";
 import { useRender } from "@base-ui-components/react/use-render";
-import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 
 /*
   Tags are labels, not controls: no shadow, and the first tag in a group takes the
@@ -16,9 +16,10 @@ const tagStyles = cva({
       rounded: "rounded-xs",
       pill: "rounded-full",
     },
+    // Named by the desktop size, like Button's; `md` steps down on phones.
     size: {
       sm: "border px-8 h-26 label-1",
-      lg: "border px-16 h-52 body-1 lg:h-56 lg:body-3",
+      md: "border px-16 h-52 body-1 lg:h-56 lg:body-3",
     },
   },
   defaultVariants: {

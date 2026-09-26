@@ -1,9 +1,9 @@
 import type { MDXComponents } from "mdx/types";
-import { MarkdownImage, type MarkdownImageProps } from "@/app/features/content/components/markdown-image";
-import { MarkdownList, MarkdownListItem } from "@/app/features/content/components/markdown-list";
-import { MarkdownParagraph } from "@/app/features/content/components/markdown-paragraph";
-import { MarkdownTitle } from "@/app/features/content/components/markdown-title";
-import { MarkdownVideo } from "@/app/features/content/components/markdown-video";
+import { MarkdownImage, type MarkdownImageProps } from "@/app/features/content/markdown/markdown-image";
+import { MarkdownList, MarkdownListItem } from "@/app/features/content/markdown/markdown-list";
+import { MarkdownParagraph } from "@/app/features/content/markdown/markdown-paragraph";
+import { MarkdownTitle } from "@/app/features/content/markdown/markdown-title";
+import { MarkdownVideo } from "@/app/features/content/markdown/markdown-video";
 import { Link } from "@/app/features/ui/link";
 
 export const mdxComponents: MDXComponents = {

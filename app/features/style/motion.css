@@ -79,3 +79,31 @@
     translate: var(--scroll-slide-x) 0;
   }
 }
+
+/*
+  Sits on a hard black shadow of `n`px and lifts off it: hover doubles the offset, press halves it,
+  and the element travels by the difference so the shadow's outer corner stays put.
+*/
+@utility lift-* {
+  --lift-rest: calc(--value(integer) * 1px);
+  --lift: var(--lift-rest);
+  box-shadow: var(--lift) var(--lift) 0 0 var(--color-black);
+  translate: calc(var(--lift-rest) - var(--lift)) calc(var(--lift-rest) - var(--lift));
+  transition-property: translate, box-shadow;
+
+  &:not(:disabled) {
+    @media (hover: hover) {
+      &:hover {
+        --lift: calc(var(--lift-rest) * 2);
+      }
+    }
+
+    &:active {
+      --lift: calc(var(--lift-rest) / 2);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: none;
+  }
+}

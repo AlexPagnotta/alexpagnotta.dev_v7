@@ -51,7 +51,7 @@ Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`, `drop
 
 SVGs resolve one of two ways, controlled by the import specifier (configured in `next.config.ts`):
 
-- **As a React component (default)** — `import Logo from "./logo.svg"` gives an SVGR component used as `<Logo />`. Reserve this for **icons, brand marks, and cases that need to style/animate the SVG's internals** (e.g. `currentColor`, per-path props). These live in `app/assets`.
+- **As a React component (default)** — `import Logo from "./logo.svg"` gives an SVGR component used as `<Logo />`. Reserve this for **icons, brand marks, and cases that need to style/animate the SVG's internals** (e.g. `currentColor`, per-path props). Colocate them with the feature or content entry that uses them (e.g. `content/projects/<slug>/logo.svg`).
 - **As a URL string** — `import src from "./image.svg?url"` (note the `?url` suffix) gives a plain served URL, **not** a component. This is the default for **content imagery** — anything you'd otherwise render through `<Image>`. The `ui/Image` primitive detects an SVG URL and renders a plain `<img>` (vector art gains nothing from `next/image` optimization), so passing an SVG URL to `<Image src={src} alt="…" />` just works.
 
 Rule of thumb: if you'd `<Render />` it as markup, import as a component; if it's a picture, import with `?url`.

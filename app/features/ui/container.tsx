@@ -1,6 +1,6 @@
 import { mergeProps } from "@base-ui-components/react/merge-props";
 import { useRender } from "@base-ui-components/react/use-render";
-import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 
 const containerStyles = cva({
   base: "mx-auto w-full max-w-(--container-max-w)",

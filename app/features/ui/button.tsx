@@ -1,9 +1,6 @@
-"use client";
-
-import { type HTMLMotionProps, motion, type Transition, useReducedMotion } from "motion/react";
-import NextLink from "next/link";
-import * as React from "react";
-import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import type * as React from "react";
+import { cva, cx, type VariantProps } from "@/app/features/style/cva";
+import { BaseLink } from "@/app/features/ui/link";
 
 /*
   Every button in the design is a black-bordered pill on a hard offset shadow, with a
@@ -16,8 +13,7 @@ const buttonStyles = cva({
   base: [
     "inline-flex items-center justify-center gap-8 rounded-full whitespace-nowrap select-none",
     "cursor-pointer border-black text-black bg-(--btn-fill)",
-    // Offset lives in its own custom property so motion can spring it while the color stays declarative.
-    "shadow-[var(--btn-shadow-offset)_var(--btn-shadow-offset)_0_0_var(--color-black)]",
+    "duration-200 ease-pop",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black",
     "disabled:cursor-not-allowed disabled:opacity-40",
   ],
@@ -31,18 +27,16 @@ const buttonStyles = cva({
       "pink-dark": "[--btn-fill:var(--color-pink-dark)]",
       "pink-light": "[--btn-fill:var(--color-pink-light)]",
     },
+    // Named by the desktop size; `md` and `lg` step down on phones.
     size: {
-      sm: "border px-16 h-52 body-1",
-      md: "border px-16 h-56 body-3",
-      // `sm` on phones, `md` from `lg`.
-      "sm-md": "border px-16 h-52 body-1 lg:h-56 lg:body-3",
-      xl: "border-2 px-32 h-96 heading-2 lg:px-48 lg:h-124",
-      icon: "border size-52 p-0 body-1",
+      md: "border px-16 h-52 body-1 lift-4 lg:h-56 lg:body-3",
+      lg: "border-2 px-32 h-96 heading-2 lift-8 lg:px-48 lg:h-124",
+      icon: "border size-52 p-0 body-1 lift-4",
     },
   },
   defaultVariants: {
     color: "white",
-    size: "sm",
+    size: "md",
   },
 });
 
@@ -50,79 +44,15 @@ export type ButtonVariants = VariantProps<typeof buttonStyles>;
 export type ButtonColor = NonNullable<ButtonVariants["color"]>;
 export type ButtonSize = NonNullable<ButtonVariants["size"]>;
 
-// Shadow offset in px for each interaction state; the button's travel is derived from these.
-const shadowDepth: Record<ButtonSize, { rest: number; hover: number; press: number }> = {
-  sm: { rest: 4, hover: 8, press: 2 },
-  md: { rest: 4, hover: 8, press: 2 },
-  "sm-md": { rest: 4, hover: 8, press: 2 },
-  xl: { rest: 8, hover: 14, press: 4 },
-  icon: { rest: 4, hover: 8, press: 2 },
-};
+export type ButtonProps = React.ComponentProps<"button"> & ButtonVariants;
 
-const liftSpring: Transition = { type: "spring", stiffness: 400, damping: 22, mass: 0.6 };
-const pressSpring: Transition = { type: "spring", stiffness: 700, damping: 34, mass: 0.5 };
+export const Button = ({ className, color, size, type = "button", ...props }: ButtonProps) => (
+  <button type={type} className={cx(buttonStyles({ color, size }), className)} {...props} />
+);
 
-const animationVariants = (size: ButtonSize, prefersReducedMotion: boolean) => {
-  const { rest, hover, press } = shadowDepth[size];
-  const transition = (spring: Transition) => (prefersReducedMotion ? { duration: 0 } : spring);
-
-  // Travel mirrors the shadow's growth exactly, which is what pins the shadow's outer corner in place.
-  return {
-    rest: { x: 0, y: 0, "--btn-shadow-offset": `${rest}px` },
-    hover: {
-      x: rest - hover,
-      y: rest - hover,
-      "--btn-shadow-offset": `${hover}px`,
-      transition: transition(liftSpring),
-    },
-    press: {
-      x: rest - press,
-      y: rest - press,
-      "--btn-shadow-offset": `${press}px`,
-      transition: transition(pressSpring),
-    },
-  };
-};
-
-const useButtonMotion = (size: ButtonSize, interactive: boolean) => {
-  const prefersReducedMotion = useReducedMotion();
-
-  const variants = React.useMemo(
-    () => animationVariants(size, prefersReducedMotion ?? false),
-    [size, prefersReducedMotion]
-  );
-
-  return {
-    variants,
-    initial: "rest",
-    whileHover: interactive ? "hover" : undefined,
-    whileTap: interactive ? "press" : undefined,
-  } as const;
-};
-
-export type ButtonProps = HTMLMotionProps<"button"> & ButtonVariants;
-
-export const Button = ({ className, color, size = "sm", type = "button", disabled, ...props }: ButtonProps) => {
-  const animation = useButtonMotion(size, !disabled);
-
-  return (
-    <motion.button
-      type={type}
-      disabled={disabled}
-      className={cx(buttonStyles({ color, size }), className)}
-      {...animation}
-      {...props}
-    />
-  );
-};
-
-const MotionLink = motion.create(NextLink);
-
-export type ButtonLinkProps = React.ComponentProps<typeof MotionLink> & ButtonVariants;
+export type ButtonLinkProps = React.ComponentProps<typeof BaseLink> & ButtonVariants;
 
 /** The same button, as a link. Most of the buttons in the design navigate rather than submit. */
-export const ButtonLink = ({ className, color, size = "sm", ...props }: ButtonLinkProps) => {
-  const animation = useButtonMotion(size, true);
-
-  return <MotionLink className={cx(buttonStyles({ color, size }), className)} {...animation} {...props} />;
-};
+export const ButtonLink = ({ className, color, size, ...props }: ButtonLinkProps) => (
+  <BaseLink className={cx(buttonStyles({ color, size }), className)} {...props} />
+);

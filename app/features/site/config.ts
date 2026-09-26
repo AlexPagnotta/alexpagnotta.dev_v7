@@ -4,8 +4,8 @@ import { env } from "@/env";
 // config so the share image can reuse it as its alt text.
 const title = "Alex Pagnotta — TODO Dev";
 
-// Central source of truth for site-wide SEO copy and identity. Everything else derives
-// from these — metadata, structured data, the manifest, llms.txt and the feed.
+// Site identity and contact details, read by the nav as well as metadata, structured data,
+// the manifest, llms.txt and the feed.
 export const siteConfig = {
   url: env.NEXT_PUBLIC_SITE_URL,
   name: "Alex Pagnotta",
@@ -44,3 +44,9 @@ export const siteConfig = {
 } as const;
 
 export const absoluteUrl = (path = "") => new URL(path, siteConfig.url).toString();
+
+// The ratio is measured for these exact words, so the two change together.
+export const NAME_WORDMARK = {
+  words: ["ALEX", "PAGNOTTA"],
+  ratio: 8.1,
+} as const;

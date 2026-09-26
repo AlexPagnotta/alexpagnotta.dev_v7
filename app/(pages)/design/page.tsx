@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cx } from "@/app/features/style/utils";
+import { cx } from "@/app/features/style/cva";
 import { Button, ButtonLink } from "@/app/features/ui/button";
 import { Card } from "@/app/features/ui/card";
 import { Container, type ContainerSize } from "@/app/features/ui/container";
@@ -67,7 +67,9 @@ const CONTAINERS = [
   { size: "sm", width: "720px" },
 ] as const satisfies readonly { size: ContainerSize; width: string }[];
 
-const Swatch = ({ name, className, hex }: { name: string; className: string; hex: string }) => (
+type SwatchProps = { name: string; className: string; hex: string };
+
+const Swatch = ({ name, className, hex }: SwatchProps) => (
   <div className="flex flex-col gap-8">
     <div className={cx("size-96 rounded-md border-2 border-black", className)} />
     <span className="body-2">{name}</span>
@@ -75,7 +77,7 @@ const Swatch = ({ name, className, hex }: { name: string; className: string; hex
   </div>
 );
 
-export default function DesignPage() {
+const DesignPage = () => {
   // The sandbox ships with the app but should never be reachable on the live site.
   if (isProduction) notFound();
 
@@ -142,9 +144,7 @@ export default function DesignPage() {
 
       <Section title="Button">
         <Subsection title="Sizes">
-          <Matrix axes={{ size: ["sm", "md", "sm-md", "xl"] } as const}>
-            {(props) => <Button {...props}>Button</Button>}
-          </Matrix>
+          <Matrix axes={{ size: ["md", "lg"] } as const}>{(props) => <Button {...props}>Button</Button>}</Matrix>
         </Subsection>
 
         <Subsection title="Colors">
@@ -251,7 +251,7 @@ export default function DesignPage() {
 
       <Section title="Tag">
         <Subsection title="Shape and size">
-          <Matrix axes={{ shape: ["pill", "rounded"], size: ["sm", "lg"] } as const}>
+          <Matrix axes={{ shape: ["pill", "rounded"], size: ["sm", "md"] } as const}>
             {(props) => <Tag {...props}>Tag</Tag>}
           </Matrix>
         </Subsection>
@@ -266,4 +266,6 @@ export default function DesignPage() {
       </Section>
     </main>
   );
-}
+};
+
+export default DesignPage;

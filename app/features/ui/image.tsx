@@ -1,5 +1,5 @@
 import NextImage, { type ImageProps } from "next/image";
-import { cx } from "@/app/features/style/utils";
+import { cx } from "@/app/features/style/cva";
 
 export type { ImageProps };
 

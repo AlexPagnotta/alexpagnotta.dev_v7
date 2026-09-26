@@ -1,9 +1,8 @@
-import { siteConfig } from "@/app/features/seo/config";
-import { cx } from "@/app/features/style/utils";
+import { NAME_WORDMARK, siteConfig } from "@/app/features/site/config";
+import { cx } from "@/app/features/style/cva";
 import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
 import { Wordmark } from "@/app/features/ui/wordmark";
-import { NAME_WORDMARK } from "@/app/features/utils/config";
 
 // Labels and order are the footer's own; the destinations come from the shared site config.
 const LINKS = [
@@ -33,7 +32,7 @@ export const Footer = () => {
             <span>Want to</span>
             <span className="pl-80 lg:pl-248">Say hi?</span>
           </h2>
-          <ButtonLink href={`mailto:${siteConfig.author.email}`} size="xl" className="-rotate-2">
+          <ButtonLink href={`mailto:${siteConfig.author.email}`} size="lg" className="-rotate-2">
             Contact Me
           </ButtonLink>
         </div>

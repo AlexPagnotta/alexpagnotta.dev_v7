@@ -1,7 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import type { StaticImageData } from "next/image";
 import type { ContentTag } from "@/app/features/content/config";
-import { DetailPageHero } from "@/app/features/detail-page/hero/hero";
+import { DetailPageHero } from "@/app/features/detail-page/hero/detail-page-hero";
 import type { Accent } from "@/app/features/style/accents";
 import { ButtonLink } from "@/app/features/ui/button";
 

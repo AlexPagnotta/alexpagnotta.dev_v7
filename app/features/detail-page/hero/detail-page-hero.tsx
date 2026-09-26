@@ -1,7 +1,8 @@
 import type { StaticImageData } from "next/image";
+import type * as React from "react";
 import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentTag, type ContentType } from "@/app/features/content/config";
 import { type Accent, darkAccent } from "@/app/features/style/accents";
-import { cx } from "@/app/features/style/utils";
+import { cx } from "@/app/features/style/cva";
 import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
 import { Image } from "@/app/features/ui/image";
@@ -54,7 +55,7 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
         {/* Hooked over the cover's top-left corner; without a cover it just opens the column. */}
         <ButtonLink
           href="/"
-          size="sm-md"
+          size="md"
           className={cx(
             "-rotate-4 animate-intro-appear animation-delay-150",
             cover && "absolute -top-26 -left-8 lg:-top-22 lg:-left-18"
@@ -87,11 +88,11 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
       <Container size="md" className="flex items-center justify-between gap-16 px-(--page-side-spacing)">
         <div className="flex items-center -space-x-1">
           {/* The design leads with the content type, squared off against the pill tags. */}
-          <Tag shape="rounded" size="lg">
+          <Tag shape="rounded" size="md">
             {CONTENT_TYPES[type].label}
           </Tag>
           {tags.map((tag) => (
-            <Tag key={tag} size="lg">
+            <Tag key={tag} size="md">
               {CONTENT_TAG_LABELS[tag]}
             </Tag>
           ))}

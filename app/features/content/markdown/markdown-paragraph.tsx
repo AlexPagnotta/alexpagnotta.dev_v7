@@ -1,4 +1,5 @@
-import { cx } from "@/app/features/style/utils";
+import type * as React from "react";
+import { cx } from "@/app/features/style/cva";
 
 export type MarkdownParagraphProps = React.ComponentPropsWithRef<"p">;
 

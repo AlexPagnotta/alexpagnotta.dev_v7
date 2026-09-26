@@ -2,7 +2,7 @@
 
 import { useReducedMotion } from "motion/react";
 import ReactFastMarquee, { type MarqueeProps as ReactFastMarqueeProps } from "react-fast-marquee";
-import { cva, cx, type VariantProps } from "@/app/features/style/utils";
+import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { useIsClient } from "@/app/features/utils/use-is-client";
 
 /*

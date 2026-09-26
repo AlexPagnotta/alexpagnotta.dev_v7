@@ -4,13 +4,8 @@ import path from "node:path";
 import matter from "gray-matter";
 import type { StaticImageData } from "next/image";
 import type * as React from "react";
-import {
-  CONTENT_TYPE_KEYS,
-  CONTENT_TYPES,
-  type ContentCardProps,
-  type ContentType,
-  type EntryFor,
-} from "@/app/features/content/config";
+import { CONTENT_TYPE_KEYS, CONTENT_TYPES, type ContentType, type EntryFor } from "@/app/features/content/config";
+import type { CustomFeedCardProps } from "@/app/features/home-page/feed/feed-card-shell";
 import { isProduction } from "@/app/features/utils/release-channel";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
@@ -55,7 +50,7 @@ export const getCover = async (
 const cardImports = {
   writing: (file: string) => import(`@/content/writings/${file}`),
   project: (file: string) => import(`@/content/projects/${file}`),
-} satisfies Record<ContentType, (file: string) => Promise<{ default: React.ComponentType<ContentCardProps> }>>;
+} satisfies Record<ContentType, (file: string) => Promise<{ default: React.ComponentType<CustomFeedCardProps> }>>;
 
 /**
  * An entry overrides its feed card by dropping a `card.tsx` next to its `index.mdx`, which
@@ -64,7 +59,7 @@ const cardImports = {
 export const getCustomCard = async (
   type: ContentType,
   slug: string
-): Promise<React.ComponentType<ContentCardProps> | undefined> => {
+): Promise<React.ComponentType<CustomFeedCardProps> | undefined> => {
   if (!fs.existsSync(path.join(dirFor(type), slug, "card.tsx"))) return undefined;
   const { default: CustomCard } = await cardImports[type](`${slug}/card`);
   return CustomCard;
