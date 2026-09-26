@@ -9,7 +9,8 @@ const LINKS = [
   { label: "Unsplash", href: siteConfig.social.unsplash },
   { label: "GitHub", href: siteConfig.social.github },
   { label: "LinkedIn", href: siteConfig.social.linkedin },
-  { label: "Curriculum", href: siteConfig.resumeUrl },
+  // A file, not a route, so there is no RSC payload worth prefetching.
+  { label: "Curriculum", href: siteConfig.resumeUrl, prefetch: false },
 ];
 
 const wordmarkStyles = cx(
@@ -37,8 +38,8 @@ export const Footer = () => {
           </ButtonLink>
         </div>
         <nav aria-label="Elsewhere" className="flex flex-wrap justify-end gap-16 lg:flex-col lg:items-end lg:gap-32">
-          {LINKS.map(({ label, href }) => (
-            <ButtonLink key={label} href={href} size="md" className="uppercase">
+          {LINKS.map(({ label, href, prefetch }) => (
+            <ButtonLink key={label} href={href} prefetch={prefetch} size="md" className="uppercase">
               {label}
             </ButtonLink>
           ))}
