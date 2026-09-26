@@ -78,7 +78,7 @@ const RootLayout = ({ children }: Props) => {
       data-scroll-behavior="smooth"
       className={cx(
         ppframa.variable,
-        "scroll-smooth scrollbar-green-dark",
+        "motion-safe:scroll-smooth scrollbar-green-dark",
         ACCENTS.map((accent) => PAGE_ACCENT_STYLES[accent].scrollbar)
       )}
     >

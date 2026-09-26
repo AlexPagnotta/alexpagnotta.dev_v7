@@ -26,7 +26,7 @@ const pillStyles = cx(
   "inline-flex items-center rounded-full border border-black px-24 py-8",
   "label-2 whitespace-nowrap bg-white text-black shadow-depth-4 shadow-black/10",
   // CSS rather than motion, since the fill arrives as a `var()` it would have to resolve first.
-  "transition-colors duration-300 ease-out motion-reduce:transition-none"
+  "transition-colors duration-300 ease-out"
 );
 
 const tiltAt = (clientX: number, card: Element) => {
