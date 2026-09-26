@@ -18,8 +18,6 @@
   --animate-intro-fade: intro-fade 500ms var(--ease-intro) backwards;
   --animate-intro-pop: intro-pop 500ms var(--ease-pop) backwards;
   --animate-intro-appear: intro-appear 400ms var(--ease-intro) backwards;
-  /* Moves by `--drift-x` and loops; set it to exactly one repeat of the content so the restart never shows. */
-  --animate-drift: drift 20s linear infinite;
 
   @keyframes intro-rise {
     from {
@@ -43,16 +41,22 @@
     }
   }
 
-  @keyframes drift {
-    to {
-      translate: var(--drift-x) 0;
-    }
-  }
-
   @keyframes intro-appear {
     from {
       opacity: 0;
       scale: calc(1 - 0.2 * var(--intro-motion));
+    }
+  }
+}
+
+/* `inline` so `--drift-duration` resolves on the animated element rather than on `:root`. */
+@theme inline {
+  /* Moves by `--drift-x` and loops; set it to exactly one repeat of the content so the restart never shows. */
+  --animate-drift: drift var(--drift-duration, 20s) linear infinite;
+
+  @keyframes drift {
+    to {
+      translate: var(--drift-x) 0;
     }
   }
 }

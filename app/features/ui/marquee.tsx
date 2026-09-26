@@ -1,15 +1,6 @@
-"use client";
-
-import { useReducedMotion } from "motion/react";
-import ReactFastMarquee, { type MarqueeProps as ReactFastMarqueeProps } from "react-fast-marquee";
+import type * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
-import { useIsClient } from "@/app/features/utils/use-is-client";
 
-/*
-  The band's height is set per size rather than left to the row inside it. react-fast-marquee
-  measures its own content before it renders any, so on the swap from the static row the band
-  would otherwise collapse to its borders for a frame and drag the whole page up with it.
-*/
 const marqueeStyles = cva({
   base: "w-full overflow-hidden border-black py-8 text-black",
   variants: {
@@ -23,13 +14,17 @@ const marqueeStyles = cva({
   },
 });
 
+// The row drifts by one of its two halves per loop; the time per character, measured in PP Frama, holds it near 50px/s.
 const marqueeItemStyles = cva({
-  // `whitespace-pre` keeps the spaces around the separator, which are what space the repeats apart.
-  base: "whitespace-pre",
+  base: [
+    // `whitespace-pre` keeps the spaces around the separator, which are what space the repeats apart.
+    "block w-max whitespace-pre [--drift-x:-50%]",
+    "[--drift-duration:calc(var(--marquee-chars)*var(--marquee-char-time))]",
+  ],
   variants: {
     size: {
-      sm: "body-3",
-      lg: "heading-2",
+      sm: "body-3 [--marquee-char-time:190ms]",
+      lg: "heading-2 [--marquee-char-time:400ms] lg:[--marquee-char-time:630ms]",
     },
   },
   defaultVariants: {
@@ -37,46 +32,39 @@ const marqueeItemStyles = cva({
   },
 });
 
+// Characters per half, enough to cover a 4K-wide viewport at the smallest size.
+const MIN_CHARS = 400;
+
 export type MarqueeVariants = VariantProps<typeof marqueeItemStyles>;
 export type MarqueeSize = NonNullable<MarqueeVariants["size"]>;
 
-export type MarqueeProps = Omit<ReactFastMarqueeProps, "children"> &
-  MarqueeVariants & {
-    text: string;
-    /** Mark repeated between copies of `text`. Omit for no separator. */
-    separator?: string;
-    /** Styles the row inside the band, which stays mounted across the swap from the static row. */
-    trackClassName?: string;
-  };
+export type MarqueeProps = MarqueeVariants & {
+  text: string;
+  /** Mark repeated between copies of `text`. Omit for no separator. */
+  separator?: string;
+  play?: boolean;
+  className?: string;
+  /** Styles the row inside the band, apart from the element that drifts. */
+  trackClassName?: string;
+};
 
-export const Marquee = ({
-  className,
-  trackClassName,
-  size = "sm",
-  text,
-  separator,
-  play = true,
-  ...props
-}: MarqueeProps) => {
-  const prefersReducedMotion = useReducedMotion();
-  const isClient = useIsClient();
+export const Marquee = ({ className, trackClassName, size = "sm", text, separator, play = true }: MarqueeProps) => {
   // The trailing space is what keeps the last repeat off the first one.
   const content = separator ? `${text} ${separator} ` : `${text} `;
+  const half = content.repeat(Math.ceil(MIN_CHARS / content.length));
 
   return (
     <div className={cx(marqueeStyles({ size }), className)}>
       {/* The scrolling copy is repeated, so expose the text once to assistive tech instead. */}
       <span className="sr-only">{text}</span>
       <div aria-hidden="true" className={trackClassName}>
-        {isClient ? (
-          <ReactFastMarquee autoFill className="overflow-y-hidden" play={play && !prefersReducedMotion} {...props}>
-            <span className={marqueeItemStyles({ size })}>{content}</span>
-          </ReactFastMarquee>
-        ) : (
-          // react-fast-marquee measures its content before rendering anything, so the band
-          // would collapse to its borders until hydration; one static row holds the height.
-          <span className={cx(marqueeItemStyles({ size }), "block")}>{content}</span>
-        )}
+        <span
+          className={cx(marqueeItemStyles({ size }), play && "motion-safe:animate-drift")}
+          // The one value that cannot be a utility class: it is counted off the text.
+          style={{ "--marquee-chars": half.length } as React.CSSProperties}
+        >
+          {half + half}
+        </span>
       </div>
     </div>
   );
