@@ -74,10 +74,16 @@ export const getSlugs = (type: ContentType): string[] => {
   const dir = dirFor(type);
   if (!fs.existsSync(dir)) return [];
 
-  return fs
-    .readdirSync(dir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(dir, entry.name, "index.mdx")))
-    .map((entry) => entry.name);
+  return (
+    fs
+      .readdirSync(dir, { withFileTypes: true })
+      // `_template` keeps each folder non-empty, or the imports above fail to resolve.
+      .filter(
+        (entry) =>
+          entry.isDirectory() && !entry.name.startsWith("_") && fs.existsSync(path.join(dir, entry.name, "index.mdx"))
+      )
+      .map((entry) => entry.name)
+  );
 };
 
 export const getEntry = <T extends ContentType>(type: T, slug: string): EntryFor<T> => {
