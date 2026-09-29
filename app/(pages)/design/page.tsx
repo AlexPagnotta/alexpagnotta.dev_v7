@@ -27,15 +27,18 @@ const ACCENTS = [
   { name: "green-dark", className: "bg-green-dark", hex: "#33cc92" },
   { name: "yellow-dark", className: "bg-yellow-dark", hex: "#ffd435" },
   { name: "pink-dark", className: "bg-pink-dark", hex: "#ff99e2" },
+  { name: "gray-dark", className: "bg-gray-dark", hex: "#b8bcbf" },
   { name: "green-light", className: "bg-green-light", hex: "#5cffa0" },
   { name: "yellow-light", className: "bg-yellow-light", hex: "#fff352" },
   { name: "pink-light", className: "bg-pink-light", hex: "#ffb3e9" },
+  { name: "gray-light", className: "bg-gray-light", hex: "#d4d8db" },
 ] as const;
 
 const GRADIENTS = [
   { name: "gradient-green", className: "bg-(image:--gradient-green)", hex: "white 25% → #97ebcb" },
   { name: "gradient-yellow", className: "bg-(image:--gradient-yellow)", hex: "white → #ffe688 · 50%" },
   { name: "gradient-pink", className: "bg-(image:--gradient-pink)", hex: "white → #ffccf0 · 50%" },
+  { name: "gradient-gray", className: "bg-(image:--gradient-gray)", hex: "white → #dcdee0 · 50%" },
 ] as const;
 
 const DISPLAY_SAMPLE = "Title";

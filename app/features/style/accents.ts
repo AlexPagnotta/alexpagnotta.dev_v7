@@ -3,7 +3,7 @@
   needs: `-dark` where the accent fills a large area, `-light` where it is a small bright mark.
   The names are the token families themselves, so both cuts resolve by interpolation.
 */
-export const ACCENTS = ["green", "yellow", "pink"] as const;
+export const ACCENTS = ["green", "yellow", "pink", "gray"] as const;
 
 export type Accent = (typeof ACCENTS)[number];
 
@@ -27,5 +27,9 @@ export const PAGE_ACCENT_STYLES = {
   pink: {
     page: "has-data-[page-accent=pink]:[--page-accent:var(--color-pink-dark)] has-data-[page-accent=pink]:[--page-gradient:var(--gradient-pink)]",
     scrollbar: "has-data-[page-accent=pink]:scrollbar-pink-dark",
+  },
+  gray: {
+    page: "has-data-[page-accent=gray]:[--page-accent:var(--color-gray-dark)] has-data-[page-accent=gray]:[--page-gradient:var(--gradient-gray)]",
+    scrollbar: "has-data-[page-accent=gray]:scrollbar-gray-dark",
   },
 } as const satisfies Record<Accent, { page: string; scrollbar: string }>;

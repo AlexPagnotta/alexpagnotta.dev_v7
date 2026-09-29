@@ -54,11 +54,14 @@
   --color-yellow-light: #fff352;
   --color-pink-dark: #ff99e2;
   --color-pink-light: #ffb3e9;
+  --color-gray-dark: #b8bcbf;
+  --color-gray-light: #d4d8db;
 
   /* The display wordmark's fill, one per accent. */
   --gradient-green: linear-gradient(to bottom, var(--color-white) 25%, #97ebcb);
   --gradient-yellow: linear-gradient(to bottom, rgb(255 255 255 / 0.5), rgb(255 230 136 / 0.5));
   --gradient-pink: linear-gradient(to bottom, rgb(255 255 255 / 0.5), rgb(255 204 240 / 0.5));
+  --gradient-gray: linear-gradient(to bottom, rgb(255 255 255 / 0.5), rgb(220 222 224 / 0.5));
 
   --blur-\*: initial;
 
