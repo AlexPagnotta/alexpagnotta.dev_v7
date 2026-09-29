@@ -47,21 +47,25 @@ const glyphStyles = cx(
   "[-webkit-text-stroke-width:2px] [-webkit-text-stroke-color:var(--color-black)]"
 );
 
+// Black glyphs overhang their advance, and the background only paints inside the box, so it is widened past them.
+const inkBleedStyles = "px-[0.25em] -mx-[0.25em]";
+
 const shadowStyles = "drop-shadow-depth-6 lg:drop-shadow-depth-12";
 
-const wordStyles = cx(glyphStyles, shadowStyles);
+const wordStyles = cx(glyphStyles, inkBleedStyles, shadowStyles);
 
 // Runs of each word along a drifting row; the drift loops by exactly one run, a third of the track.
 const RUNS = 3;
 
 // Hangs off a row's start to cover what the drift and slide expose there. The row's shadow filter already covers it.
-const leadStyles = cx(glyphStyles, "absolute top-0 right-full whitespace-pre md:hidden");
+const leadStyles = cx(glyphStyles, inkBleedStyles, "absolute top-0 right-full whitespace-pre md:hidden");
 
 // Filler letters are drawn from `data-text`, so only the words themselves are in the page's text.
 const fillerStyles = "before:content-[attr(data-text)]";
 
 // Inline boxes ignore `translate`, so the track is an inline-block sized by its runs alone.
-const trackStyles = "max-md:relative max-md:inline-block max-md:whitespace-pre";
+// The bleed waits for `md`: the drift moves by thirds of the track, so padding it would break the loop.
+const trackStyles = "max-md:relative max-md:inline-block max-md:whitespace-pre md:px-[0.25em] md:-mx-[0.25em]";
 
 const driftStyles = {
   first: cx("max-md:motion-safe:animate-drift", "max-md:[--drift-x:calc(100%/3)]"),
