@@ -8,20 +8,20 @@ import nokiaOff from "./nokia-off.png";
 import nokiaOn from "./nokia-on.png";
 
 const nokiaStyles = cx(
-  "absolute -bottom-70 left-12 h-auto w-124 rotate-21 xl:left-0",
+  "absolute z-10 -bottom-70 left-12 h-auto w-112 rotate-21 @xs:w-124 xl:left-0",
   "transition-[opacity,rotate,scale] duration-200",
   "motion-safe:group-hover:rotate-17 motion-safe:group-hover:scale-105",
   "motion-safe:group-focus-visible:rotate-17 motion-safe:group-focus-visible:scale-105"
 );
 
 const OverheardCard = ({ href, tags, accent }: CustomFeedCardProps) => (
-  <FeedCardShell href={href} accent={accent} className="group h-255 gap-16 overflow-hidden pt-40">
+  <FeedCardShell href={href} accent={accent} className="group @container h-255 gap-16 overflow-hidden pt-32">
     <h3 className="body-4 w-full text-right">
       A funky website for
       <br />
       <em>Overheard</em>
     </h3>
-    <Card.Tags align="end" className="relative z-10 mt-auto">
+    <Card.Tags align="end" className="mt-auto">
       <Tag shape="rounded">{CONTENT_TYPES.project.label}</Tag>
       {tags.map((tag) => (
         <Tag key={tag}>{CONTENT_TAG_LABELS[tag]}</Tag>
