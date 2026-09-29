@@ -34,6 +34,8 @@ const COLUMN_DELAY = 0.06;
 
 const gridExit = { opacity: 0, transition: { duration: 0.2, ease: "easeOut" } } as const;
 
+const singleColumnStyles = "max-md:mx-auto max-md:w-full max-md:max-w-400";
+
 export type FeedListItem = {
   key: string;
   facets: readonly FeedFacet[];
@@ -99,7 +101,7 @@ export const FeedList = ({ items }: FeedListProps) => {
           {isClient ? (
             // Filtering moves the cards between columns anyway, so the grid leaves as one and the new set reveals.
             <AnimatePresence mode="wait">
-              <m.div key={filter} exit={gridExit} className="flex items-start gap-24">
+              <m.div key={filter} exit={gridExit} className={cx("flex items-start gap-24", singleColumnStyles)}>
                 {toColumns(visibleItems, columnCount).map((column, index) => (
                   // biome-ignore lint/suspicious/noArrayIndexKey: a column has no identity beyond its position.
                   <ul key={index} className="flex min-w-0 flex-1 flex-col gap-24">
@@ -113,7 +115,7 @@ export const FeedList = ({ items }: FeedListProps) => {
           ) : (
             // The column count is only known once mounted, so until then the browser balances the columns.
             // Every card is still hidden before its reveal, so the switch never shows.
-            <ul className="gap-x-24 md:columns-2 lg:columns-3 xl:columns-4">
+            <ul className={cx("gap-x-24 md:columns-2 lg:columns-3 xl:columns-4", singleColumnStyles)}>
               {visibleItems.map((item) => (
                 <FeedListCard key={item.key} item={item} className="mb-24 break-inside-avoid" />
               ))}

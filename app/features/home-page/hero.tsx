@@ -64,7 +64,7 @@ const WaveWord = ({ children, className }: WaveWordProps) => (
 );
 
 const introCopyStyles = cx(
-  "heading-4 mx-auto max-w-320 text-center max-lg:leading-48 md:max-w-416 lg:max-w-720",
+  "heading-4 mx-auto max-w-320 text-center max-lg:leading-48 md:max-w-600 lg:max-w-720",
   "animate-intro-rise animation-delay-120"
 );
 
