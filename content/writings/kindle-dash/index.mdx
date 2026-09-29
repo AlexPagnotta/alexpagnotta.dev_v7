@@ -1,6 +1,6 @@
 ---
 title: Kindle Dash
-description: How I repurposed my Kindle to be a dashboard for news and other information.
+description: How I turned my old Kindle into a dashboard for news, tasks and more.
 date: 2025-06-18
 cover: cover.jpg
 accent: gray
@@ -16,66 +16,67 @@ import kindleTasks from "./kindle-tasks.jpeg";
 import kindleScreensaver from "./kindle-screensaver.jpeg";
 import kindleBack from "./kindle-back.jpeg";
 
-Some time ago, I stumbled upon [TRMNL](https://usetrmnl.com/), an e-ink tablet that can display various dashboards, including weather data, Hacker News, calendar events, and more.
+Some time ago, I stumbled upon [TRMNL](https://usetrmnl.com/), an e-ink display that shows different dashboards: weather, Hacker News, calendar events and more.
 
-<Image src={trmnl} alt="TRMNL Homepage" caption="TRMNL Homepage" />
+<Image src={trmnl} alt="TRMNL homepage" caption="TRMNL homepage" />
 
-I immediately fell in love with the idea and quickly reached for the "Buy now" button, but then I thought, "I have an old Kindle, a 3D printer, and some coding skills, maybe I can replicate the same concept with some DIY magic.", and that's exactly what I did.
+I immediately fell in love with the idea and my finger was already on the "Buy now" button. Then I thought: "I have an old Kindle, a 3D printer and some coding skills, maybe I can build the same thing with some DIY magic." And that's exactly what I did.
 
 ## The software
 
 On the software side, I had a simple list of requirements:
 
-- **Flexible**: I wanted to be able to add any type of tool or feature, either now or in the future.
-- **Interactive**: Other solutions just render a static image on the kindle screen, refreshed after a certain interval of time. In my case, I wanted to be able to interact with the software using the Kindle's touch screen, so that approach would not work for me.
-- **Simple**: One option would have been to develop a native Kindle app, loaded through [KUAL](https://www.mobileread.com/forums/showthread.php?t=203326), but it would be pretty limited in functionality and would have forced me to learn an entirely new stack.
+- **Flexible**: I wanted to be able to add any kind of tool or feature, now or in the future.
+- **Interactive**: Other solutions just render a static image on the Kindle screen and refresh it every few minutes. I wanted to interact with the dashboard using the Kindle's touch screen, so that approach wouldn't work for me.
+- **Simple**: One option was a native Kindle app loaded through [KUAL](https://www.mobileread.com/forums/showthread.php?t=203326), but it would've been pretty limited and forced me to learn an entirely new stack.
 
-For all these reasons, I decided to just build the dashboard as a simple website, using NextJS + Tailwind and hosted it on Vercel. The full source code is available [here](https://github.com/AlexPagnotta/kindle-dash) if you're curious about how it works.
+For all these reasons, I decided to build the dashboard as a simple website with Next.js and Tailwind, hosted on Vercel. The full source code is [on GitHub](https://github.com/AlexPagnotta/kindle-dash) if you're curious how it works.
 
-I didn't want to make it super complex for now, so I decided to start with a basic set of features:
+I didn't want to make it too complex for now, so I started with a basic set of features:
 
 - Date and time
-- RSS Feed widget with custom sources
+- Weather for your location
+- RSS feed widget with custom sources
 - Hacker News widget showing the top posts
 - Notion integration to show tasks and fields from databases
 - Screensaver that displays an image from Unsplash with a nice dithering effect
 
-Now that we've defined the tech stack and the features we need, we need a way to display this website on the device. The Kindle has an experimental native browser, but it's pretty outdated and lacks some of the features we would need, so I had to take a different route.
+With the stack and features set, I needed a way to show the website on the device. The Kindle has an experimental built-in browser, but it's pretty outdated and misses some features I needed, so I had to take a different route.
 
-During my research for this project, I came across the [Alpine Kindle repo](https://github.com/schuhumi/alpine_kindle), a way to boot Alpine Linux directly on the Kindle. This is the perfect solution for me, as it provides us with a full-fledged and up-to-date browser where we can display the dashboard website without any limitations.
+While researching, I came across the [Alpine Kindle repo](https://github.com/schuhumi/alpine_kindle), a way to boot Alpine Linux directly on the Kindle. It was the perfect solution: a full, up-to-date browser where I can show the dashboard without any limitations.
 
-That said, this is not the most straightforward process, installing Alpine Linux on Kindle requires a jailbreak, which is not available on the latest versions of KindleOS, and several plugins/applets to be installed and configured. The entire process is pretty long, but I've added some basic instructions on the [project repo](https://github.com/AlexPagnotta/kindle-dash?tab=readme-ov-file#instructions).
+That said, it's not the most straightforward process. Installing Alpine Linux on a Kindle requires a jailbreak, which isn't available on the latest KindleOS versions, plus several plugins and applets to install and configure. The whole process is pretty long, but I've added some basic instructions in the [project repo](https://github.com/AlexPagnotta/kindle-dash?tab=readme-ov-file#instructions).
 
 ## The UI
 
-I'm not a designer, so coming up with a good-looking UI is always a challenge for me. It was even more difficult this time since the Kindle screen has a grayscale-only display, so no colors and a limited amount of contrast options.
+I'm not a designer, so coming up with a good-looking UI is always a challenge for me. This time it was even harder, since the Kindle has a grayscale-only screen: no colors and limited contrast.
 
-In the end, I think I was able to come up with something simple but functional. I got some inspiration from the TRMNL project and [their design system](https://usetrmnl.com/framework), with some adaptations to account for my use case.
+In the end, I think I came up with something simple but functional. I took some inspiration from TRMNL and [their design system](https://usetrmnl.com/framework), adapting it to my use case.
 
 <Image src={figma} alt="Figma design" />
 
 ## The Kindle
 
-Nothing was really required on the hardware side of the Kindle, just a simple stand would be enough to have a nice-looking dashboard device on the desk. But as I said in the intro, I have a 3D printer, so why not use it to create a custom case for the occasion?
+The hardware side didn't really need anything, a simple stand would be enough to have a nice dashboard on the desk. But as I said in the intro, I have a 3D printer, so why not use it to make a custom case?
 
-So after a couple of hours and the help of Autodesk Fusion, I came up with a simple custom case for the Kindle, stand included. To make it as slim as possible, I decided to actually replace the original Kindle case with mine, so I had to first disassemble the Kindle, removing the plastic shell, and then place the motherboard + screen plate in the new case.
+So after a couple of hours in Autodesk Fusion, I came up with a simple custom case, stand included. To keep it as slim as possible, I replaced the Kindle's original shell with mine: I took the Kindle apart, removed the plastic shell, and placed the motherboard and screen plate in the new case.
 
-<Image src={model3d} alt="Autodesk Fusion Project" />
+<Image src={model3d} alt="Autodesk Fusion project" />
 
 ## Final Result
 
-It's now time for the big showcase (drum roll... 🥁)
+Now it's time for the big reveal (drum roll... 🥁)
 
-<Image src={kindleHome} alt="Home Screen" caption="Home Screen" />
+<Image src={kindleHome} alt="Home screen" caption="Home screen" />
 
-<Image src={kindleNews} alt="News Screen" caption="News Screen" />
+<Image src={kindleNews} alt="News screen" caption="News screen" />
 
-<Image src={kindleTasks} alt="Tasks Screen" caption="Tasks Screen" />
+<Image src={kindleTasks} alt="Tasks screen" caption="Tasks screen" />
 
-<Image src={kindleScreensaver} alt="Screensaver Feature" caption="Screensaver Feature" />
+<Image src={kindleScreensaver} alt="Screensaver" caption="Screensaver" />
 
-<Image src={kindleBack} alt="Back of the Custom Case" caption="Back of the Custom Case" />
+<Image src={kindleBack} alt="Back of the custom case" caption="Back of the custom case" />
 
-This small side project was really fun for me, as a software dev, I'm used to building products, but being able to work on something that combines both software and hardware was a completely different experience.
+This small side project was a lot of fun. As a software dev I'm used to building products, but working on something that combines software and hardware was a completely different experience.
 
-More importantly, the end product is something that I ended up using daily to check my tasks for the day, stay updated with the latest news, or simply check the weather.
+More importantly, it's something I ended up using every day to check my tasks, catch up on the news, or just check the weather.
