@@ -10,8 +10,7 @@ import nokiaOn from "./nokia-on.png";
 const nokiaStyles = cx(
   "absolute z-10 -bottom-70 left-12 h-auto w-112 rotate-21 @xs:w-124 xl:left-0",
   "transition-[opacity,rotate,scale] duration-200",
-  "motion-safe:group-hover:rotate-17 motion-safe:group-hover:scale-105",
-  "motion-safe:group-focus-visible:rotate-17 motion-safe:group-focus-visible:scale-105"
+  "motion-safe:group-engaged:rotate-17 motion-safe:group-engaged:scale-105"
 );
 
 const OverheardCard = ({ href, tags, accent }: CustomFeedCardProps) => (
@@ -34,7 +33,7 @@ const OverheardCard = ({ href, tags, accent }: CustomFeedCardProps) => (
       alt=""
       sizes="124px"
       placeholder="empty"
-      className={cx(nokiaStyles, "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100")}
+      className={cx(nokiaStyles, "opacity-0 group-engaged:opacity-100")}
     />
   </FeedCardShell>
 );

@@ -2,7 +2,9 @@
 
 import { m, type Transition, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import * as React from "react";
+import { useMediaQuery } from "usehooks-ts";
 import { cx } from "@/app/features/style/cva";
+import { screens } from "@/app/features/utils/screens";
 
 const LABEL = "OPEN";
 
@@ -14,6 +16,9 @@ const MAX_ROTATION = 14;
 
 // Long enough to cross the gap to the next card, so the pill carries over instead of popping out and back in.
 const HIDE_DELAY = 150;
+
+// A touch phone has no hover, so the card crossing the middle of the viewport gets it instead.
+const CENTRED_CARD_QUERY = `(pointer: coarse) and (width < ${screens.md})`;
 
 const followSpring = { stiffness: 500, damping: 40, mass: 0.4 };
 
@@ -45,6 +50,7 @@ export const CardCursorProvider = ({ children }: CardCursorProviderProps) => {
   const [pressed, setPressed] = React.useState(false);
   const [fill, setFill] = React.useState<string>();
   const prefersReducedMotion = useReducedMotion();
+  const flagsCentredCard = useMediaQuery(CENTRED_CARD_QUERY, { initializeWithValue: false });
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -138,6 +144,34 @@ export const CardCursorProvider = ({ children }: CardCursorProviderProps) => {
       cancelAnimationFrame(frame);
     };
   }, [x, y, rotate, springX, springY, springRotate]);
+
+  React.useEffect(() => {
+    const root = rootRef.current;
+    if (!root || !flagsCentredCard) return;
+
+    // Shrinks the viewport to the line across its middle, so only a card crossing it intersects.
+    const intersection = new IntersectionObserver(
+      (entries) => {
+        for (const { target, isIntersecting } of entries) target.toggleAttribute("data-active", isIntersecting);
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+
+    const observeCards = () => {
+      for (const card of root.querySelectorAll(CARD_SELECTOR)) intersection.observe(card);
+    };
+
+    // Filtering swaps the cards out, so the new set has to be picked up as it mounts.
+    const mutation = new MutationObserver(observeCards);
+    mutation.observe(root, { childList: true, subtree: true });
+    observeCards();
+
+    return () => {
+      mutation.disconnect();
+      intersection.disconnect();
+      for (const card of root.querySelectorAll(CARD_SELECTOR)) card.removeAttribute("data-active");
+    };
+  }, [flagsCentredCard]);
 
   return (
     <>

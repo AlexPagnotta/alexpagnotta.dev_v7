@@ -9,8 +9,7 @@ import kindle from "./kindle.png";
 const kindleStyles = cx(
   "absolute z-10 -right-72 -bottom-64 h-auto w-290 -rotate-10",
   "transition-[rotate,scale] duration-200",
-  "motion-safe:group-hover:-rotate-6 motion-safe:group-hover:scale-105",
-  "motion-safe:group-focus-visible:-rotate-6 motion-safe:group-focus-visible:scale-105"
+  "motion-safe:group-engaged:-rotate-6 motion-safe:group-engaged:scale-105"
 );
 
 const KindleDashCard = ({ href, tags, accent }: CustomFeedCardProps) => (

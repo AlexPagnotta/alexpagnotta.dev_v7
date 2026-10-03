@@ -123,3 +123,16 @@
     border-radius: var(--radius-full);
   }
 }
+
+/* A card's hover state, also reached by keyboard focus and by `data-active`, which touch screens set on the centred card. */
+@custom-variant group-engaged {
+  @media (hover: hover) {
+    &:is(:where(.group):hover *) {
+      @slot;
+    }
+  }
+
+  &:is(:where(.group):focus-visible *, :where(.group)[data-active] *) {
+    @slot;
+  }
+}

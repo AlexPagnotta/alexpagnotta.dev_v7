@@ -8,8 +8,7 @@ import logo from "./logo.svg?url";
 
 const logoStyles = cx(
   "w-191 transition-[rotate,scale] duration-300 ease-pop",
-  "motion-safe:group-hover:-rotate-3 motion-safe:group-hover:scale-108",
-  "motion-safe:group-focus-visible:-rotate-3 motion-safe:group-focus-visible:scale-108"
+  "motion-safe:group-engaged:-rotate-3 motion-safe:group-engaged:scale-108"
 );
 
 const DuolingoCard = ({ href, tags, accent }: CustomFeedCardProps) => (

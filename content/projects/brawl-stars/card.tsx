@@ -8,8 +8,7 @@ import logo from "./logo.webp";
 
 const logoStyles = cx(
   "h-auto w-144 transition-[rotate,scale] duration-300 ease-pop",
-  "motion-safe:group-hover:rotate-3 motion-safe:group-hover:scale-108",
-  "motion-safe:group-focus-visible:rotate-3 motion-safe:group-focus-visible:scale-108"
+  "motion-safe:group-engaged:rotate-3 motion-safe:group-engaged:scale-108"
 );
 
 const BrawlStarsCard = ({ href, tags, accent }: CustomFeedCardProps) => (
