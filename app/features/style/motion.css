@@ -99,6 +99,29 @@
 }
 
 /*
+  Drops by `--scroll-bend-y` times the square of `--bend-x`, the letter's signed distance from the centre, and tilts
+  by it, so a line bends into an arc as the page scrolls; the further out, the longer it takes to settle.
+*/
+@utility scroll-bend {
+  --bend-d: max(var(--bend-x), -1 * var(--bend-x));
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      animation: scroll-bend ease-out both;
+      animation-timeline: scroll(root);
+      animation-range: 0 calc(--spacing(520) + var(--bend-d) * --spacing(200));
+    }
+  }
+}
+
+@keyframes scroll-bend {
+  to {
+    translate: 0 calc(var(--bend-x) * var(--bend-x) * var(--scroll-bend-y, 1em));
+    rotate: calc(var(--bend-x) * var(--scroll-bend-rotate, 16deg));
+  }
+}
+
+/*
   Sits on a hard black shadow of `n`px and lifts off it: hover and keyboard focus double the offset, press halves it,
   and the element travels by the difference so the shadow's outer corner stays put.
 */

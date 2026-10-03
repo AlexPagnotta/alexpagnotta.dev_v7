@@ -80,6 +80,18 @@ const slideStyles = {
 
 const offsetStyles = { first: "max-md:-ml-24", second: "max-md:ml-63" };
 
+// Each letter carries its own fill: a translated child is painted apart from its parent's clipped background.
+const bendLetterStyles = cx(
+  glyphStyles,
+  inkBleedStyles,
+  "md:inline-block md:scroll-bend",
+  // After the bleed, whose negative margin this keeps while adding the pair's kerning.
+  "ml-[calc(var(--bend-kern)-0.25em)]"
+);
+
+// Without this the parent's clipped fill can paint as a solid box once its letters move on their own layers.
+const bendParentStyles = "md:bg-none";
+
 export type WordmarkVariants = VariantProps<typeof wordmarkStyles>;
 
 export type WordmarkProps = useRender.ComponentProps<"p"> &
@@ -93,6 +105,11 @@ export type WordmarkProps = useRender.ComponentProps<"p"> &
      */
     ratio: number;
     /**
+     * Kerning pairs in em, measured in the browser like `ratio`. The letters `bendOnScroll` splits into separate
+     * boxes lose the font's own kerning, so it is put back from these.
+     */
+    kerning?: Readonly<Record<string, number>>;
+    /**
      * Flanks the line with a copy each side from `lg`, so a viewport wider than the capped line still
      * reads as a full band rather than one centred line between two empty gutters.
      */
@@ -101,40 +118,91 @@ export type WordmarkProps = useRender.ComponentProps<"p"> &
     drift?: boolean;
     /** With `stacked`, slides the rows to each other's offset as the page scrolls. */
     slideOnScroll?: boolean;
+    /** From `md`, drops the letters as the page scrolls, more the further they sit from the centre, bending the line. */
+    bendOnScroll?: boolean;
   };
 
 /** A pair of words at display size, held wider than the viewport until it reaches `display-1`. */
 export const Wordmark = ({
   words: [first, second],
   ratio,
+  kerning = {},
   className,
   stacked,
   sunk,
   repeated,
   drift,
   slideOnScroll,
+  bendOnScroll,
   render,
   ...props
 }: WordmarkProps) => {
   const slide = stacked && slideOnScroll;
   const drifting = stacked && drift;
 
+  // Positions count characters along the line, the space between the words included, so the copies carry on outward.
+  const length = first.length + 1 + second.length;
+  const centre = (length - 1) / 2;
+  const start = { first: 0, second: first.length + 1 };
+
+  const letters = (text: string, from: number) =>
+    [...text].map((letter, index, chars) => (
+      <span
+        // biome-ignore lint/suspicious/noArrayIndexKey: the letters never reorder.
+        key={index}
+        className={bendLetterStyles}
+        style={
+          {
+            "--bend-x": (from + index - centre) / centre,
+            "--bend-kern": `${kerning[`${chars[index - 1]}${letter}`] ?? 0}em`,
+          } as React.CSSProperties
+        }
+      >
+        {letter}
+      </span>
+    ));
+
+  // Split into letters for the bend, so the word is exposed once to assistive tech instead.
+  const text = (value: string, row: "first" | "second") =>
+    bendOnScroll ? (
+      <>
+        <span className="sr-only">{value}</span>
+        <span aria-hidden>{letters(value, start[row])}</span>
+      </>
+    ) : (
+      value
+    );
+
   // The first run is the heading's text; the rest only fill the row, so they stay out of its name.
-  const word = (text: string, row: "first" | "second") =>
+  const word = (value: string, row: "first" | "second") =>
     drifting ? (
       <span className={cx(shadowStyles, offsetStyles[row], slide && slideStyles[row])}>
-        <span className={cx(glyphStyles, trackStyles, driftStyles[row])}>
-          <span aria-hidden data-text={`${text} `.repeat(RUNS)} className={cx(leadStyles, fillerStyles)} />
-          {text}
-          <span aria-hidden data-text={`${` ${text}`.repeat(RUNS - 1)} `} className={cx("md:hidden", fillerStyles)} />
+        <span className={cx(glyphStyles, trackStyles, driftStyles[row], bendOnScroll && bendParentStyles)}>
+          <span aria-hidden data-text={`${value} `.repeat(RUNS)} className={cx(leadStyles, fillerStyles)} />
+          {text(value, row)}
+          <span aria-hidden data-text={`${` ${value}`.repeat(RUNS - 1)} `} className={cx("md:hidden", fillerStyles)} />
         </span>
       </span>
     ) : (
-      <span className={cx(wordStyles, stacked && offsetStyles[row], slide && slideStyles[row])}>{text}</span>
+      <span
+        className={cx(
+          wordStyles,
+          stacked && offsetStyles[row],
+          slide && slideStyles[row],
+          bendOnScroll && bendParentStyles
+        )}
+      >
+        {text(value, row)}
+      </span>
     );
 
   // The copies only show from `lg`, where no row drifts, so each word is a single run.
-  const copyWord = (text: string) => <span data-text={text} className={cx(wordStyles, fillerStyles)} />;
+  const copyWord = (value: string, from: number) =>
+    bendOnScroll ? (
+      <span className={shadowStyles}>{letters(value, from)}</span>
+    ) : (
+      <span data-text={value} className={cx(wordStyles, fillerStyles)} />
+    );
 
   const pair = (
     <>
@@ -144,17 +212,19 @@ export const Wordmark = ({
 
   // The copies hang off the line rather than sitting beside it, so they cannot push it off centre.
   // `whitespace-pre` keeps the space at their inner edge, which `nowrap` would trim at the line end.
-  const copy = (side: "start" | "end") =>
-    repeated ? (
+  const copy = (side: "start" | "end") => {
+    const offset = side === "start" ? -(length + 1) : length + 1;
+    return repeated ? (
       <span
         aria-hidden
         className={cx("absolute top-0 hidden whitespace-pre lg:block", side === "start" ? "right-full" : "left-full")}
       >
         {side === "end" && " "}
-        {copyWord(first)} {copyWord(second)}
+        {copyWord(first, offset + start.first)} {copyWord(second, offset + start.second)}
         {side === "start" && " "}
       </span>
     ) : null;
+  };
 
   const line = useRender({
     defaultTagName: "p",

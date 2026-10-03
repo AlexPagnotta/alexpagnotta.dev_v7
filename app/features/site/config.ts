@@ -45,8 +45,9 @@ export const siteConfig = {
 
 export const absoluteUrl = (path = "") => new URL(path, siteConfig.url).toString();
 
-// The ratio is measured for these exact words, so the two change together.
+// The ratio and kerning are measured for these exact words, so the three change together.
 export const NAME_WORDMARK = {
   words: ["ALEX", "PAGNOTTA"],
   ratio: 8.1,
+  kerning: { PA: -0.07, AG: -0.06, OT: -0.04, TA: -0.09 },
 } as const;

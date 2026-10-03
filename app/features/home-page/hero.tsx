@@ -105,7 +105,7 @@ export const Hero = () => {
     // `data-navbar-boundary` keeps the revealed navbar off the hero, see `nav/navbar.tsx`.
     <section
       data-navbar-boundary
-      className="border-b-2 border-black bg-green-dark pt-64 pb-64 md:pt-48 lg:pt-64 lg:pb-80"
+      className="overflow-clip border-b-2 border-black bg-green-dark pt-64 pb-64 md:pt-48 lg:pt-64 lg:pb-80"
     >
       <div className="flex flex-col items-center gap-48 lg:gap-64">
         <Wordmark
@@ -113,6 +113,7 @@ export const Hero = () => {
           stacked
           drift
           slideOnScroll
+          bendOnScroll
           repeated
           // biome-ignore lint/a11y/useHeadingContent: the rule cannot see the words Wordmark renders into it.
           render={<h1 />}
