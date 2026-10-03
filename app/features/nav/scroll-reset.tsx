@@ -1,5 +1,6 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
@@ -7,6 +8,7 @@ import * as React from "react";
 // Rendered after `main`, so this layout effect runs after Next's own scroll handling.
 export const ScrollReset = () => {
   const pathname = usePathname();
+  const lenis = useLenis();
 
   React.useLayoutEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -14,7 +16,9 @@ export const ScrollReset = () => {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: the reset is keyed to the route, not read from it.
   React.useLayoutEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    // Lenis ignores native scrolls while it animates, so a reset mid-glide has to go through it.
+    if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+    else window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname]);
 
   return null;

@@ -2,6 +2,7 @@ import type * as React from "react";
 import { Footer } from "@/app/features/nav/footer";
 import { Navbar } from "@/app/features/nav/navbar";
 import { ScrollReset } from "@/app/features/nav/scroll-reset";
+import { SmoothScroll } from "@/app/features/nav/smooth-scroll";
 import { siteConfig } from "@/app/features/site/config";
 import { ACCENTS, PAGE_ACCENT_STYLES } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/cva";
@@ -46,6 +47,7 @@ const SiteLayout = ({ children }: Props) => {
         <Footer />
       </div>
       <ScrollReset />
+      <SmoothScroll />
     </div>
   );
 };
