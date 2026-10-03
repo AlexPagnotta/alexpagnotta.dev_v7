@@ -7,7 +7,7 @@ import { Tag } from "@/app/features/ui/tag";
 import logo from "./logo.svg?url";
 
 const logoStyles = cx(
-  "w-191 transition-[rotate,scale] duration-300 ease-pop",
+  "w-191 transition-[rotate,scale] duration-300 ease-pop pointer-coarse:duration-500",
   "motion-safe:group-engaged:-rotate-3 motion-safe:group-engaged:scale-108"
 );
 

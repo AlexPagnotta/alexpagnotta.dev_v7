@@ -20,6 +20,9 @@ const HIDE_DELAY = 150;
 // A touch phone has no hover, so the card crossing the middle of the viewport gets it instead.
 const CENTRED_CARD_QUERY = `(pointer: coarse) and (width < ${screens.md})`;
 
+// How long a card has to hold the middle: a flick past never lights it up, and crossing a gap never drops the last one.
+const CENTRED_DWELL = 150;
+
 const followSpring = { stiffness: 500, damping: 40, mass: 0.4 };
 
 const revealSpring: Transition = { type: "spring", stiffness: 600, damping: 32, mass: 0.5 };
@@ -149,27 +152,46 @@ export const CardCursorProvider = ({ children }: CardCursorProviderProps) => {
     const root = rootRef.current;
     if (!root || !flagsCentredCard) return;
 
-    // Shrinks the viewport to the line across its middle, so only a card crossing it intersects.
-    const intersection = new IntersectionObserver(
-      (entries) => {
-        for (const { target, isIntersecting } of entries) target.toggleAttribute("data-active", isIntersecting);
-      },
-      { rootMargin: "-50% 0px -50% 0px" }
-    );
+    let active: Element | null = null;
+    let candidate: Element | null = null;
+    let dwellTimeout: ReturnType<typeof setTimeout> | undefined;
+    let frame = 0;
 
-    const observeCards = () => {
-      for (const card of root.querySelectorAll(CARD_SELECTOR)) intersection.observe(card);
+    const look = () => {
+      frame = 0;
+      const card = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2)?.closest(CARD_SELECTOR);
+      // Waits out the reveal, or the hover plays on top of the card still rising in.
+      const next = card && root.contains(card) && card.closest("[data-revealed]") ? card : null;
+      if (next === candidate) return;
+
+      candidate = next;
+      clearTimeout(dwellTimeout);
+      if (candidate === active) return;
+      dwellTimeout = setTimeout(() => {
+        active?.removeAttribute("data-active");
+        active = candidate;
+        active?.setAttribute("data-active", "");
+      }, CENTRED_DWELL);
     };
 
-    // Filtering swaps the cards out, so the new set has to be picked up as it mounts.
-    const mutation = new MutationObserver(observeCards);
-    mutation.observe(root, { childList: true, subtree: true });
-    observeCards();
+    const onChange = () => {
+      frame ||= requestAnimationFrame(look);
+    };
+
+    // Filtering and a reveal finishing change the candidate without a scroll.
+    const mutation = new MutationObserver(onChange);
+    mutation.observe(root, { childList: true, subtree: true, attributeFilter: ["data-revealed"] });
+    window.addEventListener("scroll", onChange, { passive: true });
+    window.addEventListener("resize", onChange, { passive: true });
+    onChange();
 
     return () => {
       mutation.disconnect();
-      intersection.disconnect();
-      for (const card of root.querySelectorAll(CARD_SELECTOR)) card.removeAttribute("data-active");
+      window.removeEventListener("scroll", onChange);
+      window.removeEventListener("resize", onChange);
+      clearTimeout(dwellTimeout);
+      cancelAnimationFrame(frame);
+      active?.removeAttribute("data-active");
     };
   }, [flagsCentredCard]);
 

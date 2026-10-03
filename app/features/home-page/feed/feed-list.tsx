@@ -59,18 +59,25 @@ const toColumns = <T,>(items: T[], count: number) =>
 
 type FeedListCardProps = { item: FeedListItem; column?: number; className?: string };
 
-const FeedListCard = ({ item, column = 0, className }: FeedListCardProps) => (
-  <m.li
-    initial={{ opacity: 0, y: 40 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    // Any sliver counts, or a row that only peeks over the fold stays blank until the page scrolls.
-    viewport={{ once: true, amount: "some" }}
-    transition={{ ...cardRevealTransition, delay: column * COLUMN_DELAY }}
-    className={className}
-  >
-    {item.node}
-  </m.li>
-);
+const FeedListCard = ({ item, column = 0, className }: FeedListCardProps) => {
+  const [revealed, setRevealed] = React.useState(false);
+
+  return (
+    <m.li
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      // Any sliver counts, or a row that only peeks over the fold stays blank until the page scrolls.
+      viewport={{ once: true, amount: "some" }}
+      transition={{ ...cardRevealTransition, delay: column * COLUMN_DELAY }}
+      onAnimationComplete={() => setRevealed(true)}
+      // `CardCursorProvider` holds a touch hover back until this is set.
+      data-revealed={revealed || undefined}
+      className={className}
+    >
+      {item.node}
+    </m.li>
+  );
+};
 
 export const FeedList = ({ items }: FeedListProps) => {
   const [filter, setFilter] = React.useState<FeedFilterValue>(DEFAULT_FEED_FILTER);

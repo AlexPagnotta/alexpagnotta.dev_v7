@@ -7,7 +7,7 @@ import { Tag } from "@/app/features/ui/tag";
 import logo from "./logo.webp";
 
 const logoStyles = cx(
-  "h-auto w-144 transition-[rotate,scale] duration-300 ease-pop",
+  "h-auto w-144 transition-[rotate,scale] duration-300 ease-pop pointer-coarse:duration-500",
   "motion-safe:group-engaged:rotate-3 motion-safe:group-engaged:scale-108"
 );
 

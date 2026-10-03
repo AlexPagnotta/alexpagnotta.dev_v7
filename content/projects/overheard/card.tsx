@@ -9,7 +9,7 @@ import nokiaOn from "./nokia-on.png";
 
 const nokiaStyles = cx(
   "absolute z-10 -bottom-70 left-12 h-auto w-112 rotate-21 @xs:w-124 xl:left-0",
-  "transition-[opacity,rotate,scale] duration-200",
+  "transition-[opacity,rotate,scale] duration-200 pointer-coarse:duration-400",
   "motion-safe:group-engaged:rotate-17 motion-safe:group-engaged:scale-105"
 );
 
