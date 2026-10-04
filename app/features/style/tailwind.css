@@ -57,12 +57,15 @@
   --color-pink-light: #ffb3e9;
   --color-gray-dark: #b8bcbf;
   --color-gray-light: #d4d8db;
+  --color-purple-dark: #bb94ff;
+  --color-purple-light: #d2b8ff;
 
   /* The display wordmark's fill, one per accent. */
   --gradient-green: linear-gradient(to bottom, var(--color-white) 25%, #97ebcb);
   --gradient-yellow: linear-gradient(to bottom, rgb(255 255 255 / 0.5), rgb(255 230 136 / 0.5));
   --gradient-pink: linear-gradient(to bottom, rgb(255 255 255 / 0.5), rgb(255 204 240 / 0.5));
   --gradient-gray: linear-gradient(to bottom, rgb(255 255 255 / 0.5), rgb(220 222 224 / 0.5));
+  --gradient-purple: linear-gradient(to bottom, rgb(255 255 255 / 0.5), rgb(223 204 255 / 0.5));
 
   --blur-\*: initial;
 
@@ -83,7 +86,7 @@
   --drop-shadow-depth-2: 2px 2px 0 var(--color-black);
   --drop-shadow-depth-6: 6px 6px 0 var(--color-black);
   --drop-shadow-depth-12: 12px 12px 0 var(--color-black);
-  /* The soft lift under the cut-out photos in the homepage intro. */
+  /* The soft lift under cut-out photos, like the homepage intro and the detail-page asides. */
   --drop-shadow-soft: 2px 4px 4px rgb(0 0 0 / 0.25);
 
   --rounded-\*: initial;

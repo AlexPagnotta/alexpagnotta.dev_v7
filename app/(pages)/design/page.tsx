@@ -28,10 +28,12 @@ const ACCENTS = [
   { name: "yellow-dark", className: "bg-yellow-dark", hex: "#ffd435" },
   { name: "pink-dark", className: "bg-pink-dark", hex: "#ff99e2" },
   { name: "gray-dark", className: "bg-gray-dark", hex: "#b8bcbf" },
+  { name: "purple-dark", className: "bg-purple-dark", hex: "#bb94ff" },
   { name: "green-light", className: "bg-green-light", hex: "#5cffa0" },
   { name: "yellow-light", className: "bg-yellow-light", hex: "#fff352" },
   { name: "pink-light", className: "bg-pink-light", hex: "#ffb3e9" },
   { name: "gray-light", className: "bg-gray-light", hex: "#d4d8db" },
+  { name: "purple-light", className: "bg-purple-light", hex: "#d2b8ff" },
 ] as const;
 
 const GRADIENTS = [
@@ -39,6 +41,7 @@ const GRADIENTS = [
   { name: "gradient-yellow", className: "bg-(image:--gradient-yellow)", hex: "white → #ffe688 · 50%" },
   { name: "gradient-pink", className: "bg-(image:--gradient-pink)", hex: "white → #ffccf0 · 50%" },
   { name: "gradient-gray", className: "bg-(image:--gradient-gray)", hex: "white → #dcdee0 · 50%" },
+  { name: "gradient-purple", className: "bg-(image:--gradient-purple)", hex: "white → #dfccff · 50%" },
 ] as const;
 
 const DISPLAY_SAMPLE = "Title";

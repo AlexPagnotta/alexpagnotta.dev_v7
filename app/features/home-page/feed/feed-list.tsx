@@ -1,13 +1,17 @@
 "use client";
 
 import { AnimatePresence, domAnimation, LazyMotion, MotionConfig, m, type Transition } from "motion/react";
+import { useSearchParams } from "next/navigation";
 import * as React from "react";
 import { CardCursorProvider } from "@/app/features/home-page/feed/card-cursor";
 import {
   DEFAULT_FEED_FILTER,
+  FEED_FILTER_PARAM,
   FEED_FILTERS,
   type FeedFacet,
   type FeedFilterValue,
+  feedFilterFromParam,
+  feedFilterHref,
   matchesFeedFilter,
 } from "@/app/features/home-page/feed/filters";
 import { cx } from "@/app/features/style/cva";
@@ -79,8 +83,24 @@ const FeedListCard = ({ item, column = 0, className }: FeedListCardProps) => {
   );
 };
 
-export const FeedList = ({ items }: FeedListProps) => {
-  const [filter, setFilter] = React.useState<FeedFilterValue>(DEFAULT_FEED_FILTER);
+// Pushed rather than replaced, so Back steps through the filters before leaving the page.
+const pushFilter = (filter: FeedFilterValue) => {
+  const href = feedFilterHref(filter);
+  // Re-selecting the active tab would otherwise leave a duplicate entry for Back to step through.
+  if (href !== window.location.pathname + window.location.search) window.history.pushState(null, "", href);
+};
+
+const scrollToTabs = (tabs: HTMLElement | null) => {
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  tabs?.scrollIntoView({ behavior: reduceMotion ? "instant" : "smooth" });
+};
+
+type FeedViewProps = FeedListProps & {
+  filter: FeedFilterValue;
+  tabsRef?: React.Ref<HTMLDivElement>;
+};
+
+const FeedView = ({ items, filter, tabsRef }: FeedViewProps) => {
   const isClient = useIsClient();
   const columnCount = useColumnCount();
   const visibleItems = items.filter((item) => matchesFeedFilter(item.facets, filter));
@@ -90,10 +110,11 @@ export const FeedList = ({ items }: FeedListProps) => {
       {/* Under reduced motion, drops the travel of every motion animation inside and keeps the fades. */}
       <MotionConfig reducedMotion="user">
         <Tabs
+          ref={tabsRef}
           aria-label="Filter by"
           value={filter}
-          onValueChange={(value) => setFilter(value as FeedFilterValue)}
-          className="max-lg:-mx-(--page-side-spacing) max-lg:px-(--page-side-spacing) md:justify-center-safe"
+          onValueChange={(value) => pushFilter(value as FeedFilterValue)}
+          className="scroll-mt-48 max-lg:-mx-(--page-side-spacing) max-lg:px-(--page-side-spacing) md:justify-center-safe"
         >
           {FEED_FILTERS.map(({ value, label, shape }, index) => (
             <Tab key={value} value={value} shape={shape} className={cx("animate-intro-fade", FILTER_DELAYS[index])}>
@@ -133,3 +154,46 @@ export const FeedList = ({ items }: FeedListProps) => {
     </LazyMotion>
   );
 };
+
+const FeedViewFromUrl = ({ items }: FeedListProps) => {
+  const param = useSearchParams().get(FEED_FILTER_PARAM);
+  const filter = feedFilterFromParam(param);
+  const tabsRef = React.useRef<HTMLDivElement>(null);
+
+  const lastFilter = React.useRef<FeedFilterValue>(DEFAULT_FEED_FILTER);
+
+  // Any change of filter, from a tab, a link or a page landing on one, brings the tabs to the top.
+  React.useEffect(() => {
+    if (filter === lastFilter.current) return;
+    lastFilter.current = filter;
+    scrollToTabs(tabsRef.current);
+  }, [filter]);
+
+  // A link to the filter already showing changes nothing, so it would never reach the effect above.
+  React.useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      const link = (event.target as Element).closest("a");
+      if (!link) return;
+      const url = new URL(link.href);
+      const isCurrentFilter = url.pathname === window.location.pathname && url.search === window.location.search;
+      if (isCurrentFilter && url.searchParams.has(FEED_FILTER_PARAM)) scrollToTabs(tabsRef.current);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
+  React.useEffect(() => {
+    if (param !== null && filter === DEFAULT_FEED_FILTER) {
+      window.history.replaceState(null, "", feedFilterHref(DEFAULT_FEED_FILTER));
+    }
+  }, [param, filter]);
+
+  return <FeedView items={items} filter={filter} tabsRef={tabsRef} />;
+};
+
+// The URL is only known in the browser, so the prerendered HTML is the unfiltered feed.
+export const FeedList = ({ items }: FeedListProps) => (
+  <React.Suspense fallback={<FeedView items={items} filter={DEFAULT_FEED_FILTER} />}>
+    <FeedViewFromUrl items={items} />
+  </React.Suspense>
+);

@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentTag, type ContentType } from "@/app/features/content/config";
 import { FeedCardShell } from "@/app/features/home-page/feed/feed-card-shell";
 import type { Accent } from "@/app/features/style/accents";
+import { cx } from "@/app/features/style/cva";
 import { Card } from "@/app/features/ui/card";
 import { Tag } from "@/app/features/ui/tag";
 
@@ -14,15 +15,16 @@ export type FeedCardProps = {
   title: string;
   tags: readonly ContentTag[];
   cover?: StaticImageData;
+  excerpt?: string;
   accent?: Accent;
 };
 
-export const FeedCard = ({ type, href, title, tags, cover, accent }: FeedCardProps) => (
+export const FeedCard = ({ type, href, title, tags, cover, excerpt, accent }: FeedCardProps) => (
   <FeedCardShell href={href} accent={accent}>
     {/* The title carries the link, so the cover is decorative. */}
     {/* Lazy even in the first row: React would preload an eager one in the head, ahead of the fonts. */}
     {cover && <Card.Image src={cover} alt="" sizes={CARD_SIZES} />}
-    <Card.Header>
+    <Card.Header className={cx(!cover && "gap-16")}>
       <Card.Tags>
         {/* The design leads with the content type, squared off against the pill tags. */}
         <Tag shape="rounded">{CONTENT_TYPES[type].label}</Tag>
@@ -30,10 +32,13 @@ export const FeedCard = ({ type, href, title, tags, cover, accent }: FeedCardPro
           <Tag key={tag}>{CONTENT_TAG_LABELS[tag]}</Tag>
         ))}
       </Card.Tags>
-      {/* biome-ignore lint/a11y/useHeadingContent: the rule cannot see the title Card.Title renders into it. */}
-      <Card.Title render={<h3 />} className="body-3">
-        {title}
-      </Card.Title>
+      <div className="flex flex-col gap-12">
+        {/* biome-ignore lint/a11y/useHeadingContent: the rule cannot see the title Card.Title renders into it. */}
+        <Card.Title render={<h3 />} className={cover ? "body-3" : "body-4 leading-32"}>
+          {title}
+        </Card.Title>
+        {!cover && excerpt && <p className="body-1 line-clamp-4 leading-28">{excerpt}</p>}
+      </div>
     </Card.Header>
   </FeedCardShell>
 );

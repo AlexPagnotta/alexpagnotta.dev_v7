@@ -1,14 +1,15 @@
 import type { StaticImageData } from "next/image";
 import type * as React from "react";
-import bread from "@/app/features/home-page/assets/bread.png";
+import { hrefFor } from "@/app/features/content/loader";
 import camera from "@/app/features/home-page/assets/camera.png";
 import face from "@/app/features/home-page/assets/face.png";
 import printer from "@/app/features/home-page/assets/printer.png";
+import { feedFilterHref } from "@/app/features/home-page/feed/filters";
 import { NAME_WORDMARK } from "@/app/features/site/config";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { Container } from "@/app/features/ui/container";
 import { Image } from "@/app/features/ui/image";
-import { BaseLink } from "@/app/features/ui/link";
+import { BaseLink, Link } from "@/app/features/ui/link";
 import { Wordmark } from "@/app/features/ui/wordmark";
 
 const wordmarkStyles = cx(
@@ -68,6 +69,12 @@ const introCopyStyles = cx(
   "animate-intro-rise animation-delay-120"
 );
 
+const introImageStyles = cx(
+  // Lifted off the line's middle, which sits below the letters' optical centre.
+  "inline-block w-auto -translate-y-4 align-middle",
+  "drop-shadow-soft animate-intro-pop animation-delay-120"
+);
+
 type IntroImageProps = { src: StaticImageData; alt: string; className: string };
 
 // The photos stand in for words, so each one's alt text is the word it replaces.
@@ -79,7 +86,7 @@ const IntroImage = ({ src, alt, className }: IntroImageProps) => (
     loading="eager"
     // Cut-outs, so a blur placeholder would show as a smudge around the shape.
     placeholder="empty"
-    className={cx("inline-block w-auto align-middle drop-shadow-soft animate-intro-pop animation-delay-120", className)}
+    className={cx(introImageStyles, className)}
   />
 );
 
@@ -87,15 +94,18 @@ const IntroImage = ({ src, alt, className }: IntroImageProps) => (
 const introLinkStyles = cx(
   "inline-block rounded-sm align-middle",
   "transition-[scale,rotate] duration-200 ease-pop motion-reduce:transition-none",
-  "hover:scale-115 hover:rotate-6 focus-visible:scale-115 focus-visible:rotate-6 active:scale-90",
+  "hover:scale-108 hover:rotate-6 focus-visible:scale-108 focus-visible:rotate-6 active:scale-95",
   "focus-visible:outline-hidden"
 );
 
-type IntroLinkProps = { href: string; children: React.ReactNode };
+// The same faux medium as bold in articles, since the font ships only Regular and Black.
+const thoughtsLinkStyles = "font-normal [-webkit-text-stroke:0.03em_currentColor]";
 
-// The link's name comes from the alt text of the photos inside it.
-const IntroLink = ({ href, children }: IntroLinkProps) => (
-  <BaseLink href={href} className={introLinkStyles}>
+type IntroLinkProps = { href: string; scroll?: boolean; className?: string; children: React.ReactNode };
+
+// Around a photo, the link's name comes from its alt text.
+const IntroLink = ({ href, scroll, className, children }: IntroLinkProps) => (
+  <BaseLink href={href} scroll={scroll} className={cx(introLinkStyles, className)}>
     {children}
   </BaseLink>
 );
@@ -124,17 +134,23 @@ export const Hero = () => {
           <p className={introCopyStyles}>
             {/* TODO: replace the placeholder hrefs with the real destinations. */}
             I'm{" "}
-            <IntroLink href="#">
-              <IntroImage src={face} alt="Alex" className="h-37 -rotate-7 lg:h-53" />{" "}
-              <IntroImage src={bread} alt="Pagnotta" className="h-22 rotate-27 lg:h-31" />
+            <IntroLink href={hrefFor("writing", "about-me")}>
+              <IntroImage src={face} alt="Alex" className="h-37 -rotate-7 lg:h-53" />
             </IntroLink>{" "}
             welcome to my little <Highlight>DIGITAL PLACE</Highlight> here I share my{" "}
-            <Highlight color="black">DEV</Highlight> work,{" "}
+            <IntroLink href={feedFilterHref("project")} scroll={false} className="align-baseline">
+              <Highlight color="black">DEV</Highlight>
+            </IntroLink>{" "}
+            work,{" "}
             <IntroLink href="#">
               <IntroImage src={camera} alt="photos" className="h-34 rotate-4 lg:h-48" />
             </IntroLink>
-            , thoughts,{" "}
-            <IntroLink href="#">
+            ,{" "}
+            <Link href={feedFilterHref("thought")} scroll={false} className={thoughtsLinkStyles}>
+              thoughts
+            </Link>
+            ,{" "}
+            <IntroLink href={feedFilterHref("make")} scroll={false}>
               <IntroImage src={printer} alt="things I make" className="h-40 -rotate-5 lg:h-71" />
             </IntroLink>{" "}
             and whatever I am <WaveWord className={curiousStyles}>CURIOUS</WaveWord> about.

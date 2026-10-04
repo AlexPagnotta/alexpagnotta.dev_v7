@@ -21,7 +21,7 @@ Port 3000 belongs to the user's own `npm run dev`. Never start, restart, or kill
 - When a `className` no longer fits on one line, or carries long arbitrary values (`[--var:…]`, `calc()`), move it into a named `{elementName}Styles` constant built with `cx(...)`, one concern per argument (e.g. `wordmarkStyles` in `nav/footer.tsx`).
 - Always use the design tokens defined in the Tailwind config — colors, typography, spacing, etc. Do not hardcode raw values.
 - If a style requirement cannot be satisfied with existing tokens, **ask the user** before adding anything new. Once confirmed, add the new token to the appropriate Tailwind config file.
-- Colors are `white`, `black`, `gray-100`, `gray-200`, `gray-300` plus the accents `green-dark/-light`, `yellow-dark/-light`, `pink-dark/-light`, named as in Figma. `-dark` fills large areas, `-light` is the small bright mark. Each accent also has a `--gradient-{accent}` for the display wordmark.
+- Colors are `white`, `black`, `gray-100`, `gray-200`, `gray-300` plus the accents `green-dark/-light`, `yellow-dark/-light`, `pink-dark/-light`, `gray-dark/-light`, `purple-dark/-light`, named as in Figma. `-dark` fills large areas, `-light` is the small bright mark. Each accent also has a `--gradient-{accent}` for the display wordmark.
 - Prefer CSS over JS: reach for container queries, `calc()` and custom properties before adding a measuring client component.
 
 # Spacing units

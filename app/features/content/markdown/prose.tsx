@@ -19,9 +19,10 @@ export const Prose = ({ children, className }: ProseProps) => (
       /*
         Running text closes up to roughly one line of leading, so consecutive paragraphs read
         as one argument rather than as separate cards. A list counts as running text: it is
-        nearly always introduced by the line above it.
+        nearly always introduced by the line above it. So does an aside, which wraps a passage.
       */
-      "[&_:is(p,ul,ol)+:is(p,ul,ol)]:-mt-40 lg:[&_:is(p,ul,ol)+:is(p,ul,ol)]:-mt-48",
+      "[&>:is(p,ul,ol,[data-aside])+:is(p,ul,ol,[data-aside])]:-mt-40",
+      "lg:[&>:is(p,ul,ol,[data-aside])+:is(p,ul,ol,[data-aside])]:-mt-48",
       // A section break takes the wide step above, and the tightest below.
       "[&_h2+*]:-mt-40 lg:[&_h2+*]:-mt-56",
       className

@@ -16,6 +16,8 @@ const baseEntrySchema = z.object({
   date: z.coerce.date(),
   // Filename of an image colocated with the entry, e.g. `cover.png`.
   cover: z.string().optional(),
+  // Shown under the title on a feed card that has no cover.
+  excerpt: z.string().optional(),
   // Per-entry accent, named by palette family; each consumer picks the cut it needs.
   accent: z.enum(ACCENTS).optional(),
   tags: z.array(z.enum(CONTENT_TAGS)),

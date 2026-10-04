@@ -11,5 +11,5 @@ export type ThoughtHeroProps = {
 };
 
 export const ThoughtHero = ({ title, tags, date, accent }: ThoughtHeroProps) => (
-  <DetailPageHero type="thought" title={title} tags={tags} accent={accent} meta={formatDate(date)} back={false} />
+  <DetailPageHero type="thought" title={title} tags={tags} accent={accent} meta={formatDate(date)} />
 );

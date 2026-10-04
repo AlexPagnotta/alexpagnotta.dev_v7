@@ -22,6 +22,7 @@ const toNode = async (entry: FeedEntry) => {
       title={entry.title}
       tags={entry.tags}
       cover={await getCover(entry.type, entry.slug, entry.cover)}
+      excerpt={entry.excerpt}
       accent={entry.accent}
     />
   );

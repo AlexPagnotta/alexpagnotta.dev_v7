@@ -1,9 +1,9 @@
 ---
 title: A flashy new website for Overheard
-description: A flashy new website for Overheard
+description: A retro, playful website for Overheard and its city stories.
 date: 2022-09-01
-cover: themes-poster.jpg
-accent: green
+cover: cover.jpg
+accent: pink
 client: WILD
 link: https://overheardhq.com/
 tags: [work]
@@ -11,59 +11,43 @@ tags: [work]
 
 import nokiaPhoneWebm from "./nokia-phone.webm";
 import nokiaPhoneMp4 from "./nokia-phone.mp4";
-import nokiaPhonePoster from "./nokia-phone-poster.png";
+import nokiaPhonePoster from "./nokia-phone-poster.webp";
+import clip from "./clip.svg?url";
 import home from "./home.mp4";
 import homePoster from "./home-poster.jpg";
 import themes from "./themes.mp4";
 import themesPoster from "./themes-poster.jpg";
-import clip from "./clip.svg?url";
-import vintagePcWebm from "./vintage-pc.webm";
-import vintagePcMp4 from "./vintage-pc.mp4";
-import vintagePcPoster from "./vintage-pc-poster.png";
 import cities from "./cities.mp4";
 import citiesPoster from "./cities-poster.jpg";
 
-What is Overheard? Well not easy to explain, I guess I can just use their own words:
+<Aside side="left" size="sm" image={clip} width={81} height={144} rotate={12}>
 
-> _"Every city talks, we listen… A less creepy Alexa, if you will. We overhear what urbanites are talking about wherever
-> they go. Whether it's the latest microdosing hype or full-volume sex recaps at the farmer's market, our public service
-> is to curate and share this information with our community and make you laugh during your 10+ hours of daily screen
-> time."_
+What is Overheard? Well, it's not that easy to explain. It's mostly a social media thing: they collect the funniest and weirdest conversations people _overhear_ on city streets and share them with their community. Some are about the latest trends, some probably should've stayed private.
 
-To summarize, Overheard is an organization that is mostly active on social media. They share funny stories and news that are _overheard_ on city streets and share them with their community members.
+</Aside>
 
-The goal of the project was to create a new website for their organization, representing the Overheard fun and quirky brand, and be able to attract potential sponsors and future employees.
+The goal of the project was to create a new website that captured Overheard's fun and quirky brand, and that could help attract potential sponsors and future employees.
 
-The result is a website with retro vibes, characterized by the use of floating windows and vintage elements, but with a playful and colorful design given by a consistent list of interactive themes and animated gifs that spans throughout the entire experience.
-
-You can find some highlights from the Overheard website below, but you can also visit the [live site](https://overheardhq.com/) to see the full project.
-
-<Video
-  src={[
+<Aside
+  side="right"
+  size="lg"
+  video={[
+    { src: nokiaPhoneMp4, type: 'video/mp4; codecs="hvc1"' },
     { src: nokiaPhoneWebm, type: "video/webm" },
-    { src: nokiaPhoneMp4, type: "video/mp4" },
   ]}
   poster={nokiaPhonePoster.src}
-  aria-label="Nokia phone"
-  width={1080}
-  height={1080}
-/>
+  width={580}
+  height={1072}
+>
 
-<Video src={home} aria-label="Homepage screen" poster={homePoster.src} width={1566} height={1080} />
+The result is a website with retro vibes, full of floating windows and vintage elements, plus a bunch of interactive themes and animated GIFs that make the whole thing playful and colorful.
 
-<Video src={themes} aria-label="Themes showcase" poster={themesPoster.src} width={1566} height={1080} />
+Below are some highlights from the Overheard website, or you can visit the [live site](https://overheardhq.com/) to see the full project.
 
-<Image src={clip} alt="Clip character" className="mx-auto w-160 py-32" />
+</Aside>
 
-<Video
-  src={[
-    { src: vintagePcWebm, type: "video/webm" },
-    { src: vintagePcMp4, type: "video/mp4" },
-  ]}
-  poster={vintagePcPoster.src}
-  aria-label="Vintage PC"
-  width={400}
-  height={400}
-/>
+<Video src={home} caption="Overheard Homepage" poster={homePoster.src} width={1566} height={1080} />
 
-<Video src={cities} aria-label="Cities themes showcase" poster={citiesPoster.src} width={1566} height={1080} />
+<Video src={themes} caption="Overheard Themes" poster={themesPoster.src} width={1566} height={1080} />
+
+<Video src={cities} caption="Overheard City Themes" poster={citiesPoster.src} width={1566} height={1080} />

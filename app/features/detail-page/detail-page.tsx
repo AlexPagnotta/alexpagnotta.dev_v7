@@ -14,7 +14,8 @@ export type DetailPageProps = {
 };
 
 export const DetailPage = ({ type, entry, hero, children }: DetailPageProps) => (
-  <article>
+  // Clips media that an aside hangs past the screen edge, without becoming a scroll container.
+  <article className="overflow-x-clip">
     {hero}
     <Container size="sm" className="px-(--page-side-spacing) pt-80 pb-96 lg:pt-96 lg:pb-160">
       <Prose>{children}</Prose>

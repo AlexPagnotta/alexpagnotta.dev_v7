@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import { MarkdownAside } from "@/app/features/content/markdown/markdown-aside";
 import { MarkdownImage, type MarkdownImageProps } from "@/app/features/content/markdown/markdown-image";
 import { MarkdownList, MarkdownListItem } from "@/app/features/content/markdown/markdown-list";
 import { MarkdownParagraph } from "@/app/features/content/markdown/markdown-paragraph";
@@ -19,4 +20,5 @@ export const mdxComponents: MDXComponents = {
   img: ({ title, ...props }) => <MarkdownImage caption={title} {...(props as MarkdownImageProps)} />,
   Image: MarkdownImage,
   Video: MarkdownVideo,
+  Aside: MarkdownAside,
 };
