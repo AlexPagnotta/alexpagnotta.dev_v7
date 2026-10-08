@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import { MarkdownAside } from "@/app/features/content/markdown/markdown-aside";
+import { MarkdownCode, MarkdownCodeBlock } from "@/app/features/content/markdown/markdown-code";
 import { MarkdownImage, type MarkdownImageProps } from "@/app/features/content/markdown/markdown-image";
 import { MarkdownList, MarkdownListItem } from "@/app/features/content/markdown/markdown-list";
 import { MarkdownParagraph } from "@/app/features/content/markdown/markdown-paragraph";
@@ -14,6 +15,8 @@ export const mdxComponents: MDXComponents = {
   ul: (props) => <MarkdownList {...props} />,
   ol: (props) => <MarkdownList ordered {...props} />,
   li: (props) => <MarkdownListItem {...props} />,
+  pre: (props) => <MarkdownCodeBlock {...props} />,
+  code: (props) => <MarkdownCode {...props} />,
   // The typeface ships Regular and Black with nothing between, so bold is Regular thickened by a stroke.
   strong: (props) => <strong className="font-normal [-webkit-text-stroke:0.03em_currentColor]" {...props} />,
   // `![alt](src "caption")` — markdown's image title is the only slot a caption can ride in.
