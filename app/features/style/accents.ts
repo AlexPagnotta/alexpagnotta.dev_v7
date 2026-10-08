@@ -13,11 +13,11 @@ export const darkAccent = (accent: Accent | undefined) => (accent ? `var(--color
 /** The light cut, for a small mark that should carry across the page. */
 export const lightAccent = (accent: Accent | undefined) => (accent ? `var(--color-${accent}-light)` : undefined);
 
-// What a detail page's `data-page-accent` sets on the layouts around it: the footer fill and the scrollbar.
+// What a detail page's `data-page-accent` sets on the layouts around it: the footer fill, the navbar's button and the scrollbar.
 // Spelled out so Tailwind generates each class, and keyed by `Accent` so a new accent has to add its row.
 export const PAGE_ACCENT_STYLES = {
   green: {
-    page: "has-data-[page-accent=green]:[--page-accent:var(--color-green-dark)] has-data-[page-accent=green]:[--page-gradient:var(--gradient-green)]",
+    page: "has-data-[page-accent=green]:[--page-accent:var(--color-green-dark)] has-data-[page-accent=green]:[--page-gradient:var(--gradient-green)] has-data-[page-accent=green]:[--navbar-accent:var(--color-yellow-light)]",
     scrollbar: "has-data-[page-accent=green]:scrollbar-green-dark",
   },
   yellow: {
@@ -25,7 +25,7 @@ export const PAGE_ACCENT_STYLES = {
     scrollbar: "has-data-[page-accent=yellow]:scrollbar-yellow-dark",
   },
   pink: {
-    page: "has-data-[page-accent=pink]:[--page-accent:var(--color-pink-dark)] has-data-[page-accent=pink]:[--page-gradient:var(--gradient-pink)]",
+    page: "has-data-[page-accent=pink]:[--page-accent:var(--color-pink-dark)] has-data-[page-accent=pink]:[--page-gradient:var(--gradient-pink)] has-data-[page-accent=pink]:[--navbar-accent:var(--color-yellow-light)]",
     scrollbar: "has-data-[page-accent=pink]:scrollbar-pink-dark",
   },
   gray: {
@@ -33,7 +33,7 @@ export const PAGE_ACCENT_STYLES = {
     scrollbar: "has-data-[page-accent=gray]:scrollbar-gray-dark",
   },
   purple: {
-    page: "has-data-[page-accent=purple]:[--page-accent:var(--color-purple-dark)] has-data-[page-accent=purple]:[--page-gradient:var(--gradient-purple)]",
+    page: "has-data-[page-accent=purple]:[--page-accent:var(--color-purple-dark)] has-data-[page-accent=purple]:[--page-gradient:var(--gradient-purple)] has-data-[page-accent=purple]:[--navbar-accent:var(--color-yellow-light)]",
     scrollbar: "has-data-[page-accent=purple]:scrollbar-purple-dark",
   },
 } as const satisfies Record<Accent, { page: string; scrollbar: string }>;

@@ -1,9 +1,9 @@
 import type { StaticImageData } from "next/image";
 import type * as React from "react";
 import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentTag, type ContentType } from "@/app/features/content/config";
+import { BackButton } from "@/app/features/detail-page/hero/back-button";
 import { type Accent, darkAccent } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/cva";
-import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
 import { Image } from "@/app/features/ui/image";
 import { Tag } from "@/app/features/ui/tag";
@@ -52,13 +52,7 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
               className="aspect-3/2 w-full border-2 border-black bg-gray-300 object-cover md:aspect-video"
             />
           </figure>
-          <ButtonLink
-            href="/"
-            size="sm"
-            className="absolute -top-20 -left-8 -rotate-4 animate-intro-appear animation-delay-150 lg:-top-16 lg:-left-18"
-          >
-            <span aria-hidden="true">←</span> Back
-          </ButtonLink>
+          <BackButton className="absolute -top-20 -left-8 -rotate-4 lg:-top-16 lg:-left-18" />
         </div>
       )}
 

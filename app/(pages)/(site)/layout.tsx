@@ -13,7 +13,7 @@ const FOOTER_MARQUEE_TEXT = "Thanks for visiting";
 
 // A detail page names its accent with `data-page-accent`; the footer paints itself with it.
 const pageAccentStyles = cx(
-  "[--page-accent:var(--color-yellow-dark)] [--page-gradient:var(--gradient-yellow)]",
+  "[--page-accent:var(--color-yellow-dark)] [--page-gradient:var(--gradient-yellow)] [--navbar-accent:var(--color-white)]",
   ACCENTS.map((accent) => PAGE_ACCENT_STYLES[accent].page)
 );
 

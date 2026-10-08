@@ -38,6 +38,7 @@ const nextMode = (mode: NavbarMode, input: ModeInput): NavbarMode => {
 const useNavbarMode = (floating: boolean) => {
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const headerRef = React.useRef<HTMLElement>(null);
+  const overhangRef = React.useRef<HTMLDivElement>(null);
   const [{ mode, animated }, setState] = React.useState<{ mode: NavbarMode; animated: boolean }>({
     mode: floating ? "hidden" : "flow",
     animated: false,
@@ -63,7 +64,11 @@ const useNavbarMode = (floating: boolean) => {
       const boundary = document.querySelector(BOUNDARY_SELECTOR);
       const input = {
         flowTop: anchor.getBoundingClientRect().top,
-        parked: header.offsetHeight, // Mirrors `-translate-y-full` below.
+        // The button hangs below the bar, so it parks only once the button is out of view too.
+        parked: Math.max(
+          header.offsetHeight,
+          (overhangRef.current?.getBoundingClientRect().bottom ?? 0) - header.getBoundingClientRect().top
+        ),
         scrollingUp,
         pastBoundary: !boundary || boundary.getBoundingClientRect().bottom <= 0,
         floating,
@@ -91,26 +96,80 @@ const useNavbarMode = (floating: boolean) => {
     };
   }, [floating]);
 
-  return { mode, animated, anchorRef, headerRef };
+  return { mode, animated, anchorRef, headerRef, overhangRef };
 };
 
-const navbarFillStyles = "bg-[color-mix(in_srgb,var(--navbar-fill),var(--color-white)_40%)]";
+const navbarFillStyles = "bg-[color-mix(in_srgb,var(--page-accent),var(--color-white)_40%)]";
 
-type NavbarLogoProps = { className?: string };
+const barContentStyles = "flex h-full items-end justify-between px-(--page-side-spacing)";
 
-const NavbarLogo = ({ className }: NavbarLogoProps) => (
-  <Link
-    href="/"
-    variant="plain"
-    className={cx(
-      "logo inline-block -rotate-2 border border-black bg-white px-8 py-6 whitespace-nowrap uppercase",
-      "lg:border-2 lg:px-16 lg:py-8",
-      className
-    )}
-  >
-    Alex Pagnotta
-  </Link>
+// Clips the logo's lower edge so it reads as sinking behind the bottom border.
+const logoClipStyles = "flex h-full items-end overflow-clip";
+
+const letterStyles = cx(
+  "inline-block whitespace-pre",
+  "transition-[translate] duration-300 ease-pop motion-reduce:transition-none",
+  "delay-[calc(var(--letter-index)*20ms)]"
 );
+
+const outgoingLetterStyles =
+  "group-hover:translate-y-(--letter-travel) group-focus-visible:translate-y-(--letter-travel)";
+
+const incomingLetterStyles =
+  "-translate-y-(--letter-travel) group-hover:translate-y-0 group-focus-visible:translate-y-0";
+
+// Spans the logo box's `py-8`, so letters clip at the box edge and travel far enough to clear it.
+const letterClipStyles = cx("relative block -my-8 py-8 overflow-clip", "[--letter-travel:calc(100%+var(--spacing)*8)]");
+
+const sayHiStyles = "uppercase [--btn-fill:var(--navbar-accent)] animate-intro-appear animation-delay-150";
+
+type StaggeredLettersProps = { text: string; className: string; indexOffset?: number };
+
+const StaggeredLetters = ({ text, className, indexOffset = 0 }: StaggeredLettersProps) =>
+  [...text].map((letter, index) => (
+    <span
+      // biome-ignore lint/suspicious/noArrayIndexKey: the letters never reorder.
+      key={index}
+      className={cx(letterStyles, className)}
+      style={{ "--letter-index": index + indexOffset } as React.CSSProperties}
+    >
+      {letter}
+    </span>
+  ));
+
+const logoStyles = cx(
+  "logo inline-block translate-y-1/8 border border-black bg-white px-12 py-8 whitespace-nowrap uppercase",
+  "lg:border-2 lg:px-16",
+  "animate-intro-rise"
+);
+
+const LOGO_NAME = "Alex Pagnotta";
+const LOGO_HOVER_TEXT = "Back home";
+
+/*
+  Both words move together, one travel apart, so they never overlap and reversing mid-hover stays smooth.
+  The centred word starts its stagger at the column it sits over, so each letter swaps with the one beneath it.
+*/
+const HOVER_INDEX_OFFSET = Math.floor((LOGO_NAME.length - LOGO_HOVER_TEXT.length) / 2);
+
+type NavbarLogoProps = { home: boolean };
+
+// On the homepage it would only link to itself, so it's plain text there.
+const NavbarLogo = ({ home }: NavbarLogoProps) =>
+  home ? (
+    <span className={logoStyles}>{LOGO_NAME}</span>
+  ) : (
+    <Link href="/" variant="plain" className={cx("group", logoStyles)}>
+      <span className="sr-only">{LOGO_NAME}</span>
+      {/* On hover the name drops out letter by letter while "Back home" drops in from above. */}
+      <span aria-hidden="true" className={letterClipStyles}>
+        <StaggeredLetters text={LOGO_NAME} className={outgoingLetterStyles} />
+        <span className="absolute inset-0 flex items-center justify-center">
+          <StaggeredLetters text={LOGO_HOVER_TEXT} className={incomingLetterStyles} indexOffset={HOVER_INDEX_OFFSET} />
+        </span>
+      </span>
+    </Link>
+  );
 
 export type NavbarProps = {
   // Passed in rather than read from siteConfig, which would pull env validation (zod) into the client bundle.
@@ -118,29 +177,38 @@ export type NavbarProps = {
 };
 
 export const Navbar = ({ contactEmail }: NavbarProps) => {
-  const floating = FLOATING_ROUTES.has(usePathname());
-  const { mode, animated, anchorRef, headerRef } = useNavbarMode(floating);
+  const pathname = usePathname();
+  const floating = FLOATING_ROUTES.has(pathname);
+  const { mode, animated, anchorRef, headerRef, overhangRef } = useNavbarMode(floating);
 
   return (
     // Holds the bar's height in the document, so the page below never shifts when it goes fixed.
-    <div ref={anchorRef} className={cx("relative", floating ? "h-0" : "h-86 lg:h-90")}>
+    <div ref={anchorRef} className={cx("relative", floating ? "h-0" : "h-72 lg:h-76")}>
       <header
         ref={headerRef}
         className={cx(
-          "inset-x-0 top-0 z-10 h-86 min-w-360 border-b-2 border-black lg:h-90",
-          navbarFillStyles,
-          floating ? "[--navbar-fill:var(--color-green-dark)]" : "[--navbar-fill:var(--page-accent)]",
+          "inset-x-0 top-0 z-10 h-72 min-w-360 border-b-2 border-black lg:h-76",
+          floating ? "bg-green-dark [--navbar-accent:var(--color-yellow-light)]" : navbarFillStyles,
           mode === "flow" ? "absolute" : "fixed",
           // Keyboard focus in the parked bar brings it back; a clicked logo keeps focus across navigation, so plain focus would too.
-          mode === "hidden" && "-translate-y-full has-focus-visible:translate-y-0",
+          mode === "hidden" && "-translate-y-[150%] has-focus-visible:translate-y-0",
           animated && "transition-transform duration-300 ease-out motion-reduce:transition-none"
         )}
       >
-        <Container size="md" className="flex h-full items-center justify-between px-(--page-side-spacing)">
-          <NavbarLogo />
-          <ButtonLink href={`mailto:${contactEmail}`} size="sm" className="uppercase">
-            Say Hi!
-          </ButtonLink>
+        <Container size="md" className={barContentStyles}>
+          <div className={logoClipStyles}>
+            <NavbarLogo home={pathname === "/"} />
+          </div>
+          {/* Wrapped so the overhang's translate doesn't fight the button's own lift translate. */}
+          <div ref={overhangRef} className="self-center md:translate-y-1/3 md:self-end">
+            {/* The button has no responsive size, so each breakpoint gets its own. */}
+            <ButtonLink href={`mailto:${contactEmail}`} size="sm" className={cx(sayHiStyles, "md:hidden")}>
+              Say Hi!
+            </ButtonLink>
+            <ButtonLink href={`mailto:${contactEmail}`} className={cx(sayHiStyles, "hidden md:inline-flex")}>
+              Say Hi!
+            </ButtonLink>
+          </div>
         </Container>
       </header>
     </div>
