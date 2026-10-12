@@ -21,6 +21,18 @@ const ppframa = localFont({
   display: "swap",
 });
 
+const geistMono = localFont({
+  src: "../../public/fonts/geistmono-regular.woff2",
+  weight: "400",
+  style: "normal",
+  variable: "--font-geistmono",
+  display: "swap",
+  // Only articles with code use it, so it shouldn't load on every page.
+  preload: false,
+  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+  adjustFontFallback: false,
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -76,6 +88,7 @@ const RootLayout = ({ children }: Props) => {
       lang={siteConfig.lang}
       className={cx(
         ppframa.variable,
+        geistMono.variable,
         "scrollbar-green-dark",
         ACCENTS.map((accent) => PAGE_ACCENT_STYLES[accent].scrollbar)
       )}

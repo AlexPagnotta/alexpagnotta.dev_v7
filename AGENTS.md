@@ -40,6 +40,7 @@ Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`, `drop
   - `heading-1` … `heading-4`
   - `body-1` … `body-4`
   - `label-1`, `label-2`
+  - `code-1` (Geist Mono, code blocks)
 - `display-1`, `logo` and the headings pair the mobile and desktop cut from Figma, switching at `lg`. Body and label steps are the same on every breakpoint, so a responsive change there is two utilities (e.g. `body-1 lg:body-3`, the article paragraph). `display-1` is the only Black (900) style; everything else is Regular (400).
 - Line heights are fixed px values from Figma, expressed through the spacing scale.
 - `Tag` and `Button` set their own height per size (from Figma) rather than deriving it from the line box, so retuning a type step does not resize them, but it still moves anything that sizes to its text, such as `Marquee`.

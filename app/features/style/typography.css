@@ -1,5 +1,6 @@
 @theme {
   --font-sans: var(--font-ppframa);
+  --font-mono: var(--font-geistmono);
 
   --tracking-\*: initial;
 
@@ -115,6 +116,11 @@
   --text-label-1--font-weight: 400;
   --text-label-1--line-height: --spacing(16);
   --text-label-1--letter-spacing: var(--tracking-xl);
+
+  --text-code-1: --spacing(14);
+  --text-code-1--font-weight: 400;
+  --text-code-1--line-height: --spacing(22);
+  --text-code-1--letter-spacing: var(--tracking-md);
 }
 
 @utility display-1 {
@@ -163,4 +169,8 @@
 
 @utility label-1 {
   @apply text-label-1 font-sans;
+}
+
+@utility code-1 {
+  @apply text-code-1 font-mono;
 }

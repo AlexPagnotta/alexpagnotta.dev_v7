@@ -61,6 +61,7 @@ const TYPE_STYLES = [
   { utility: "body-1", specs: "16 px · Regular", sample: LONG_SAMPLE },
   { utility: "label-2", specs: "14 px · Regular", sample: LONG_SAMPLE },
   { utility: "label-1", specs: "12 px · Regular", sample: LONG_SAMPLE },
+  { utility: "code-1", specs: "14 px · Geist Mono", sample: "const cc = () => claude;" },
 ] as const;
 
 const SHADOWS = ["shadow-depth-2", "shadow-depth-4", "shadow-depth-6", "shadow-depth-8"] as const;
@@ -150,7 +151,9 @@ const DesignPage = () => {
 
       <Section title="Button">
         <Subsection title="Sizes">
-          <Matrix axes={{ size: ["sm", "md", "lg"] } as const}>{(props) => <Button {...props}>Button</Button>}</Matrix>
+          <Matrix axes={{ size: ["xs", "sm", "md", "lg"] } as const}>
+            {(props) => <Button {...props}>Button</Button>}
+          </Matrix>
         </Subsection>
 
         <Subsection title="Colors">
