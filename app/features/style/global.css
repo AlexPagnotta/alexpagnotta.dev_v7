@@ -12,6 +12,11 @@ body {
   }
 }
 
+/* The italics are a separate family (see the root layout), so a family without them would only fake a slant. */
+:where(em, i, .italic) {
+  font-family: var(--font-ppframa-italic);
+}
+
 ::selection {
   background-color: var(--color-black);
   color: var(--color-white);

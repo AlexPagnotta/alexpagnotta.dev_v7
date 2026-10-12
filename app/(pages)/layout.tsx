@@ -12,10 +12,8 @@ import { isProduction } from "@/app/features/utils/release-channel";
 
 const ppframa = localFont({
   src: [
-    { path: "../../public/fonts/ppframa-regular.otf", weight: "400", style: "normal" },
-    { path: "../../public/fonts/ppframa-regular-italic.otf", weight: "400", style: "italic" },
-    { path: "../../public/fonts/ppframa-black.otf", weight: "900", style: "normal" },
-    { path: "../../public/fonts/ppframa-black-italic.otf", weight: "900", style: "italic" },
+    { path: "../../public/fonts/ppframa-regular.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/ppframa-black.woff2", weight: "900", style: "normal" },
   ],
   variable: "--font-ppframa",
   display: "swap",
@@ -31,6 +29,17 @@ const geistMono = localFont({
   preload: false,
   fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
   adjustFontFallback: false,
+});
+
+// A family of its own, since `preload` is per call: italics are rare, so they load only where they appear.
+const ppframaItalic = localFont({
+  src: [
+    { path: "../../public/fonts/ppframa-regular-italic.woff2", weight: "400", style: "italic" },
+    { path: "../../public/fonts/ppframa-black-italic.woff2", weight: "900", style: "italic" },
+  ],
+  variable: "--font-ppframa-italic",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -89,6 +98,7 @@ const RootLayout = ({ children }: Props) => {
       className={cx(
         ppframa.variable,
         geistMono.variable,
+        ppframaItalic.variable,
         "scrollbar-green-dark",
         ACCENTS.map((accent) => PAGE_ACCENT_STYLES[accent].scrollbar)
       )}
