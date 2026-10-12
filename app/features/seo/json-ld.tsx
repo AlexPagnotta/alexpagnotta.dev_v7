@@ -24,9 +24,10 @@ const siteGraph = {
       "@id": PERSON_ID,
       name: siteConfig.author.name,
       jobTitle: siteConfig.author.jobTitle,
+      worksFor: { "@type": "Organization", ...siteConfig.author.employer },
       email: `mailto:${siteConfig.author.email}`,
       url: siteConfig.url,
-      image: absoluteUrl(siteConfig.ogImage.url),
+      image: absoluteUrl(siteConfig.author.image),
       sameAs: Object.values(siteConfig.social),
     },
     {
