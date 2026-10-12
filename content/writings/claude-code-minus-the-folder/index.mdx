@@ -1,0 +1,58 @@
+---
+title: Claude Code, minus the folder
+description: A few lines of shell to start Claude Code anywhere, without a project folder.
+excerpt: How I use Claude Code like a regular chat, without needing a folder or a project to start it in.
+date: 2026-10-13
+accent: purple
+tags: [work]
+---
+
+I'm not a big fan of the Claude desktop app. It's slower and less reliable than Claude Code, and it struggles as soon as a task gets more complex than a simple chat. So now I use Claude Code for pretty much everything instead, from quick questions to research and planning.
+
+The catch is that Claude Code always runs inside a folder. For a coding project that's fine, you open the terminal in the repo and type `claude`. For everything else there's no project, so I used to start it wherever my terminal was, usually my home folder. It got messy fast:
+
+- **Files everywhere**: notes, scripts and downloads all ended up in my home folder.
+- **Cluttered history**: sessions are grouped by folder, so `/resume` was a long list of unrelated chats.
+- **Hard to pick up**: to continue something a few days later, I had to remember where I'd started it.
+
+I wanted something like the "new chat" button in the Claude app, but in the terminal.
+
+## The fix
+
+A few lines in my `.zshrc`. There's one `Sessions` folder, and every chat gets its own subfolder inside it.
+
+```zsh
+_cc_session_dir() {
+  local base="$HOME/Progetti/Sessions"
+  local name="$1"
+  if [[ -z "$name" || "$name" == "new" ]]; then
+    name=$(date +%Y-%m-%d-%H%M%S)
+  fi
+  mkdir -p "$base/$name"
+  echo "$base/$name"
+}
+
+cc() {
+  if [[ $# -eq 0 ]]; then
+    claude
+  else
+    local dir
+    dir=$(_cc_session_dir "$1")
+    (cd "$dir" && claude)
+  fi
+}
+```
+
+## How I use it
+
+`cc` is just a shortcut, it runs the normal Claude Code. On its own it's the same as typing `claude` in the current folder, which is what I use when I'm already inside a project.
+
+`cc new` creates a folder named after the current date and time, like `2026-10-09-143012`, and starts Claude in there. That's my "new chat" button. Whatever Claude creates stays in that folder, and when I'm done I close the terminal and forget about it.
+
+`cc {name}` does the same, but with a name, for example `cc japan-trip`. The folder sticks around, so a week later I run `cc japan-trip` again and I'm back where I left off, with the files from last time and only that topic's chats in `/resume`. I use it for anything that takes more than one sitting, like a trip or an article. Basically projects in the Claude app, but with plain folders.
+
+## Bonus
+
+It's easy to build on this for the things you do most. If you have separate personal and work accounts, make a second version that sets `CLAUDE_CONFIG_DIR`. Claude Code reads its login, settings and memory from that folder, so each account stays separate and switching is just a different command.
+
+Or, if there's a folder you open all the time, like a notes vault, make a shortcut that jumps there and starts Claude. It can search, update and write your notes without you having to `cd` around first.

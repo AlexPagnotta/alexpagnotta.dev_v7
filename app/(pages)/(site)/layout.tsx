@@ -8,8 +8,8 @@ import { ACCENTS, PAGE_ACCENT_STYLES } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/cva";
 import { Marquee } from "@/app/features/ui/marquee";
 
-const HEADER_MARQUEE_TEXT = "Latest post: a tiny shell trick to use Claude Code without a folder";
-const HEADER_MARQUEE_HREF = "/writings/claude-code-without-a-folder";
+const HEADER_MARQUEE_TEXT = "Latest post: Claude Code, minus the folder";
+const HEADER_MARQUEE_HREF = "/writings/claude-code-minus-the-folder";
 const FOOTER_MARQUEE_TEXT = "Thanks for visiting";
 
 // A detail page names its accent with `data-page-accent`; the footer paints itself with it.
