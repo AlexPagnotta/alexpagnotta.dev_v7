@@ -65,10 +65,9 @@ export const pageMetadata = ({
         : { type }),
     },
     twitter: {
-      // The whole twitter object replaces the root layout's per segment, so card and
-      // creator must be repeated here or they are dropped on every page using this helper.
+      // The whole twitter object replaces the root layout's per segment, so card must
+      // be repeated here or it is dropped on every page using this helper.
       card: "summary_large_image",
-      creator: siteConfig.twitterHandle,
       title: ogTitle,
       description,
       images: [siteConfig.ogImage.url],

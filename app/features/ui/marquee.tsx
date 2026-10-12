@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
+import { BaseLink } from "@/app/features/ui/link";
 
 const marqueeStyles = cva({
   base: [
@@ -10,7 +11,7 @@ const marqueeStyles = cva({
   variants: {
     size: {
       sm: "flex h-48 items-center border-b-2 py-4",
-      lg: "h-64 border-y-2 py-8 lg:h-108 lg:py-16",
+      lg: "block h-64 border-y-2 py-8 lg:h-108 lg:py-16",
     },
   },
   defaultVariants: {
@@ -50,6 +51,8 @@ export type MarqueeSize = NonNullable<MarqueeVariants["size"]>;
 
 export type MarqueeProps = MarqueeVariants & {
   text: string;
+  /** Turns the whole band into a link, named by `text`. */
+  href?: string;
   /** Mark repeated between copies of `text`. Omit for no separator. */
   separator?: string;
   play?: boolean;
@@ -58,20 +61,22 @@ export type MarqueeProps = MarqueeVariants & {
   trackClassName?: string;
 };
 
-export const Marquee = ({ className, trackClassName, size = "sm", text, separator, play = true }: MarqueeProps) => {
+export const Marquee = ({
+  className,
+  trackClassName,
+  size = "sm",
+  text,
+  href,
+  separator,
+  play = true,
+}: MarqueeProps) => {
   const labelId = React.useId();
   // The trailing space is what keeps the last repeat off the first one.
   const content = separator ? `${text} ${separator} ` : `${text} `;
   const half = content.repeat(Math.ceil(MIN_CHARS / content.length));
 
-  return (
-    <div
-      role="marquee"
-      aria-labelledby={labelId}
-      // Moving text needs a way to stop it (WCAG 2.2.2), and focus is how a keyboard holds the row.
-      tabIndex={play ? 0 : undefined}
-      className={cx(marqueeStyles({ size }), className)}
-    >
+  const children = (
+    <>
       {/* The scrolling copy is repeated, so expose the text once to assistive tech instead. */}
       <span id={labelId} className="sr-only">
         {text}
@@ -85,6 +90,26 @@ export const Marquee = ({ className, trackClassName, size = "sm", text, separato
           {half + half}
         </span>
       </div>
+    </>
+  );
+
+  if (href) {
+    return (
+      <BaseLink href={href} className={cx(marqueeStyles({ size }), className)}>
+        {children}
+      </BaseLink>
+    );
+  }
+
+  return (
+    <div
+      role="marquee"
+      aria-labelledby={labelId}
+      // Moving text needs a way to stop it (WCAG 2.2.2), and focus is how a keyboard holds the row.
+      tabIndex={play ? 0 : undefined}
+      className={cx(marqueeStyles({ size }), className)}
+    >
+      {children}
     </div>
   );
 };

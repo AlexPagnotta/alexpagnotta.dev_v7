@@ -132,7 +132,7 @@ export const Hero = () => {
 
         <Container className="px-(--page-side-spacing)">
           <p className={introCopyStyles}>
-            {/* TODO: replace the placeholder hrefs with the real destinations. */}
+            {/* TODO: point the camera link at the photos destination once it exists. */}
             I'm{" "}
             <IntroLink href={hrefFor("writing", "about-me")}>
               <IntroImage src={face} alt="Alex" className="h-37 -rotate-7 lg:h-53" />

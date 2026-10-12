@@ -54,7 +54,6 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     description: siteConfig.description,
-    creator: siteConfig.twitterHandle,
     images: [siteConfig.ogImage.url],
   },
   // Only the home-screen name: `capable` is the iOS twin of the manifest's `display`, and

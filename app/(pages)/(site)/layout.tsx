@@ -8,7 +8,8 @@ import { ACCENTS, PAGE_ACCENT_STYLES } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/cva";
 import { Marquee } from "@/app/features/ui/marquee";
 
-const HEADER_MARQUEE_TEXT = "Checkout my latest blog post, I built a secondary screen for my mac";
+const HEADER_MARQUEE_TEXT = "Latest post: a tiny shell trick to use Claude Code without a folder";
+const HEADER_MARQUEE_HREF = "/writings/claude-code-without-a-folder";
 const FOOTER_MARQUEE_TEXT = "Thanks for visiting";
 
 // A detail page names its accent with `data-page-accent`; the footer paints itself with it.
@@ -36,7 +37,13 @@ const SiteLayout = ({ children }: Props) => {
         Skip to content
       </a>
       <div className="relative z-1 bg-white">
-        <Marquee size="sm" text={HEADER_MARQUEE_TEXT} separator="•" trackClassName="animate-intro-rise" />
+        <Marquee
+          size="sm"
+          text={HEADER_MARQUEE_TEXT}
+          href={HEADER_MARQUEE_HREF}
+          separator="•"
+          trackClassName="animate-intro-rise"
+        />
         <Navbar contactEmail={siteConfig.author.email} />
         <main id="main" className="flex flex-col">
           {children}

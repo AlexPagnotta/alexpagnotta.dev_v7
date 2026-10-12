@@ -2,7 +2,7 @@ import { env } from "@/env";
 
 // Used as the homepage title and the `%s | name` template suffix. Declared apart from the
 // config so the share image can reuse it as its alt text.
-const title = "Alex Pagnotta — TODO Dev";
+const title = "Alex Pagnotta · Developer & Builder";
 
 // Site identity and contact details, read by the nav as well as metadata, structured data,
 // the manifest, llms.txt and the feed.
@@ -11,7 +11,7 @@ export const siteConfig = {
   name: "Alex Pagnotta",
   shortName: "pagnotta",
   title,
-  description: "TODO Dev",
+  description: "Alex Pagnotta's digital place: dev work, things I make, thoughts and whatever I'm curious about.",
   locale: "en_US",
   lang: "en",
   // Shared social-share image (Open Graph + Twitter). Lives in /public so it resolves to
@@ -24,21 +24,18 @@ export const siteConfig = {
   feed: { path: "/rss.xml", title: "Alex Pagnotta — RSS Feed" },
   author: {
     name: "Alex Pagnotta",
-    jobTitle: "Full Stack Dev",
-    // TODO: replace with the final contact address.
-    email: "hello@example.com",
+    jobTitle: "Principal Developer",
+    employer: { name: "WILD", url: "https://www.wild.as" },
+    email: "ap.alex.pagnotta@gmail.com",
+    image: "/profile.jpg",
   },
   // Public profiles — surfaced as `sameAs` in structured data so search engines can
   // link this site to the same real-world person.
-  // TODO: replace the four URLs below with the real profiles.
   social: {
-    twitter: "https://x.com/",
-    github: "https://github.com/",
-    linkedin: "https://www.linkedin.com/",
-    unsplash: "https://unsplash.com/",
+    github: "https://github.com/AlexPagnotta",
+    linkedin: "https://www.linkedin.com/in/alex-pagnotta",
+    unsplash: "https://unsplash.com/@alexpagnotta",
   },
-  // TODO: replace with the real X handle, or drop the field and the twitter.creator uses.
-  twitterHandle: "@handle",
   // A document rather than a profile, so it stays out of `social` and off `sameAs`.
   resumeUrl: "/resume.pdf",
 } as const;
