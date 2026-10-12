@@ -1,7 +1,10 @@
-import NextImage, { type ImageProps } from "next/image";
+import NextImage, { getImageProps, type ImageProps, type StaticImageData } from "next/image";
 import { cx } from "@/app/features/style/cva";
 
 export type { ImageProps };
+
+/** A video poster has no `srcset`, so it goes through the optimizer once, at the widest it shows (2x is added). */
+export const posterSrc = (src: StaticImageData, width: number) => getImageProps({ src, alt: "", width }).props.src;
 
 // A `./x.svg?url` import resolves to a served URL — a bare string, or a static-image object
 // whose `.src` holds the URL. Pull it out and flag it when it points at an SVG.

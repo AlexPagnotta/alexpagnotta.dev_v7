@@ -1,6 +1,7 @@
+import type { StaticImageData } from "next/image";
 import type * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
-import { Image, type ImageProps } from "@/app/features/ui/image";
+import { Image, type ImageProps, posterSrc } from "@/app/features/ui/image";
 import { Video, type VideoProps } from "@/app/features/ui/video";
 
 /*
@@ -92,6 +93,8 @@ const IMAGE_SIZES = {
   lg: "(min-width: 80rem) 240px, 128px",
 } as const;
 
+const POSTER_WIDTHS = { sm: 128, lg: 240 } as const;
+
 // Running text inside sits in block flow, not the prose flex column, so it takes the same visible step.
 const asideStyles = cx(
   "relative flow-root",
@@ -101,7 +104,7 @@ const asideStyles = cx(
 export type MarkdownAsideProps = VariantProps<typeof markdownAsideStyles> & {
   /** A looping clip; for transparency, the hvc1 mp4 first and the webm after, as `Video` explains. */
   video?: VideoProps["src"];
-  poster?: string;
+  poster?: StaticImageData;
   image?: ImageProps["src"];
   /** The media's intrinsic size; crop it to its content so the gap to the text is the real one. */
   width: number;
@@ -149,7 +152,13 @@ export const MarkdownAside = ({
       }
     >
       {video ? (
-        <Video autoplay src={video} poster={poster} aria-hidden className={mediaStyles} />
+        <Video
+          autoplay
+          src={video}
+          poster={poster && posterSrc(poster, POSTER_WIDTHS[size ?? "lg"])}
+          aria-hidden
+          className={mediaStyles}
+        />
       ) : image ? (
         // Usually a cut-out, so a blur placeholder would show as a smudge around the shape.
         <Image src={image} alt="" sizes={IMAGE_SIZES[size ?? "lg"]} placeholder="empty" className={mediaStyles} />
