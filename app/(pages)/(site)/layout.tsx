@@ -37,18 +37,22 @@ const SiteLayout = ({ children }: Props) => {
         Skip to content
       </a>
       <div className="relative z-1 bg-white">
-        <Marquee
-          size="sm"
-          text={HEADER_MARQUEE_TEXT}
-          href={HEADER_MARQUEE_HREF}
-          separator="•"
-          trackClassName="animate-intro-rise"
-        />
+        <aside aria-label="Announcement">
+          <Marquee
+            size="sm"
+            text={HEADER_MARQUEE_TEXT}
+            href={HEADER_MARQUEE_HREF}
+            separator="•"
+            trackClassName="animate-intro-rise"
+          />
+        </aside>
         <Navbar contactEmail={siteConfig.author.email} />
         <main id="main" className="flex flex-col">
           {children}
         </main>
-        <Marquee size="lg" text={FOOTER_MARQUEE_TEXT} separator="-" className="uppercase" />
+        <aside aria-label="Sign-off">
+          <Marquee size="lg" text={FOOTER_MARQUEE_TEXT} separator="-" className="uppercase" />
+        </aside>
       </div>
       <div className={footerWrapperStyles}>
         <Footer />
