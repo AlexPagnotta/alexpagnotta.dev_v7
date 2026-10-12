@@ -14,8 +14,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Fonts
 
 [PP Frama](https://pangrampangram.com/products/frama) lives in `public/fonts` as
-`ppframa-<weight>[-italic].otf`. `app/(pages)/layout.tsx` loads the Regular and Black cuts, each with
-its italic, through `next/font/local`; the ExtraLight files are not loaded.
+`ppframa-<weight>[-italic].woff2`, converted losslessly from the vendor OTFs. `app/(pages)/layout.tsx`
+loads the Regular and Black cuts through `next/font/local`, preloaded, and their italics as a separate
+family that loads only where italic text appears.
 
 ## Scripts
 
