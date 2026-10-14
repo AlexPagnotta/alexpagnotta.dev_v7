@@ -10,7 +10,7 @@ import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { Container } from "@/app/features/ui/container";
 import { Image } from "@/app/features/ui/image";
 import { BaseLink, Link } from "@/app/features/ui/link";
-import { Wordmark } from "@/app/features/ui/wordmark";
+import { Wordmark } from "@/app/features/ui/wordmark/wordmark";
 
 const wordmarkStyles = cx(
   "[--wordmark-fill:var(--gradient-green)] max-md:gap-16",

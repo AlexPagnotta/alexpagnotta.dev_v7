@@ -2,7 +2,7 @@ import { NAME_WORDMARK, siteConfig } from "@/app/features/site/config";
 import { cx } from "@/app/features/style/cva";
 import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
-import { Wordmark } from "@/app/features/ui/wordmark";
+import { Wordmark } from "@/app/features/ui/wordmark/wordmark";
 
 // Labels and order are the footer's own; the destinations come from the shared site config.
 const LINKS = [
