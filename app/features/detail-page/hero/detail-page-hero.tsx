@@ -49,7 +49,6 @@ export const DetailPageHero = ({ type, title, tags, meta, cover, accent, cta }: 
               sizes={COVER_SIZES}
               preload
               fetchPriority="high"
-              placeholder="empty"
               className="aspect-3/2 w-full border-2 border-black bg-gray-300 object-cover md:aspect-video"
             />
           </figure>

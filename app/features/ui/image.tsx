@@ -6,6 +6,13 @@ export type { ImageProps };
 /** A video poster has no `srcset`, so it goes through the optimizer once, at the widest it shows (2x is added). */
 export const posterSrc = (src: StaticImageData, width: number) => getImageProps({ src, alt: "", width }).props.src;
 
+/** A poster plus Next's blur placeholder as a background, for opaque clips only: it would show around a transparent one. */
+export const posterWithBlur = (src: StaticImageData, width: number) => {
+  const { src: poster, style } = getImageProps({ src, alt: "", width, placeholder: "blur" }).props;
+  const { backgroundImage, backgroundSize, backgroundPosition, backgroundRepeat } = style ?? {};
+  return { poster, style: { backgroundImage, backgroundSize, backgroundPosition, backgroundRepeat } };
+};
+
 // A `./x.svg?url` import resolves to a served URL — a bare string, or a static-image object
 // whose `.src` holds the URL. Pull it out and flag it when it points at an SVG.
 const asSvgUrl = (src: ImageProps["src"]): string | undefined => {

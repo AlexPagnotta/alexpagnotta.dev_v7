@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
 import type * as React from "react";
 import { MarkdownFigure } from "@/app/features/content/markdown/markdown-figure";
-import { posterSrc } from "@/app/features/ui/image";
+import { posterWithBlur } from "@/app/features/ui/image";
 import { Video, type VideoProps } from "@/app/features/ui/video";
 
 // The body column's widest, as in `markdown-image.tsx`.
@@ -17,8 +17,12 @@ export type MarkdownVideoProps = {
  * pass `autoplay={false}` for anything with sound, which brings up controls. Always pass
  * `width` and `height` so the frame reserves its box before the clip loads.
  */
-export const MarkdownVideo = ({ caption, poster, autoplay = true, ...props }: MarkdownVideoProps) => (
-  <MarkdownFigure caption={caption}>
-    <Video autoplay={autoplay} poster={poster && posterSrc(poster, POSTER_WIDTH)} {...props} />
-  </MarkdownFigure>
-);
+export const MarkdownVideo = ({ caption, poster, autoplay = true, style, ...props }: MarkdownVideoProps) => {
+  const posterProps = poster && posterWithBlur(poster, POSTER_WIDTH);
+
+  return (
+    <MarkdownFigure caption={caption}>
+      <Video autoplay={autoplay} poster={posterProps?.poster} style={{ ...posterProps?.style, ...style }} {...props} />
+    </MarkdownFigure>
+  );
+};
