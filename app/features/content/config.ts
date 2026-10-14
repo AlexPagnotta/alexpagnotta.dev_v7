@@ -1,13 +1,14 @@
 import { z } from "zod";
 import { ACCENTS } from "@/app/features/style/accents";
 
-export const CONTENT_TAGS = ["work", "personal", "make"] as const;
+export const CONTENT_TAGS = ["work", "personal", "make", "photos"] as const;
 export type ContentTag = (typeof CONTENT_TAGS)[number];
 
 export const CONTENT_TAG_LABELS = {
   work: "Work",
   personal: "Personal",
   make: "Make",
+  photos: "Photos",
 } as const satisfies Record<ContentTag, string>;
 
 const baseEntrySchema = z.object({
