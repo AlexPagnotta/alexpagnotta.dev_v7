@@ -10,7 +10,7 @@ import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { Container } from "@/app/features/ui/container";
 import { Image } from "@/app/features/ui/image";
 import { BaseLink, Link } from "@/app/features/ui/link";
-import { Wordmark } from "@/app/features/ui/wordmark";
+import { Wordmark } from "@/app/features/ui/wordmark/wordmark";
 
 const wordmarkStyles = cx(
   "[--wordmark-fill:var(--gradient-green)] max-md:gap-16",
@@ -132,17 +132,16 @@ export const Hero = () => {
 
         <Container className="px-(--page-side-spacing)">
           <p className={introCopyStyles}>
-            {/* TODO: point the camera link at the photos destination once it exists. */}
             I'm{" "}
             <IntroLink href={hrefFor("writing", "about-me")}>
               <IntroImage src={face} alt="Alex" className="h-37 -rotate-7 lg:h-53" />
             </IntroLink>{" "}
             welcome to my little <Highlight>DIGITAL PLACE</Highlight> here I share my{" "}
-            <IntroLink href={feedFilterHref("project")} scroll={false} className="align-baseline">
+            <IntroLink href={feedFilterHref("work")} scroll={false} className="align-baseline">
               <Highlight color="black">DEV</Highlight>
             </IntroLink>{" "}
             work,{" "}
-            <IntroLink href="#">
+            <IntroLink href={feedFilterHref("photos")} scroll={false}>
               <IntroImage src={camera} alt="photos" className="h-34 rotate-4 lg:h-48" />
             </IntroLink>
             ,{" "}
