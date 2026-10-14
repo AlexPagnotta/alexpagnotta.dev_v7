@@ -32,15 +32,20 @@
   --text-display-2-mobile--letter-spacing: var(--tracking-xs);
 
   /* Logo */
-  --text-logo: --spacing(36);
-  --text-logo--font-weight: 400;
-  --text-logo--line-height: --spacing(36);
-  --text-logo--letter-spacing: -0.03em;
+  --text-logo-sm: --spacing(24);
+  --text-logo-sm--font-weight: 400;
+  --text-logo-sm--line-height: --spacing(24);
+  --text-logo-sm--letter-spacing: -0.03em;
 
-  --text-logo-mobile: --spacing(24);
-  --text-logo-mobile--font-weight: 400;
-  --text-logo-mobile--line-height: --spacing(24);
-  --text-logo-mobile--letter-spacing: -0.03em;
+  --text-logo-md: --spacing(28);
+  --text-logo-md--font-weight: 400;
+  --text-logo-md--line-height: --spacing(28);
+  --text-logo-md--letter-spacing: -0.03em;
+
+  --text-logo-lg: --spacing(36);
+  --text-logo-lg--font-weight: 400;
+  --text-logo-lg--line-height: --spacing(36);
+  --text-logo-lg--letter-spacing: -0.03em;
 
   /* Heading 1 */
   --text-heading-1: --spacing(80);
@@ -128,7 +133,11 @@
 }
 
 @utility logo {
-  @apply text-logo-mobile lg:text-logo font-sans;
+  @apply text-logo-sm lg:text-logo-lg font-sans;
+}
+
+@utility logo-sm {
+  @apply text-logo-sm lg:text-logo-md font-sans;
 }
 
 @utility heading-1 {

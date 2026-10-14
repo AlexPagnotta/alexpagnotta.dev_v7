@@ -27,12 +27,13 @@ const buttonStyles = cva({
       "pink-dark": "[--btn-fill:var(--color-pink-dark)]",
       "pink-light": "[--btn-fill:var(--color-pink-light)]",
     },
-    // Named by the desktop size; `md` and `lg` step down on phones.
+    // Named by the desktop size; `md` and up step down on phones.
     size: {
       xs: "border gap-6 px-12 h-32 label-1 lift-2",
       sm: "border px-12 h-40 label-2 lift-2 lg:px-16 lg:h-44 lg:body-1",
       md: "border px-16 h-46 body-1 lift-4 lg:h-50 lg:body-3",
-      lg: "border-2 px-32 h-96 heading-2 lift-8 lg:px-48 lg:h-124",
+      lg: "border px-20 h-56 heading-4 lift-4 lg:px-24 lg:h-64",
+      xl: "border-2 px-32 h-96 heading-2 lift-8 lg:px-48 lg:h-124",
       icon: "border size-52 p-0 body-1 lift-4",
     },
   },

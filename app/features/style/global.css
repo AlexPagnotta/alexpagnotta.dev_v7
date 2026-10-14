@@ -7,8 +7,12 @@ body {
   /* At least the footer's tallest render per breakpoint (measured 643 / 715); only overshooting is safe. */
   --footer-max-height: --spacing(648);
 
+  /* The small logo's box: its line, `py-8` and a 1px border each side, see `nav/logo.tsx`. */
+  --logo-sm-height: calc(var(--text-logo-sm--line-height) + --spacing(16) + 2px);
+
   @variant lg {
     --footer-max-height: --spacing(720);
+    --logo-sm-height: calc(var(--text-logo-md--line-height) + --spacing(16) + 2px);
   }
 }
 

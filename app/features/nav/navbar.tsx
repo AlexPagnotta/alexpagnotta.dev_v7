@@ -2,10 +2,10 @@
 
 import { usePathname } from "next/navigation";
 import * as React from "react";
+import { Logo } from "@/app/features/nav/logo";
 import { cx } from "@/app/features/style/cva";
 import { ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
-import { Link } from "@/app/features/ui/link";
 
 /** A section the revealed bar must clear before it may pin. Opt in with `data-navbar-boundary`. */
 const BOUNDARY_SELECTOR = "[data-navbar-boundary]";
@@ -106,70 +106,7 @@ const barContentStyles = "flex h-full items-end justify-between px-(--page-side-
 // Clips the logo's lower edge so it reads as sinking behind the bottom border.
 const logoClipStyles = "flex h-full items-end overflow-clip";
 
-const letterStyles = cx(
-  "inline-block whitespace-pre",
-  "transition-[translate] duration-300 ease-pop motion-reduce:transition-none",
-  "delay-[calc(var(--letter-index)*20ms)]"
-);
-
-const outgoingLetterStyles =
-  "group-hover:translate-y-(--letter-travel) group-focus-visible:translate-y-(--letter-travel)";
-
-const incomingLetterStyles =
-  "-translate-y-(--letter-travel) group-hover:translate-y-0 group-focus-visible:translate-y-0";
-
-// Spans the logo box's `py-8`, so letters clip at the box edge and travel far enough to clear it.
-const letterClipStyles = cx("relative block -my-8 py-8 overflow-clip", "[--letter-travel:calc(100%+var(--spacing)*8)]");
-
 const sayHiStyles = "uppercase [--btn-fill:var(--navbar-accent)] animate-intro-appear animation-delay-150";
-
-type StaggeredLettersProps = { text: string; className: string; indexOffset?: number };
-
-const StaggeredLetters = ({ text, className, indexOffset = 0 }: StaggeredLettersProps) =>
-  [...text].map((letter, index) => (
-    <span
-      // biome-ignore lint/suspicious/noArrayIndexKey: the letters never reorder.
-      key={index}
-      className={cx(letterStyles, className)}
-      style={{ "--letter-index": index + indexOffset } as React.CSSProperties}
-    >
-      {letter}
-    </span>
-  ));
-
-const logoStyles = cx(
-  "logo inline-block translate-y-1/8 border border-black bg-white px-12 py-8 whitespace-nowrap uppercase",
-  "lg:border-2 lg:px-16",
-  "animate-intro-rise"
-);
-
-const LOGO_NAME = "Alex Pagnotta";
-const LOGO_HOVER_TEXT = "Back home";
-
-/*
-  Both words move together, one travel apart, so they never overlap and reversing mid-hover stays smooth.
-  The centred word starts its stagger at the column it sits over, so each letter swaps with the one beneath it.
-*/
-const HOVER_INDEX_OFFSET = Math.floor((LOGO_NAME.length - LOGO_HOVER_TEXT.length) / 2);
-
-type NavbarLogoProps = { home: boolean };
-
-// On the homepage it would only link to itself, so it's plain text there.
-const NavbarLogo = ({ home }: NavbarLogoProps) =>
-  home ? (
-    <span className={logoStyles}>{LOGO_NAME}</span>
-  ) : (
-    <Link href="/" variant="plain" className={cx("group", logoStyles)}>
-      <span className="sr-only">{LOGO_NAME}</span>
-      {/* On hover the name drops out letter by letter while "Back home" drops in from above. */}
-      <span aria-hidden="true" className={letterClipStyles}>
-        <StaggeredLetters text={LOGO_NAME} className={outgoingLetterStyles} />
-        <span className="absolute inset-0 flex items-center justify-center">
-          <StaggeredLetters text={LOGO_HOVER_TEXT} className={incomingLetterStyles} indexOffset={HOVER_INDEX_OFFSET} />
-        </span>
-      </span>
-    </Link>
-  );
 
 export type NavbarProps = {
   // Passed in rather than read from siteConfig, which would pull env validation (zod) into the client bundle.
@@ -197,7 +134,7 @@ export const Navbar = ({ contactEmail }: NavbarProps) => {
       >
         <Container size="md" className={barContentStyles}>
           <div className={logoClipStyles}>
-            <NavbarLogo home={pathname === "/"} />
+            <Logo home={pathname === "/"} className="translate-y-1/8" />
           </div>
           {/* Wrapped so the overhang's translate doesn't fight the button's own lift translate. */}
           <div ref={overhangRef} className="self-center md:translate-y-1/3 md:self-end">

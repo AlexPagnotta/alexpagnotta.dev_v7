@@ -36,7 +36,7 @@ Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`, `drop
 # Typography
 
 - **Always use the custom typography utilities** defined in `app/features/style/typography.css` for text styling, named as the Figma text styles:
-  - `display-1`, `logo`
+  - `display-1`, `logo`, `logo-sm`
   - `heading-1` … `heading-4`
   - `body-1` … `body-4`
   - `label-1`, `label-2`
