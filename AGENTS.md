@@ -6,6 +6,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 <!-- END:nextjs-agent-rules -->
 
+# Project
+
+- Personal site on Next.js 16. Code is grouped by domain in `app/features/<domain>` (layout, ui, home-page, detail-page, content, ...).
+- Content is MDX in `content/{projects,writings,thoughts}/<slug>/index.mdx`. Start a new entry by copying that folder's `_template`.
+- After changes, run `npm run check` (tsc + Biome). Lefthook also runs Biome and tsc on staged files at commit.
+
 # Dev server
 
 Port 3000 belongs to the user's own `npm run dev`. Never start, restart, or kill it.
@@ -17,7 +23,7 @@ Port 3000 belongs to the user's own `npm run dev`. Never start, restart, or kill
 # Styling
 
 - Always use `className` with Tailwind utility classes for styling. No inline styles, CSS modules, or styled-components.
-- For components with complex conditional variants, use `cva`. Name the `cva` styles object `{componentName}Styles` (e.g. `buttonStyles`, `selectStyles`).
+- For components with complex conditional variants, use `cva`. Import `cva`/`cx` from `@/app/features/style/cva`. Name the `cva` styles object `{componentName}Styles` (e.g. `buttonStyles`, `selectStyles`).
 - When a `className` no longer fits on one line, or carries long arbitrary values (`[--var:…]`, `calc()`), move it into a named `{elementName}Styles` constant built with `cx(...)`, one concern per argument (e.g. `wordmarkStyles` in `layout/footer.tsx`).
 - Always use the design tokens defined in the Tailwind config — colors, typography, spacing, etc. Do not hardcode raw values.
 - If a style requirement cannot be satisfied with existing tokens, **ask the user** before adding anything new. Once confirmed, add the new token to the appropriate Tailwind config file.
@@ -26,25 +32,20 @@ Port 3000 belongs to the user's own `npm run dev`. Never start, restart, or kill
 
 # Spacing units
 
-The spacing scale is **rem-only**, driven by a single base token (`--spacing: 0.0625rem`) so that one unit equals one pixel at the 16px root font size. Every spacing/sizing utility resolves through it and scales with the user's font-size preference — e.g. `p-4` = 0.25rem = 4px, `size-14` = 0.875rem = 14px, `max-w-600` = 37.5rem = 600px.
-
-- Use the bare numeric tokens for all padding, gaps, margins, `width`/`height`/`size`, and `max-width`: `px-24 py-12`, `gap-8`, `size-14`, `max-w-600`. Any positive integer works (e.g. `w-205`); it resolves to that many px in rem.
-- **Never** hardcode px arbitrary values for spacing/sizing (no `size-[14px]`, `h-[180px]`) — use the scale token instead (`size-14`, `h-180`).
-
-Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`, `drop-shadow-depth-*`, named by their px offset) are **not** part of the spacing scale — they remain their own fixed-px utilities and are unaffected by this.
+- Spacing and sizing use the bare numeric scale, where each unit is 1px in rem: `px-24 py-12`, `gap-8`, `size-14`, `max-w-600`. Any positive integer works (e.g. `w-205`).
+- **Never** hardcode px arbitrary values for spacing/sizing (no `size-[14px]`, `h-[180px]`); use the scale token instead (`size-14`, `h-180`).
+- Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`, `drop-shadow-depth-*`) are not on the scale; they stay fixed px.
 
 # Typography
 
-- **Always use the custom typography utilities** defined in `app/features/style/typography.css` for text styling, named as the Figma text styles:
+- **Always use the custom typography utilities** defined in `app/features/style/typography.css`, named as the Figma text styles:
   - `display-1`, `logo`, `logo-sm`
   - `heading-1` … `heading-4`
   - `body-1` … `body-4`
   - `label-1`, `label-2`
   - `code-1` (Geist Mono, code blocks)
-- `display-1`, `logo` and the headings pair the mobile and desktop cut from Figma, switching at `lg`. Body and label steps are the same on every breakpoint, so a responsive change there is two utilities (e.g. `body-1 lg:body-3`, the article paragraph). `display-1` is the only Black (900) style; everything else is Regular (400).
-- Line heights are fixed px values from Figma, expressed through the spacing scale.
-- `Tag` and `Button` set their own height per size (from Figma) rather than deriving it from the line box, so retuning a type step does not resize them, but it still moves anything that sizes to its text, such as `Marquee`.
 - **Never use** raw tailwind text size classes (`text-display-1`, `text-heading-1`, `text-body-2`, etc.) directly — these are the underlying tokens used by the utilities above.
+- Display, logo and headings already switch between mobile and desktop at `lg`. Body and label steps don't, so a responsive change there is two utilities (e.g. `body-1 lg:body-3`).
 - Body copy defaults to `body-1` (16px), set on `body` in `global.css`. `label-1`/`label-2` (12/14px) are the tag and caption steps.
 - Primitives in `app/features/ui/*` take their typography from the caller, except where a size ties the type step to a fixed Figma height or a text-measured timing (`Button`, `Tag`, `Tab`, `Marquee`); those bind it in the variant.
 
@@ -59,19 +60,15 @@ Rule of thumb: if you'd `<Render />` it as markup, import as a component; if it'
 
 # Comments
 
-- Default to writing no comments. Only add one when it explains something not obvious or understandable by looking at the code itself — a hidden constraint, a subtle invariant, a workaround for a specific bug.
-- Never write a comment that just restates what the code does.
-- Don't narrate a styling choice. The utility or token name already says what the value is, and noting that something differs from the rest of the system ("the one place that...") goes stale as soon as a second place appears.
-- Before keeping a comment, delete it and re-read the line. If nothing is lost that a reader couldn't get from the code, leave it deleted.
-- Keep comments to one line where possible, two at most. If it takes several sentences to explain, either the code needs a better name or the comment needs to be cut down to just the one fact that isn't obvious — don't stack multiple facts (styling rationale, cross-references, edge cases) into a single block.
+**Default to no comments.** Agents over-comment in this codebase; this rule is strict.
+
+- Only comment a hidden constraint, a subtle invariant, or a workaround for a specific bug. Never restate the code or narrate a styling choice (the token name already says it).
+- One line, two at most. Before keeping a comment, delete it and re-read the code: if nothing is lost, leave it deleted.
 
 # Accessibility
 
-- Use semantic HTML elements (`<button>`, `<nav>`, `<main>`, etc.) over generic `<div>`/`<span>` wrappers.
-- Interactive elements must be keyboard-navigable and show a visible focus indicator — use `focus-visible` (not `focus`) so the outline appears only for keyboard users.
-- Icon-only interactive elements must have an accessible label (`aria-label` or `aria-labelledby`). Decorative icons must have `aria-hidden="true"`.
-- Never suppress focus outlines (no `outline-none` or `focus:outline-none` without a `focus-visible` replacement).
-- Use `disabled` on native elements; if an element must remain in the tab order while visually disabled, use `aria-disabled` and block interaction manually.
+- Use `focus-visible` (not `focus`) for focus indicators.
+- Never suppress focus outlines (no `outline-none` without a `focus-visible` replacement).
 
 # Commits
 
