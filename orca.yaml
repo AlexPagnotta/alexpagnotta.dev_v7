@@ -1,0 +1,8 @@
+scripts:
+  setup: |
+    [ -f "$ORCA_ROOT_PATH/.env" ] && cp "$ORCA_ROOT_PATH/.env" .env
+    npm install
+
+defaultTabs:
+  - title: dev
+    command: npm run dev
