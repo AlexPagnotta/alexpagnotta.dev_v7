@@ -14,9 +14,7 @@ export const siteConfig = {
   description: "Alex Pagnotta's digital place: dev work, things I make, thoughts and whatever I'm curious about.",
   locale: "en_US",
   lang: "en",
-  // Shared social-share image (Open Graph + Twitter). Lives in /public so it resolves to
-  // one stable absolute URL — a per-page `openGraph` object replaces any file-convention
-  // image, so it must be referenced explicitly.
+  // Referenced explicitly, since a per-page `openGraph` object replaces any file-convention image.
   ogImage: { url: "/og.png", width: 1200, height: 630, alt: title },
   // The mark's pink ground, mirrored by the manifest and the browser theme colour.
   themeColor: "#ff99e2",
@@ -29,7 +27,7 @@ export const siteConfig = {
     email: "ap.alex.pagnotta@gmail.com",
     image: "/profile.jpg",
   },
-  // Public profiles — surfaced as `sameAs` in structured data so search engines can
+  // Public profiles, surfaced as `sameAs` in structured data so search engines can
   // link this site to the same real-world person.
   social: {
     github: "https://github.com/AlexPagnotta",

@@ -1,6 +1,7 @@
-import type * as React from "react";
+import { cssVars } from "@/app/features/style/css-vars";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { Link } from "@/app/features/ui/link";
+import { SplitLetters } from "@/app/features/ui/split-text";
 
 const letterStyles = cx(
   "inline-block whitespace-pre",
@@ -19,17 +20,15 @@ const letterClipStyles = cx("relative block -my-8 py-8 overflow-clip", "[--lette
 
 type StaggeredLettersProps = { text: string; className: string; indexOffset?: number };
 
-const StaggeredLetters = ({ text, className, indexOffset = 0 }: StaggeredLettersProps) =>
-  [...text].map((letter, index) => (
-    <span
-      // biome-ignore lint/suspicious/noArrayIndexKey: the letters never reorder.
-      key={index}
-      className={cx(letterStyles, className)}
-      style={{ "--letter-index": index + indexOffset } as React.CSSProperties}
-    >
-      {letter}
-    </span>
-  ));
+const StaggeredLetters = ({ text, className, indexOffset = 0 }: StaggeredLettersProps) => (
+  <SplitLetters text={text}>
+    {(letter, index) => (
+      <span className={cx(letterStyles, className)} style={cssVars({ "--letter-index": index + indexOffset })}>
+        {letter}
+      </span>
+    )}
+  </SplitLetters>
+);
 
 const logoStyles = cva({
   base: ["inline-block border border-black bg-white px-12 py-8 whitespace-nowrap uppercase", "animate-intro-rise"],
@@ -47,10 +46,7 @@ const logoStyles = cva({
 const LOGO_NAME = "Alex Pagnotta";
 const LOGO_HOVER_TEXT = "Back home";
 
-/*
-  Both words move together, one travel apart, so they never overlap and reversing mid-hover stays smooth.
-  The centred word starts its stagger at the column it sits over, so each letter swaps with the one beneath it.
-*/
+// The centred word starts its stagger at the column it sits over, so each letter swaps with the one beneath it.
 const HOVER_INDEX_OFFSET = Math.floor((LOGO_NAME.length - LOGO_HOVER_TEXT.length) / 2);
 
 export type LogoProps = VariantProps<typeof logoStyles> & { home?: boolean; className?: string };

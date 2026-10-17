@@ -35,20 +35,20 @@ type TabsContextValue = {
   onValueChange: (value: string) => void;
 };
 
-/*
-  Base UI's ToggleGroup would be the obvious fit, but it is a composite: the whole group
-  is one tab stop and the pills are reached with the arrow keys. These are filters worth
-  tabbing through, so the row is a plain group of toggle buttons and holds the selection.
-*/
+// Not Base UI's ToggleGroup, which makes the row one tab stop; these filters are worth tabbing through one by one.
 const TabsContext = React.createContext<TabsContextValue | null>(null);
 
-export type TabsProps = React.ComponentProps<"div"> & {
-  value: string;
-  onValueChange: (value: string) => void;
+export type TabsProps<V extends string> = React.ComponentProps<"div"> & {
+  value: V;
+  onValueChange: (value: V) => void;
 };
 
-export const Tabs = ({ value, onValueChange, className, ...props }: TabsProps) => {
-  const context = React.useMemo(() => ({ value, onValueChange }), [value, onValueChange]);
+export const Tabs = <V extends string>({ value, onValueChange, className, ...props }: TabsProps<V>) => {
+  // Each `Tab` only hands back the value it was given, so the context can hold the values as plain strings.
+  const context = React.useMemo(
+    () => ({ value, onValueChange: onValueChange as (value: string) => void }),
+    [value, onValueChange]
+  );
 
   return (
     <TabsContext.Provider value={context}>
@@ -58,7 +58,7 @@ export const Tabs = ({ value, onValueChange, className, ...props }: TabsProps) =
         className={cx(
           "flex overflow-x-auto scrollbar-hidden",
           // A scroll container clips both axes, and the shadow and focus ring fall outside the
-          // pills — pad the scroll box, then pull the space back with margins.
+          // pills, so pad the scroll box, then pull the space back with margins.
           "px-8 -mx-8 py-8 -my-8",
           className
         )}
@@ -70,12 +70,14 @@ export const Tabs = ({ value, onValueChange, className, ...props }: TabsProps) =
 
 export type TabVariants = VariantProps<typeof tabStyles>;
 export type TabShape = NonNullable<TabVariants["shape"]>;
-export type TabPressedColor = NonNullable<TabVariants["pressedColor"]>;
 
-export type TabProps = Omit<React.ComponentProps<typeof Toggle>, "render" | "pressed" | "onPressedChange"> &
-  TabVariants & { value: string };
+export type TabProps<V extends string> = Omit<
+  React.ComponentProps<typeof Toggle>,
+  "render" | "pressed" | "onPressedChange"
+> &
+  TabVariants & { value: V };
 
-export const Tab = ({ className, shape, pressedColor, value, ...props }: TabProps) => {
+export const Tab = <V extends string>({ className, shape, pressedColor, value, ...props }: TabProps<V>) => {
   const context = React.useContext(TabsContext);
 
   if (!context) throw new Error("Tab must be rendered inside Tabs.");

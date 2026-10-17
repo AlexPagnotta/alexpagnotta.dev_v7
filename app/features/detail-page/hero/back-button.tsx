@@ -3,9 +3,7 @@
 import * as React from "react";
 import { cx } from "@/app/features/style/cva";
 import { ButtonLink } from "@/app/features/ui/button";
-
-/** Trackpads and rubber-banding jitter by a few px, so ask for real travel before reading a direction. */
-const DIRECTION_THRESHOLD = 4;
+import { createScrollDirection, onScrollFrame } from "@/app/features/utils/scroll";
 
 type Props = { className?: string };
 
@@ -18,30 +16,13 @@ export const BackButton = ({ className }: Props) => {
     const hero = ref.current?.closest("section");
     if (!hero || revealed) return;
 
-    let lastY = window.scrollY;
+    const readDirection = createScrollDirection();
     let passedHero = false;
-    let frame = 0;
 
-    const measure = () => {
-      frame = 0;
+    return onScrollFrame(() => {
       if (hero.getBoundingClientRect().bottom <= 0) passedHero = true;
-
-      const y = window.scrollY;
-      if (Math.abs(y - lastY) <= DIRECTION_THRESHOLD) return;
-      if (passedHero && y < lastY) setRevealed(true);
-      lastY = y;
-    };
-
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(measure);
-    };
-
-    window.addEventListener("scroll", schedule, { passive: true });
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", schedule);
-    };
+      if (readDirection() === "up" && passedHero) setRevealed(true);
+    }).stop;
   }, [revealed]);
 
   return (

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { cssVars } from "@/app/features/style/css-vars";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { BaseLink } from "@/app/features/ui/link";
 
@@ -46,8 +47,7 @@ const pausedStyles = cx(
 // Characters per half, enough to cover a 4K-wide viewport at the smallest size.
 const MIN_CHARS = 400;
 
-export type MarqueeVariants = VariantProps<typeof marqueeItemStyles>;
-export type MarqueeSize = NonNullable<MarqueeVariants["size"]>;
+type MarqueeVariants = VariantProps<typeof marqueeItemStyles>;
 
 export type MarqueeProps = MarqueeVariants & {
   text: string;
@@ -84,8 +84,7 @@ export const Marquee = ({
       <div aria-hidden="true" className={trackClassName}>
         <span
           className={cx(marqueeItemStyles({ size }), play && ["motion-safe:animate-drift", pausedStyles])}
-          // The one value that cannot be a utility class: it is counted off the text.
-          style={{ "--marquee-chars": half.length } as React.CSSProperties}
+          style={cssVars({ "--marquee-chars": half.length })}
         >
           {half + half}
         </span>

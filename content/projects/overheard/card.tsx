@@ -1,9 +1,8 @@
-import { CONTENT_TAG_LABELS, CONTENT_TYPES } from "@/app/features/content/config";
-import { type CustomFeedCardProps, FeedCardShell } from "@/app/features/home-page/feed/feed-card-shell";
+import { EntryTags } from "@/app/features/content/entry-tags";
+import { type CustomFeedCardProps, FeedCardShell } from "@/app/features/home-page/feed/cards/feed-card-shell";
 import { cx } from "@/app/features/style/cva";
 import { Card } from "@/app/features/ui/card";
 import { Image } from "@/app/features/ui/image";
-import { Tag } from "@/app/features/ui/tag";
 import nokiaOff from "./nokia-off.png";
 import nokiaOn from "./nokia-on.png";
 
@@ -13,7 +12,7 @@ const nokiaStyles = cx(
   "motion-safe:group-engaged:rotate-17 motion-safe:group-engaged:scale-105"
 );
 
-const OverheardCard = ({ href, tags, accent }: CustomFeedCardProps) => (
+const OverheardCard = ({ type, href, tags, accent }: CustomFeedCardProps) => (
   <FeedCardShell href={href} accent={accent} className="group @container h-255 gap-16 overflow-hidden pt-32">
     <h3 className="body-4 w-full text-right">
       A funky website for
@@ -21,10 +20,7 @@ const OverheardCard = ({ href, tags, accent }: CustomFeedCardProps) => (
       <em>Overheard</em>
     </h3>
     <Card.Tags align="end" className="mt-auto">
-      <Tag shape="rounded">{CONTENT_TYPES.project.label}</Tag>
-      {tags.map((tag) => (
-        <Tag key={tag}>{CONTENT_TAG_LABELS[tag]}</Tag>
-      ))}
+      <EntryTags type={type} tags={tags} />
     </Card.Tags>
     <Image src={nokiaOff} alt="" sizes="124px" placeholder="empty" className={nokiaStyles} />
     {/* Stacked on the switched-off phone, so hovering the card lights the screen. */}

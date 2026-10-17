@@ -1,15 +1,6 @@
 import { z } from "zod";
+import { CONTENT_TAGS } from "@/app/features/content/tags";
 import { ACCENTS } from "@/app/features/style/accents";
-
-export const CONTENT_TAGS = ["work", "personal", "make", "photos"] as const;
-export type ContentTag = (typeof CONTENT_TAGS)[number];
-
-export const CONTENT_TAG_LABELS = {
-  work: "Work",
-  personal: "Personal",
-  make: "Make",
-  photos: "Photos",
-} as const satisfies Record<ContentTag, string>;
 
 const baseEntrySchema = z.object({
   title: z.string(),
@@ -45,6 +36,8 @@ export const CONTENT_TYPES = {
 } as const;
 
 export type ContentType = keyof typeof CONTENT_TYPES;
+
+export const hrefFor = (type: ContentType, slug: string) => `${CONTENT_TYPES[type].basePath}/${slug}`;
 
 export const CONTENT_TYPE_KEYS = Object.keys(CONTENT_TYPES) as ContentType[];
 

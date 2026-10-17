@@ -62,10 +62,7 @@ export type ArticleJsonLdProps = {
   tags?: readonly string[];
 };
 
-/**
- * Per-entry structured data: the entry itself plus the trail back to the homepage. Breadcrumbs
- * skip a section level because the site has no `/writings` or `/projects` index to point at.
- */
+/** The entry plus its breadcrumb home; there is no `/writings` or `/projects` index, so the trail skips that level. */
 export const ArticleJsonLd = ({ type, title, description, path, date, tags }: ArticleJsonLdProps) => {
   const url = absoluteUrl(path);
 

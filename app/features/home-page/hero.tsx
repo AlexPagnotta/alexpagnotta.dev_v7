@@ -1,20 +1,22 @@
 import type { StaticImageData } from "next/image";
 import type * as React from "react";
-import { hrefFor } from "@/app/features/content/loader";
+import { hrefFor } from "@/app/features/content/config";
 import camera from "@/app/features/home-page/assets/camera.png";
 import face from "@/app/features/home-page/assets/face.png";
 import printer from "@/app/features/home-page/assets/printer.png";
 import { feedFilterHref } from "@/app/features/home-page/feed/filters";
 import { NAME_WORDMARK } from "@/app/features/site/config";
+import { cssVars } from "@/app/features/style/css-vars";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { Container } from "@/app/features/ui/container";
 import { Image } from "@/app/features/ui/image";
 import { BaseLink, Link } from "@/app/features/ui/link";
+import { SplitText } from "@/app/features/ui/split-text";
 import { Wordmark } from "@/app/features/ui/wordmark/wordmark";
 
 const wordmarkStyles = cx(
   "[--wordmark-fill:var(--gradient-green)] max-md:gap-16",
-  "animate-intro-rise animation-delay-60"
+  "animate-intro-rise intro-delay-title"
 );
 
 const highlightStyles = cva({
@@ -38,41 +40,31 @@ const Highlight = ({ className, color, ...props }: HighlightProps) => (
   <mark className={cx(highlightStyles({ color }), className)} {...props} />
 );
 
-const curiousStyles = cx(
-  "font-black italic text-yellow-dark drop-shadow-depth-2",
-  "[-webkit-text-stroke-width:1px] [-webkit-text-stroke-color:var(--color-black)]"
-);
+const curiousStyles = "font-black italic text-yellow-dark drop-shadow-depth-2 glyph-stroke-1";
 
 type WaveWordProps = { children: string; className?: string };
 
 const WaveWord = ({ children, className }: WaveWordProps) => (
   <em className={className}>
-    {/* Split into letters for the wave, so the word is exposed once to assistive tech instead. */}
-    <span className="sr-only">{children}</span>
-    <span aria-hidden="true">
-      {[...children].map((letter, index) => (
-        <span
-          // biome-ignore lint/suspicious/noArrayIndexKey: the letters never reorder.
-          key={index}
-          className="inline-block motion-safe:animate-wave"
-          style={{ "--wave-index": index } as React.CSSProperties}
-        >
+    <SplitText text={children}>
+      {(letter, index) => (
+        <span className="inline-block motion-safe:animate-wave" style={cssVars({ "--wave-index": index })}>
           {letter}
         </span>
-      ))}
-    </span>
+      )}
+    </SplitText>
   </em>
 );
 
 const introCopyStyles = cx(
   "heading-4 mx-auto max-w-320 text-center max-lg:leading-48 md:max-w-600 lg:max-w-720",
-  "animate-intro-rise animation-delay-120"
+  "animate-intro-rise intro-delay-copy"
 );
 
 const introImageStyles = cx(
   // Lifted off the line's middle, which sits below the letters' optical centre.
   "inline-block w-auto -translate-y-4 align-middle",
-  "drop-shadow-soft animate-intro-pop animation-delay-120"
+  "drop-shadow-soft animate-intro-pop intro-delay-copy"
 );
 
 type IntroImageProps = { src: StaticImageData; alt: string; className: string };
@@ -98,9 +90,6 @@ const introLinkStyles = cx(
   "focus-visible:outline-hidden"
 );
 
-// The same faux medium as bold in articles, since the font ships only Regular and Black.
-const thoughtsLinkStyles = "font-normal [-webkit-text-stroke:0.03em_currentColor]";
-
 type IntroLinkProps = { href: string; scroll?: boolean; className?: string; children: React.ReactNode };
 
 // Around a photo, the link's name comes from its alt text.
@@ -112,7 +101,7 @@ const IntroLink = ({ href, scroll, className, children }: IntroLinkProps) => (
 
 export const Hero = () => {
   return (
-    // `data-navbar-boundary` keeps the revealed navbar off the hero, see `nav/navbar.tsx`.
+    // `data-navbar-boundary` keeps the revealed navbar off the hero, see `layout/navbar.tsx`.
     <section
       data-navbar-boundary
       className="overflow-clip border-b-2 border-black bg-green-dark pt-64 pb-64 md:pt-48 lg:pt-64 lg:pb-80"
@@ -145,7 +134,7 @@ export const Hero = () => {
               <IntroImage src={camera} alt="photos" className="h-34 rotate-4 lg:h-48" />
             </IntroLink>
             ,{" "}
-            <Link href={feedFilterHref("thought")} scroll={false} className={thoughtsLinkStyles}>
+            <Link href={feedFilterHref("thought")} scroll={false} className="faux-bold">
               thoughts
             </Link>
             ,{" "}

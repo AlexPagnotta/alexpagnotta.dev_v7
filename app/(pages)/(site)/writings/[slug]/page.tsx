@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { getCover, getEntry } from "@/app/features/content/loader";
+import { formatDate } from "@/app/features/content/format";
+import { getBody, getCover, getEntry } from "@/app/features/content/loader";
 import { DetailPage } from "@/app/features/detail-page/detail-page";
-import { WritingHero } from "@/app/features/detail-page/hero/writing-hero";
+import { DetailPageHero } from "@/app/features/detail-page/hero/detail-page-hero";
 import { detailPageMetadata, detailPageParams } from "@/app/features/detail-page/metadata";
 
 type Props = PageProps<"/writings/[slug]">;
@@ -16,14 +17,22 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> =>
 const WritingPage = async ({ params }: Props) => {
   const { slug } = await params;
   const entry = getEntry("writing", slug);
-  const cover = await getCover("writing", slug, entry.cover);
-  const { default: Body } = await import(`@/content/writings/${slug}/index.mdx`);
+  const [cover, Body] = await Promise.all([getCover("writing", slug, entry.cover), getBody("writing", slug)]);
 
   return (
     <DetailPage
       type="writing"
       entry={entry}
-      hero={<WritingHero title={entry.title} tags={entry.tags} date={entry.date} cover={cover} accent={entry.accent} />}
+      hero={
+        <DetailPageHero
+          type="writing"
+          title={entry.title}
+          tags={entry.tags}
+          meta={formatDate(entry.date)}
+          cover={cover}
+          accent={entry.accent}
+        />
+      }
     >
       <Body />
     </DetailPage>
