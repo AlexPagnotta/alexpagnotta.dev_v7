@@ -5,9 +5,7 @@ export const env = createEnv({
   server: {},
   client: {
     NEXT_PUBLIC_SITE_URL: z.string().min(1),
-    // Release channel for DEPLOYED builds only (local dev is derived from NODE_ENV).
-    // Public so client code can branch on it; defaults to the safest channel so a
-    // forgotten var never leaks drafts to production.
+    // Deployed builds only (local dev comes from NODE_ENV); defaults to production so a forgotten var never leaks drafts.
     NEXT_PUBLIC_RELEASE_CHANNEL: z.enum(["preview", "staging", "production"]).default("production"),
   },
   runtimeEnv: {

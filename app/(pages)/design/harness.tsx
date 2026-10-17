@@ -16,10 +16,7 @@ export type MatrixProps<T extends Axes> = {
   className?: string;
 };
 
-/**
- * Renders the labelled cross product of a component's variant axes, grouped by the
- * first axis. Adding a variant to a cva means adding one string to the call site.
- */
+/** Renders the labelled cross product of a component's variant axes, grouped by the first axis. */
 export const Matrix = <T extends Axes>({ axes, children, className }: MatrixProps<T>) => {
   const allAxes: Axes = axes;
   const [groupKey, ...cellKeys] = Object.keys(allAxes);

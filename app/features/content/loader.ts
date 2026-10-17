@@ -5,7 +5,6 @@ import matter from "gray-matter";
 import type { StaticImageData } from "next/image";
 import type * as React from "react";
 import { CONTENT_TYPE_KEYS, CONTENT_TYPES, type ContentType, type EntryFor } from "@/app/features/content/config";
-import type { CustomFeedCardProps } from "@/app/features/home-page/feed/feed-card-shell";
 import { isProduction } from "@/app/features/utils/release-channel";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
@@ -17,24 +16,20 @@ const byDateDesc = (a: { date: Date }, b: { date: Date }) => b.date.getTime() - 
 
 const dirFor = (type: ContentType) => path.join(CONTENT_DIR, CONTENT_TYPES[type].dir);
 
-// Entries colocate their assets in `<slug>/index.mdx`.
-const fileFor = (type: ContentType, slug: string) => path.join(dirFor(type), slug, "index.mdx");
+/** The entry's folder, where it colocates its `index.mdx` and assets. */
+export const entryDirFor = (type: ContentType, slug: string) => path.join(dirFor(type), slug);
+
+const fileFor = (type: ContentType, slug: string) => path.join(entryDirFor(type, slug), "index.mdx");
 
 type CoverType = Exclude<ContentType, "thought">;
 
-/*
-  The bundler resolves each of these into a module per matching file, so the prefix has to
-  be a literal — hence one entry per type rather than an interpolated directory.
-*/
+// The bundler needs a literal prefix to build a module per matching file, hence one entry per type.
 const coverImports = {
   writing: (file: string) => import(`@/content/writings/${file}`),
   project: (file: string) => import(`@/content/projects/${file}`),
 } satisfies Record<CoverType, (file: string) => Promise<{ default: StaticImageData }>>;
 
-/**
- * The entry's colocated cover, named by its `cover` frontmatter and statically imported so
- * it keeps its dimensions and blur placeholder. A name that resolves to nothing throws.
- */
+/** The entry's colocated `cover`, imported so it keeps its size and blur placeholder; a missing file throws. */
 export const getCover = async (
   type: CoverType,
   slug: string,
@@ -45,32 +40,15 @@ export const getCover = async (
   return cover;
 };
 
-/*
-  Same context-module rule as the covers above: one literal prefix per type. `card` resolves
-  to `card.tsx` when the entry has one.
-*/
-const cardImports = {
-  writing: (file: string) => import(`@/content/writings/${file}`),
-  project: (file: string) => import(`@/content/projects/${file}`),
-  thought: (file: string) => import(`@/content/thoughts/${file}`),
-} satisfies Record<ContentType, (file: string) => Promise<{ default: React.ComponentType<CustomFeedCardProps> }>>;
+const bodyImports = {
+  writing: (slug: string) => import(`@/content/writings/${slug}/index.mdx`),
+  project: (slug: string) => import(`@/content/projects/${slug}/index.mdx`),
+  thought: (slug: string) => import(`@/content/thoughts/${slug}/index.mdx`),
+} satisfies Record<ContentType, (slug: string) => Promise<{ default: React.ComponentType }>>;
 
-/**
- * An entry overrides its feed card by dropping a `card.tsx` next to its `index.mdx`, which
- * default-exports the card to render. Entries without one get the standard card.
- */
-export const getCustomCard = async (
-  type: ContentType,
-  slug: string
-): Promise<React.ComponentType<CustomFeedCardProps> | undefined> => {
-  if (!fs.existsSync(path.join(dirFor(type), slug, "card.tsx"))) return undefined;
-  const { default: CustomCard } = await cardImports[type](`${slug}/card`);
-  return CustomCard;
-};
+export const getBody = async (type: ContentType, slug: string) => (await bodyImports[type](slug)).default;
 
-export const hrefFor = (type: ContentType, slug: string) => `${CONTENT_TYPES[type].basePath}/${slug}`;
-
-export const getSlugs = (type: ContentType): string[] => {
+const getSlugs = (type: ContentType): string[] => {
   const dir = dirFor(type);
   if (!fs.existsSync(dir)) return [];
 
@@ -100,7 +78,7 @@ export const getAllEntries = <T extends ContentType>(type: T): EntryFor<T>[] =>
     .filter((entry) => INCLUDE_DRAFTS || !entry.draft)
     .sort(byDateDesc);
 
-// Every type in one list, newest first — what the homepage feed renders.
+// Every type in one list, newest first: what the homepage feed renders.
 // Keyed by `type`, so narrowing on it narrows the entry's fields too.
 export type FeedEntry = { [T in ContentType]: { type: T } & EntryFor<T> }[ContentType];
 

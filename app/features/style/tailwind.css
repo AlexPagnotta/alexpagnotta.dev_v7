@@ -3,7 +3,15 @@
 
 @import "./typography.css";
 @import "./global.css";
-@import "./motion.css";
+@import "./page-accent.css";
+@import "./motion/easings.css";
+@import "./motion/intro.css";
+@import "./motion/loops.css";
+@import "./motion/scroll.css";
+@import "./motion/lift.css";
+
+/* `accents.ts` reads every accent cut through `var()` at runtime, so each one is emitted even when no class uses it. */
+@source inline("bg-{green,yellow,pink,gray,purple}-{dark,light}");
 
 @theme {
   --breakpoint-\*: initial;
@@ -16,11 +24,7 @@
 
   --spacing-\*: initial;
 
-  /*
-    One unit matches one pixel given that 1rem equals 16px, so any spacing/sizing
-    utility resolves to rem and scales with the root font size — e.g. `p-4` =
-    0.25rem = 4px, `size-14` = 0.875rem = 14px, `w-205` = 12.8125rem = 205px.
-  */
+  /* One unit is 1px at a 16px root, in rem, so spacing scales with the font size: `p-4` = 0.25rem. */
   --spacing: 0.0625rem;
 
   /* The three content-column widths, consumed by <Container> sizes. */
@@ -72,8 +76,7 @@
   --shadow-\*: initial;
   --shadow-none: none;
 
-  /* The site's hard offset shadow, named by its offset in px. Buttons build their own
-     from `--btn-shadow-offset` so the offset can animate. */
+  /* The site's hard offset shadow, named by its offset in px. Buttons and tabs use `lift-*`, which animates it. */
   --shadow-depth-2: 2px 2px 0 0 var(--color-black);
   --shadow-depth-4: 4px 4px 0 0 var(--color-black);
   --shadow-depth-6: 6px 6px 0 0 var(--color-black);
@@ -89,7 +92,7 @@
   /* The soft lift under cut-out photos, like the homepage intro and the detail-page asides. */
   --drop-shadow-soft: 2px 4px 4px rgb(0 0 0 / 0.25);
 
-  --rounded-\*: initial;
+  --radius-\*: initial;
 
   --radius-none: 0;
   --radius-xs: --spacing(2);
@@ -108,10 +111,9 @@
   scrollbar-width: none;
 }
 
-/* Chrome ignores `::-webkit-scrollbar` once `scrollbar-color` is set, so only Firefox gets the latter. */
-@utility scrollbar-* {
-  --scrollbar-thumb: --value(--color-\*);
-
+/* A 12px rounded thumb in `--scrollbar-thumb`. Chrome ignores `::-webkit-scrollbar` once `scrollbar-color`
+   is set, so only Firefox gets the latter. */
+@utility scrollbar-pill {
   @supports not selector(::-webkit-scrollbar) {
     scrollbar-color: var(--scrollbar-thumb) transparent;
   }

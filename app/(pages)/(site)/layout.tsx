@@ -1,22 +1,15 @@
 import type * as React from "react";
-import { Footer } from "@/app/features/nav/footer";
-import { Navbar } from "@/app/features/nav/navbar";
-import { ScrollReset } from "@/app/features/nav/scroll-reset";
-import { SmoothScroll } from "@/app/features/nav/smooth-scroll";
+import { Footer } from "@/app/features/layout/footer";
+import { Navbar } from "@/app/features/layout/navbar";
+import { ScrollReset } from "@/app/features/layout/scroll-reset";
+import { SmoothScroll } from "@/app/features/layout/smooth-scroll";
 import { siteConfig } from "@/app/features/site/config";
-import { ACCENTS, PAGE_ACCENT_STYLES } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/cva";
 import { Marquee } from "@/app/features/ui/marquee";
 
 const HEADER_MARQUEE_TEXT = "Latest post: Claude Code, minus the folder";
 const HEADER_MARQUEE_HREF = "/writings/claude-code-minus-the-folder";
 const FOOTER_MARQUEE_TEXT = "Thanks for visiting";
-
-// A detail page names its accent with `data-page-accent`; the footer paints itself with it.
-const pageAccentStyles = cx(
-  "[--page-accent:var(--color-yellow-dark)] [--page-gradient:var(--gradient-yellow)] [--navbar-accent:var(--color-white)]",
-  ACCENTS.map((accent) => PAGE_ACCENT_STYLES[accent].page)
-);
 
 // Static while focused, or tabbing in would find it stuck behind the page and never scroll to it.
 const footerWrapperStyles = cx("sticky focus-within:static", "bottom-[min(0px,100dvh-var(--footer-max-height))]");
@@ -32,7 +25,7 @@ type Props = { children: React.ReactNode };
 
 const SiteLayout = ({ children }: Props) => {
   return (
-    <div className={pageAccentStyles}>
+    <div>
       <a href="#main" className={skipLinkStyles}>
         Skip to content
       </a>

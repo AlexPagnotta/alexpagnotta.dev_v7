@@ -1,26 +1,32 @@
-import type { ContentTag, ContentType } from "@/app/features/content/config";
+import type * as React from "react";
+import type { ContentType } from "@/app/features/content/config";
+import { CONTENT_TAG_LABELS, CONTENT_TAGS, type ContentTag } from "@/app/features/content/tags";
 import type { TabShape } from "@/app/features/ui/tabs";
 
-/*
-  A tab matches an entry when its value is one of the entry's facets: its content type
-  (Projects/Writing/Thoughts) plus its tags (Work/Personal/Make/Photos). `all` matches everything.
-*/
+// An entry's facets are its content type plus its tags; a tab matches when its value is one of them.
 export type FeedFacet = ContentType | ContentTag;
 
-// Like the tags on a card, content types are squared off and leave the pills to the tags.
-// `param` is what the tab reads as in the URL; `all` has none and leaves the URL bare.
-export const FEED_FILTERS = [
-  { value: "all", label: "All", shape: "rounded", param: null },
-  { value: "project", label: "Projects", shape: "rounded", param: "projects" },
-  { value: "writing", label: "Writing", shape: "rounded", param: "writing" },
-  { value: "thought", label: "Thoughts", shape: "rounded", param: "thoughts" },
-  { value: "work", label: "Work", shape: "pill", param: "work" },
-  { value: "personal", label: "Personal", shape: "pill", param: "personal" },
-  { value: "make", label: "Make", shape: "pill", param: "make" },
-  { value: "photos", label: "Photos", shape: "pill", param: "photos" },
-] as const satisfies readonly { value: "all" | FeedFacet; label: string; shape: TabShape; param: string | null }[];
+export type FeedFilterValue = "all" | FeedFacet;
 
-export type FeedFilterValue = (typeof FEED_FILTERS)[number]["value"];
+type FeedFilter = { value: FeedFilterValue; label: string; shape: TabShape; param: string | null };
+
+// A tab names its whole section, so types read plural where an entry's own label is singular. Keyed in tab order.
+const TYPE_TABS = {
+  project: { label: "Projects", param: "projects" },
+  writing: { label: "Writing", param: "writing" },
+  thought: { label: "Thoughts", param: "thoughts" },
+} as const satisfies Record<ContentType, { label: string; param: string }>;
+
+// Like the tags on a card, content types are squared off and leave the pills to the tags; `all` leaves the URL bare.
+export const FEED_FILTERS: readonly FeedFilter[] = [
+  { value: "all", label: "All", shape: "rounded", param: null },
+  ...(Object.keys(TYPE_TABS) as ContentType[]).map((type) => ({
+    value: type,
+    shape: "rounded" as const,
+    ...TYPE_TABS[type],
+  })),
+  ...CONTENT_TAGS.map((tag) => ({ value: tag, label: CONTENT_TAG_LABELS[tag], shape: "pill" as const, param: tag })),
+];
 
 export const DEFAULT_FEED_FILTER: FeedFilterValue = "all";
 
@@ -40,4 +46,18 @@ export const feedFilterFromParam = (param: string | null): FeedFilterValue =>
 export const feedFilterHref = (value: FeedFilterValue) => {
   const param = FEED_FILTERS.find((filter) => filter.value === value)?.param;
   return param ? `/?${FEED_FILTER_PARAM}=${param}` : "/";
+};
+
+// Pushed rather than replaced, so Back steps through the filters before leaving the page.
+export const pushFilter = (filter: FeedFilterValue) => {
+  const href = feedFilterHref(filter);
+  // Re-selecting the active tab would otherwise leave a duplicate entry for Back to step through.
+  if (href !== window.location.pathname + window.location.search) window.history.pushState(null, "", href);
+};
+
+/** A rendered card and the facets the tabs filter it by. */
+export type FeedListItem = {
+  key: string;
+  facets: readonly FeedFacet[];
+  node: React.ReactNode;
 };

@@ -1,5 +1,6 @@
-import { CONTENT_TAG_LABELS, CONTENT_TYPES } from "@/app/features/content/config";
-import { getFeedEntries, hrefFor } from "@/app/features/content/loader";
+import { CONTENT_TYPES, hrefFor } from "@/app/features/content/config";
+import { getFeedEntries } from "@/app/features/content/loader";
+import { CONTENT_TAG_LABELS } from "@/app/features/content/tags";
 import { absoluteUrl, siteConfig } from "@/app/features/site/config";
 
 export const dynamic = "force-static";
@@ -7,7 +8,7 @@ export const dynamic = "force-static";
 const escapeXml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-// Everything the site publishes, newest first — the same list the homepage feed renders.
+// Everything the site publishes, newest first: the same list the homepage feed renders.
 export const GET = () => {
   const items = getFeedEntries().map((entry) => {
     const url = absoluteUrl(hrefFor(entry.type, entry.slug));

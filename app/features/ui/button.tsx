@@ -2,13 +2,6 @@ import type * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { BaseLink } from "@/app/features/ui/link";
 
-/*
-  Every button in the design is a black-bordered pill on a hard offset shadow, with a
-  solid fill; only the fill color changes. Each size binds its own type style and its own
-  height, taken from Figma: deriving the height from the label's line box left it on a
-  fraction of a pixel and moved every pill whenever a type step was retuned.
-*/
-
 const buttonStyles = cva({
   base: [
     "inline-flex items-center justify-center gap-8 rounded-full whitespace-nowrap select-none",
@@ -27,7 +20,8 @@ const buttonStyles = cva({
       "pink-dark": "[--btn-fill:var(--color-pink-dark)]",
       "pink-light": "[--btn-fill:var(--color-pink-light)]",
     },
-    // Named by the desktop size; `md` and up step down on phones.
+    // Named by the desktop size, `md` and up stepping down on phones. Each fixes its Figma height, since one
+    // derived from the label's line box landed on fractions of a pixel.
     size: {
       xs: "border gap-6 px-12 h-32 label-1 lift-2",
       sm: "border px-12 h-40 label-2 lift-2 lg:px-16 lg:h-44 lg:body-1",
@@ -35,6 +29,9 @@ const buttonStyles = cva({
       lg: "border px-20 h-56 heading-4 lift-4 lg:px-24 lg:h-64",
       xl: "border-2 px-32 h-96 heading-2 lift-8 lg:px-48 lg:h-124",
       icon: "border size-52 p-0 body-1 lift-4",
+      // Phone size, then desktop size: `sm` up to `md`, `icon` up to `lg`.
+      "sm-md": "border px-12 h-40 label-2 lift-2 md:px-16 md:h-46 md:body-1 md:lift-4 lg:h-50 lg:body-3",
+      "icon-md": "border size-52 p-0 body-1 lift-4 lg:w-auto lg:h-50 lg:px-16 lg:body-3",
     },
   },
   defaultVariants: {
@@ -43,9 +40,7 @@ const buttonStyles = cva({
   },
 });
 
-export type ButtonVariants = VariantProps<typeof buttonStyles>;
-export type ButtonColor = NonNullable<ButtonVariants["color"]>;
-export type ButtonSize = NonNullable<ButtonVariants["size"]>;
+type ButtonVariants = VariantProps<typeof buttonStyles>;
 
 export type ButtonProps = React.ComponentProps<"button"> & ButtonVariants;
 

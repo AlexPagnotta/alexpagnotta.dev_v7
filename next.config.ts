@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
     rules: {
       "*.svg": [
         {
-          // Skip SVGR for ?url imports — Can be imported as standard files from next image.
+          // Skip SVGR for ?url imports, which next/image loads as plain files.
           condition: { not: { query: /url/ } },
           loaders: [
             {
@@ -56,9 +56,7 @@ const nextConfig: NextConfig = {
 const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
-    // Turbopack requires remark/rehype plugins as string names with serializable options.
-    // `unwrap-images` drops the paragraph remark wraps a lone image in, which would otherwise
-    // put the figure MarkdownImage renders inside a <p>.
+    // Turbopack takes plugins as string names; `unwrap-images` keeps MarkdownImage's figure out of a <p>.
     remarkPlugins: [["remark-frontmatter"], ["remark-gfm"], ["remark-unwrap-images"]],
     rehypePlugins: [],
   },

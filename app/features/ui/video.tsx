@@ -12,9 +12,7 @@ export type VideoSource = { src: string; type: string };
 
 export type VideoProps = {
   autoplay?: boolean;
-  // A single URL, or multiple typed sources (e.g. transparent webm + mp4 fallback);
-  // the browser picks the first source it can play. For transparency list the HEVC mp4 first, typed
-  // `codecs="hvc1"`: Safari drops a webm's alpha, and Chrome skips the hvc1 source for the webm.
+  // For transparency list the `codecs="hvc1"` mp4 before the webm: Safari drops a webm's alpha, Chrome skips hvc1.
   src?: string | VideoSource[];
 } & Omit<React.VideoHTMLAttributes<HTMLVideoElement>, "autoPlay" | "muted" | "loop" | "controls" | "src">;
 

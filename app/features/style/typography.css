@@ -14,7 +14,7 @@
 
   --text-\*: initial;
 
-  /* Display 1 — the only Black cut in the scale. */
+  /* Display 1, the only Black cut in the scale. */
   --text-display-1: --spacing(220);
   --text-display-1--font-weight: 900;
   --text-display-1--line-height: --spacing(220);
@@ -25,7 +25,7 @@
   --text-display-1-mobile--line-height: --spacing(120);
   --text-display-1-mobile--letter-spacing: var(--tracking-xs);
 
-  /* Display 2 — a step below the display-1 mobile cut, for the footer wordmark on phones. */
+  /* Display 2, a step below the display-1 mobile cut, for the footer wordmark on phones. */
   --text-display-2-mobile: --spacing(96);
   --text-display-2-mobile--font-weight: 900;
   --text-display-2-mobile--line-height: --spacing(96);
@@ -182,4 +182,16 @@
 
 @utility code-1 {
   @apply text-code-1 font-mono;
+}
+
+/* A hard black outline around the glyphs, `n`px wide. */
+@utility glyph-stroke-* {
+  -webkit-text-stroke-width: calc(--value(integer) * 1px);
+  -webkit-text-stroke-color: var(--color-black);
+}
+
+/* The typeface ships only Regular and Black, so bold is Regular thickened by a stroke in its own colour. */
+@utility faux-bold {
+  font-weight: 400;
+  -webkit-text-stroke: 0.03em currentColor;
 }

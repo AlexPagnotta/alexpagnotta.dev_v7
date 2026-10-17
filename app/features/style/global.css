@@ -2,12 +2,11 @@ body {
   @apply bg-white text-black body-1 antialiased min-w-360 overflow-x-hidden;
 }
 
-/* Custom CSS variables for the site. */
 :root {
   /* At least the footer's tallest render per breakpoint (measured 643 / 715); only overshooting is safe. */
   --footer-max-height: --spacing(648);
 
-  /* The small logo's box: its line, `py-8` and a 1px border each side, see `nav/logo.tsx`. */
+  /* The small logo's box: its line, `py-8` and a 1px border each side, see `layout/logo.tsx`. */
   --logo-sm-height: calc(var(--text-logo-sm--line-height) + --spacing(16) + 2px);
 
   @variant lg {

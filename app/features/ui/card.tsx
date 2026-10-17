@@ -3,11 +3,7 @@ import { useRender } from "@base-ui-components/react/use-render";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 import { Image, type ImageProps } from "@/app/features/ui/image";
 
-/*
-  Every card in the design shares this shell; the layout defaults below are the post
-  card's. Custom cards override padding, gap and alignment, and place their own children
-  against the shell's `relative` — a pinned tag row, a rotated image bleeding out.
-*/
+// The layout defaults are the post card's; custom cards override them and position against the shell's `relative`.
 // Shared so CustomBody's `cardSpacing` lines up with the shell's own padding exactly.
 const cardPaddingStyles = "p-20";
 
@@ -41,12 +37,11 @@ const CardHeader = ({ className, render, ...props }: CardHeaderProps) => {
 
 export type CardTitleProps = useRender.ComponentProps<"p">;
 
-/** Typography comes from the caller, like every other primitive. */
 const CardTitle = ({ className, render, ...props }: CardTitleProps) => {
   return useRender({
     defaultTagName: "p",
     render,
-    props: mergeProps<"p">({ className: cx(className) }, props),
+    props: mergeProps<"p">({ className }, props),
   });
 };
 
@@ -65,8 +60,7 @@ const cardTagsStyles = cva({
   },
 });
 
-export type CardTagsVariants = VariantProps<typeof cardTagsStyles>;
-export type CardTagsAlign = NonNullable<CardTagsVariants["align"]>;
+type CardTagsVariants = VariantProps<typeof cardTagsStyles>;
 
 export type CardTagsProps = useRender.ComponentProps<"div"> & CardTagsVariants;
 
@@ -92,14 +86,11 @@ const cardCustomBodyStyles = cva({
   },
 });
 
-export type CardCustomBodyVariants = VariantProps<typeof cardCustomBodyStyles>;
+type CardCustomBodyVariants = VariantProps<typeof cardCustomBodyStyles>;
 
 export type CardCustomBodyProps = useRender.ComponentProps<"div"> & CardCustomBodyVariants;
 
-/**
- * Free-form overlay for cards that place their own art: it fills the card and paints
- * over the title and tags, leaving the caller to position whatever it holds.
- */
+/** Fills the card over its title and tags, for cards that place their own art. */
 const CardCustomBody = ({ className, cardSpacing, render, ...props }: CardCustomBodyProps) => {
   return useRender({
     defaultTagName: "div",

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { getEntry } from "@/app/features/content/loader";
+import { formatDate } from "@/app/features/content/format";
+import { getBody, getEntry } from "@/app/features/content/loader";
 import { DetailPage } from "@/app/features/detail-page/detail-page";
-import { ThoughtHero } from "@/app/features/detail-page/hero/thought-hero";
+import { DetailPageHero } from "@/app/features/detail-page/hero/detail-page-hero";
 import { detailPageMetadata, detailPageParams } from "@/app/features/detail-page/metadata";
 
 type Props = PageProps<"/thoughts/[slug]">;
@@ -16,13 +17,21 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> =>
 const ThoughtPage = async ({ params }: Props) => {
   const { slug } = await params;
   const entry = getEntry("thought", slug);
-  const { default: Body } = await import(`@/content/thoughts/${slug}/index.mdx`);
+  const Body = await getBody("thought", slug);
 
   return (
     <DetailPage
       type="thought"
       entry={entry}
-      hero={<ThoughtHero title={entry.title} tags={entry.tags} date={entry.date} accent={entry.accent} />}
+      hero={
+        <DetailPageHero
+          type="thought"
+          title={entry.title}
+          tags={entry.tags}
+          meta={formatDate(entry.date)}
+          accent={entry.accent}
+        />
+      }
     >
       <Body />
     </DetailPage>

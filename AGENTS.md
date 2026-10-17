@@ -18,7 +18,7 @@ Port 3000 belongs to the user's own `npm run dev`. Never start, restart, or kill
 
 - Always use `className` with Tailwind utility classes for styling. No inline styles, CSS modules, or styled-components.
 - For components with complex conditional variants, use `cva`. Name the `cva` styles object `{componentName}Styles` (e.g. `buttonStyles`, `selectStyles`).
-- When a `className` no longer fits on one line, or carries long arbitrary values (`[--var:…]`, `calc()`), move it into a named `{elementName}Styles` constant built with `cx(...)`, one concern per argument (e.g. `wordmarkStyles` in `nav/footer.tsx`).
+- When a `className` no longer fits on one line, or carries long arbitrary values (`[--var:…]`, `calc()`), move it into a named `{elementName}Styles` constant built with `cx(...)`, one concern per argument (e.g. `wordmarkStyles` in `layout/footer.tsx`).
 - Always use the design tokens defined in the Tailwind config — colors, typography, spacing, etc. Do not hardcode raw values.
 - If a style requirement cannot be satisfied with existing tokens, **ask the user** before adding anything new. Once confirmed, add the new token to the appropriate Tailwind config file.
 - Colors are `white`, `black`, `gray-100`, `gray-200`, `gray-300` plus the accents `green-dark/-light`, `yellow-dark/-light`, `pink-dark/-light`, `gray-dark/-light`, `purple-dark/-light`, named as in Figma. `-dark` fills large areas, `-light` is the small bright mark. Each accent also has a `--gradient-{accent}` for the display wordmark.
@@ -46,7 +46,7 @@ Border widths (`border`, `border-2`) and shadow offsets (`shadow-depth-*`, `drop
 - `Tag` and `Button` set their own height per size (from Figma) rather than deriving it from the line box, so retuning a type step does not resize them, but it still moves anything that sizes to its text, such as `Marquee`.
 - **Never use** raw tailwind text size classes (`text-display-1`, `text-heading-1`, `text-body-2`, etc.) directly — these are the underlying tokens used by the utilities above.
 - Body copy defaults to `body-1` (16px), set on `body` in `global.css`. `label-1`/`label-2` (12/14px) are the tag and caption steps.
-- Primitives in `app/features/ui/*` never hardcode font styles — the caller passes the typography utility in.
+- Primitives in `app/features/ui/*` take their typography from the caller, except where a size ties the type step to a fixed Figma height or a text-measured timing (`Button`, `Tag`, `Tab`, `Marquee`); those bind it in the variant.
 
 # SVG imports
 

@@ -6,7 +6,6 @@ import type * as React from "react";
 import { SiteJsonLd } from "@/app/features/seo/json-ld";
 import { feedAlternates } from "@/app/features/seo/metadata";
 import { siteConfig } from "@/app/features/site/config";
-import { ACCENTS, PAGE_ACCENT_STYLES } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/cva";
 import "@/app/features/style/tailwind.css";
 import { isProduction } from "@/app/features/utils/release-channel";
@@ -57,7 +56,7 @@ export const metadata: Metadata = {
   // Icons and the manifest come from the `app/` file conventions (favicon.ico, icon.svg,
   // apple-icon.png, manifest.ts), which inject their own link tags.
   alternates: { types: feedAlternates },
-  // canonical/openGraph.url/title vary per page — set via pageMetadata, not here.
+  // canonical/openGraph.url/title vary per page, set via pageMetadata, not here.
   // Only production is indexable; preview/staging are blocked here too, not just in robots.txt.
   robots: isProduction
     ? {
@@ -90,19 +89,19 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
+// The page accent lives on the root so the scrollbar, which belongs to it, can follow a detail page's accent too.
+const rootStyles = cx(
+  "page-accent scrollbar-pill",
+  "[--scrollbar-thumb:var(--color-green-dark)] has-data-page-accent:[--scrollbar-thumb:var(--page-accent)]"
+);
+
 type Props = Readonly<{ children: React.ReactNode }>;
 
 const RootLayout = ({ children }: Props) => {
   return (
     <html
       lang={siteConfig.lang}
-      className={cx(
-        ppframa.variable,
-        geistMono.variable,
-        ppframaItalic.variable,
-        "scrollbar-green-dark",
-        ACCENTS.map((accent) => PAGE_ACCENT_STYLES[accent].scrollbar)
-      )}
+      className={cx(ppframa.variable, geistMono.variable, ppframaItalic.variable, rootStyles)}
     >
       <body>
         {children}
