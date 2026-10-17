@@ -1,12 +1,13 @@
 import type { StaticImageData } from "next/image";
-import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentTag, type ContentType } from "@/app/features/content/config";
-import { FeedCardShell } from "@/app/features/home-page/feed/feed-card-shell";
+import type { ContentType } from "@/app/features/content/config";
+import { EntryTags } from "@/app/features/content/entry-tags";
+import type { ContentTag } from "@/app/features/content/tags";
+import { FeedCardShell } from "@/app/features/home-page/feed/cards/feed-card-shell";
 import type { Accent } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/cva";
 import { Card } from "@/app/features/ui/card";
-import { Tag } from "@/app/features/ui/tag";
 
-// Four columns at `xl`, three at `lg`, two from `md`, one below — see FeedList.
+// Four columns at `xl`, three at `lg`, two from `md`, one below, as in `FeedGrid`.
 const CARD_SIZES = "(min-width: 80rem) 290px, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, 100vw";
 
 export type FeedCardProps = {
@@ -21,16 +22,11 @@ export type FeedCardProps = {
 
 export const FeedCard = ({ type, href, title, tags, cover, excerpt, accent }: FeedCardProps) => (
   <FeedCardShell href={href} accent={accent}>
-    {/* The title carries the link, so the cover is decorative. */}
-    {/* Lazy even in the first row: React would preload an eager one in the head, ahead of the fonts. */}
+    {/* Decorative, as the title carries the link. Lazy even in the first row, or React preloads it before the fonts. */}
     {cover && <Card.Image src={cover} alt="" sizes={CARD_SIZES} />}
     <Card.Header className={cx(!cover && "gap-16")}>
       <Card.Tags>
-        {/* The design leads with the content type, squared off against the pill tags. */}
-        <Tag shape="rounded">{CONTENT_TYPES[type].label}</Tag>
-        {tags.map((tag) => (
-          <Tag key={tag}>{CONTENT_TAG_LABELS[tag]}</Tag>
-        ))}
+        <EntryTags type={type} tags={tags} />
       </Card.Tags>
       <div className="flex flex-col gap-12">
         {/* biome-ignore lint/a11y/useHeadingContent: the rule cannot see the title Card.Title renders into it. */}

@@ -1,15 +1,17 @@
-import { type FeedEntry, getCover, getCustomCard, getFeedEntries, hrefFor } from "@/app/features/content/loader";
-import { FeedCard } from "@/app/features/home-page/feed/feed-card";
-import { FeedList, type FeedListItem } from "@/app/features/home-page/feed/feed-list";
-import { facetsFor } from "@/app/features/home-page/feed/filters";
-import { ThoughtCard } from "@/app/features/home-page/feed/thought-card";
+import { hrefFor } from "@/app/features/content/config";
+import { type FeedEntry, getCover, getFeedEntries } from "@/app/features/content/loader";
+import { FeedCard } from "@/app/features/home-page/feed/cards/feed-card";
+import { ThoughtCard } from "@/app/features/home-page/feed/cards/thought-card";
+import { getCustomCard } from "@/app/features/home-page/feed/custom-card";
+import { type FeedListItem, facetsFor } from "@/app/features/home-page/feed/filters";
+import { FeedList } from "@/app/features/home-page/feed/list/feed-list";
 import { Container } from "@/app/features/ui/container";
 
 const toNode = async (entry: FeedEntry) => {
   const href = hrefFor(entry.type, entry.slug);
 
   const CustomCard = await getCustomCard(entry.type, entry.slug);
-  if (CustomCard) return <CustomCard href={href} tags={entry.tags} accent={entry.accent} />;
+  if (CustomCard) return <CustomCard type={entry.type} href={href} tags={entry.tags} accent={entry.accent} />;
 
   if (entry.type === "thought") {
     return <ThoughtCard href={href} title={entry.title} tags={entry.tags} accent={entry.accent} />;

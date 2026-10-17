@@ -1,0 +1,31 @@
+/* A detail page names its accent with `data-page-accent`; the layout around it takes the footer fill and navbar button from it. */
+@utility page-accent {
+  --page-accent: var(--color-yellow-dark);
+  --page-gradient: var(--gradient-yellow);
+  --navbar-accent: var(--color-white);
+
+  /* Yellow is the default above. */
+
+  &:has([data-page-accent="green"]) {
+    --page-accent: var(--color-green-dark);
+    --page-gradient: var(--gradient-green);
+    --navbar-accent: var(--color-yellow-light);
+  }
+
+  &:has([data-page-accent="pink"]) {
+    --page-accent: var(--color-pink-dark);
+    --page-gradient: var(--gradient-pink);
+    --navbar-accent: var(--color-yellow-light);
+  }
+
+  &:has([data-page-accent="gray"]) {
+    --page-accent: var(--color-gray-dark);
+    --page-gradient: var(--gradient-gray);
+  }
+
+  &:has([data-page-accent="purple"]) {
+    --page-accent: var(--color-purple-dark);
+    --page-gradient: var(--gradient-purple);
+    --navbar-accent: var(--color-yellow-light);
+  }
+}

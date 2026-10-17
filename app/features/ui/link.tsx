@@ -2,10 +2,7 @@ import NextLink from "next/link";
 import type * as React from "react";
 import { cva, cx, type VariantProps } from "@/app/features/style/cva";
 
-/**
- * Next's Link, unstyled — for links that wrap a block and bring their own styles.
- * Link below builds its text-link styling on top of it.
- */
+/** Next's Link, unstyled, for links that wrap a block and bring their own styles. */
 export const BaseLink = NextLink;
 
 const linkStyles = cva({

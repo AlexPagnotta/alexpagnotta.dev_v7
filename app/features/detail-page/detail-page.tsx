@@ -1,19 +1,19 @@
 import type * as React from "react";
-import { CONTENT_TAG_LABELS, type ContentType, type EntryFor } from "@/app/features/content/config";
-import { hrefFor } from "@/app/features/content/loader";
+import { type ContentType, type EntryFor, hrefFor } from "@/app/features/content/config";
 import { Prose } from "@/app/features/content/markdown/prose";
+import { CONTENT_TAG_LABELS } from "@/app/features/content/tags";
 import { ArticleJsonLd } from "@/app/features/seo/json-ld";
 import { Container } from "@/app/features/ui/container";
 
-export type DetailPageProps = {
-  type: ContentType;
-  entry: EntryFor<ContentType>;
+export type DetailPageProps<T extends ContentType> = {
+  type: T;
+  entry: EntryFor<T>;
   hero: React.ReactNode;
   /** The entry's rendered MDX. */
   children: React.ReactNode;
 };
 
-export const DetailPage = ({ type, entry, hero, children }: DetailPageProps) => (
+export const DetailPage = <T extends ContentType>({ type, entry, hero, children }: DetailPageProps<T>) => (
   // Clips media that an aside hangs past the screen edge, without becoming a scroll container.
   <article className="overflow-x-clip">
     {hero}

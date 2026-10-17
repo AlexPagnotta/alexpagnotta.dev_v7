@@ -24,10 +24,7 @@ type PageMetadataInput = {
   | { type: "article"; article: ArticleInput }
 );
 
-/**
- * `alternates` is replaced wholesale per segment, so the feed link has to be repeated
- * anywhere a page sets its own canonical, or it survives only on pages that set neither.
- */
+/** Repeated wherever a page sets its canonical, since `alternates` is replaced wholesale per segment. */
 export const feedAlternates = {
   "application/rss+xml": [{ url: siteConfig.feed.path, title: siteConfig.feed.title }],
 };

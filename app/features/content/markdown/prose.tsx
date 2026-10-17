@@ -6,21 +6,13 @@ export type ProseProps = {
   className?: string;
 };
 
-/**
- * The body column both detail pages render their markdown into. The flex gap sets the wide
- * step, used wherever prose meets something that is not prose; every other relationship
- * pulls back from it with a margin that stacks on top.
- */
+/** The detail pages' body column: the flex gap is the wide step, and closer relationships pull back with margins. */
 export const Prose = ({ children, className }: ProseProps) => (
   <div
     className={cx(
       // The wide step: prose to media.
       "flex flex-col gap-64 lg:gap-80",
-      /*
-        Running text closes up to roughly one line of leading, so consecutive paragraphs read
-        as one argument rather than as separate cards. A list counts as running text: it is
-        nearly always introduced by the line above it. So does an aside, which wraps a passage.
-      */
+      // Running text, lists and asides included, closes up to about one line of leading.
       "[&>:is(p,ul,ol,[data-aside])+:is(p,ul,ol,[data-aside])]:-mt-40",
       "lg:[&>:is(p,ul,ol,[data-aside])+:is(p,ul,ol,[data-aside])]:-mt-48",
       // A section break takes the wide step above, and the tightest below.

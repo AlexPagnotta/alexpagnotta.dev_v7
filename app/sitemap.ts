@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { CONTENT_TYPE_KEYS } from "@/app/features/content/config";
-import { getAllEntries, hrefFor } from "@/app/features/content/loader";
+import { CONTENT_TYPE_KEYS, hrefFor } from "@/app/features/content/config";
+import { getAllEntries } from "@/app/features/content/loader";
 import { absoluteUrl } from "@/app/features/site/config";
 
 // `lastModified` is the only hint Google reads; `priority` and `changeFrequency` are ignored.

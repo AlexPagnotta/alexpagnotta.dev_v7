@@ -17,9 +17,8 @@ export const mdxComponents: MDXComponents = {
   li: (props) => <MarkdownListItem {...props} />,
   pre: (props) => <MarkdownCodeBlock {...props} />,
   code: (props) => <MarkdownCode {...props} />,
-  // The typeface ships Regular and Black with nothing between, so bold is Regular thickened by a stroke.
-  strong: (props) => <strong className="font-normal [-webkit-text-stroke:0.03em_currentColor]" {...props} />,
-  // `![alt](src "caption")` — markdown's image title is the only slot a caption can ride in.
+  strong: (props) => <strong className="faux-bold" {...props} />,
+  // `![alt](src "caption")`: markdown's image title is the only slot a caption can ride in.
   img: ({ title, ...props }) => <MarkdownImage caption={title} {...(props as MarkdownImageProps)} />,
   Image: MarkdownImage,
   Video: MarkdownVideo,

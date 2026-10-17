@@ -1,6 +1,6 @@
 import { ExternalLink } from "lucide-react";
 import type { StaticImageData } from "next/image";
-import type { ContentTag } from "@/app/features/content/config";
+import type { ContentTag } from "@/app/features/content/tags";
 import { DetailPageHero } from "@/app/features/detail-page/hero/detail-page-hero";
 import type { Accent } from "@/app/features/style/accents";
 import { ButtonLink } from "@/app/features/ui/button";
@@ -29,31 +29,19 @@ export const ProjectHero = ({ title, tags, date, client, link, cover, accent }: 
     meta={[client && `x ${client}`, date.getUTCFullYear()].filter(Boolean).join(" - ")}
     cta={
       link && (
-        <>
-          {/* A label this size would swamp the row on a phone, so it shrinks to the icon alone. */}
-          <ButtonLink
-            href={link}
-            target="_blank"
-            rel="noreferrer"
-            color="yellow-dark"
-            size="icon"
-            aria-label={`${CTA_LABEL} ${NEW_TAB_HINT}`}
-            className="animate-intro-appear animation-delay-150 lg:hidden"
-          >
-            <ExternalLink aria-hidden="true" className="size-16" />
-          </ButtonLink>
-          <ButtonLink
-            href={link}
-            target="_blank"
-            rel="noreferrer"
-            color="yellow-dark"
-            size="md"
-            className="hidden rotate-4 animate-intro-appear animation-delay-150 lg:inline-flex"
-          >
-            {CTA_LABEL}
-            <span className="sr-only"> {NEW_TAB_HINT}</span>
-          </ButtonLink>
-        </>
+        // A label this size would swamp the row on a phone, so below `lg` it shrinks to the icon alone.
+        <ButtonLink
+          href={link}
+          target="_blank"
+          rel="noreferrer"
+          color="yellow-dark"
+          size="icon-md"
+          className="animate-intro-appear intro-delay-action lg:rotate-4"
+        >
+          <ExternalLink aria-hidden="true" className="size-16 lg:hidden" />
+          <span className="max-lg:sr-only">{CTA_LABEL}</span>
+          <span className="sr-only"> {NEW_TAB_HINT}</span>
+        </ButtonLink>
       )
     }
   />

@@ -1,6 +1,9 @@
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Label, Matrix, Section, Subsection } from "@/app/(pages)/design/harness";
+import { ACCENTS } from "@/app/features/style/accents";
+import { cssVars } from "@/app/features/style/css-vars";
 import { cx } from "@/app/features/style/cva";
 import { Button, ButtonLink } from "@/app/features/ui/button";
 import { Card } from "@/app/features/ui/card";
@@ -8,41 +11,15 @@ import { Container, type ContainerSize } from "@/app/features/ui/container";
 import { Marquee } from "@/app/features/ui/marquee";
 import { Tag } from "@/app/features/ui/tag";
 import { isProduction } from "@/app/features/utils/release-channel";
-import { Label, Matrix, Section, Subsection } from "./harness";
 
 export const metadata: Metadata = {
   title: "Design",
   robots: { index: false, follow: false },
 };
 
-const NEUTRALS = [
-  { name: "white", className: "bg-white", hex: "#ffffff" },
-  { name: "black", className: "bg-black", hex: "#0c0c0c" },
-  { name: "gray-100", className: "bg-gray-100", hex: "#f2f2f2" },
-  { name: "gray-200", className: "bg-gray-200", hex: "#e5e5e5" },
-  { name: "gray-300", className: "bg-gray-300", hex: "#d9d9d9" },
-] as const;
+const NEUTRALS = ["white", "black", "gray-100", "gray-200", "gray-300"] as const;
 
-const ACCENTS = [
-  { name: "green-dark", className: "bg-green-dark", hex: "#33cc92" },
-  { name: "yellow-dark", className: "bg-yellow-dark", hex: "#ffd435" },
-  { name: "pink-dark", className: "bg-pink-dark", hex: "#ff99e2" },
-  { name: "gray-dark", className: "bg-gray-dark", hex: "#b8bcbf" },
-  { name: "purple-dark", className: "bg-purple-dark", hex: "#bb94ff" },
-  { name: "green-light", className: "bg-green-light", hex: "#5cffa0" },
-  { name: "yellow-light", className: "bg-yellow-light", hex: "#fff352" },
-  { name: "pink-light", className: "bg-pink-light", hex: "#ffb3e9" },
-  { name: "gray-light", className: "bg-gray-light", hex: "#d4d8db" },
-  { name: "purple-light", className: "bg-purple-light", hex: "#d2b8ff" },
-] as const;
-
-const GRADIENTS = [
-  { name: "gradient-green", className: "bg-(image:--gradient-green)", hex: "white 25% → #97ebcb" },
-  { name: "gradient-yellow", className: "bg-(image:--gradient-yellow)", hex: "white → #ffe688 · 50%" },
-  { name: "gradient-pink", className: "bg-(image:--gradient-pink)", hex: "white → #ffccf0 · 50%" },
-  { name: "gradient-gray", className: "bg-(image:--gradient-gray)", hex: "white → #dcdee0 · 50%" },
-  { name: "gradient-purple", className: "bg-(image:--gradient-purple)", hex: "white → #dfccff · 50%" },
-] as const;
+const ACCENT_SWATCHES = ACCENTS.flatMap((accent) => [`${accent}-dark`, `${accent}-light`] as const);
 
 const DISPLAY_SAMPLE = "Title";
 const SHORT_SAMPLE = "Lorem Ipsum Dolor";
@@ -74,13 +51,16 @@ const CONTAINERS = [
   { size: "sm", width: "720px" },
 ] as const satisfies readonly { size: ContainerSize; width: string }[];
 
-type SwatchProps = { name: string; className: string; hex: string };
+type SwatchProps = { name: string; fill: string };
 
-const Swatch = ({ name, className, hex }: SwatchProps) => (
+const Swatch = ({ name, fill }: SwatchProps) => (
   <div className="flex flex-col gap-8">
-    <div className={cx("size-96 rounded-md border-2 border-black", className)} />
+    <div
+      className="size-96 rounded-md border-2 border-black [background:var(--swatch)]"
+      style={cssVars({ "--swatch": fill })}
+    />
     <span className="body-2">{name}</span>
-    <Label>{hex}</Label>
+    <Label>{`--${name}`}</Label>
   </div>
 );
 
@@ -102,21 +82,21 @@ const DesignPage = () => {
         <Subsection title="Neutrals">
           <div className="flex flex-wrap gap-24">
             {NEUTRALS.map((color) => (
-              <Swatch key={color.name} {...color} />
+              <Swatch key={color} name={`color-${color}`} fill={`var(--color-${color})`} />
             ))}
           </div>
         </Subsection>
         <Subsection title="Accents">
           <div className="flex flex-wrap gap-24">
-            {ACCENTS.map((color) => (
-              <Swatch key={color.name} {...color} />
+            {ACCENT_SWATCHES.map((color) => (
+              <Swatch key={color} name={`color-${color}`} fill={`var(--color-${color})`} />
             ))}
           </div>
         </Subsection>
         <Subsection title="Gradients">
           <div className="flex flex-wrap gap-24">
-            {GRADIENTS.map((color) => (
-              <Swatch key={color.name} {...color} />
+            {ACCENTS.map((accent) => (
+              <Swatch key={accent} name={`gradient-${accent}`} fill={`var(--gradient-${accent})`} />
             ))}
           </div>
         </Subsection>

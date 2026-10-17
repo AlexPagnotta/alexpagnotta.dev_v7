@@ -1,4 +1,5 @@
-import type { ContentTag } from "@/app/features/content/config";
+import type { ContentType } from "@/app/features/content/config";
+import type { ContentTag } from "@/app/features/content/tags";
 import { type Accent, lightAccent } from "@/app/features/style/accents";
 import { cx } from "@/app/features/style/cva";
 import { Card, type CardProps } from "@/app/features/ui/card";
@@ -30,11 +31,9 @@ export const FeedCardShell = ({ href, accent, className, children, ...props }: F
   </Card>
 );
 
-/**
- * What an entry's own `card.tsx` receives: the values that have to stay in step with its
- * frontmatter. Everything else about the card — copy, art, layout — is authored by hand.
- */
+/** What an entry's own `card.tsx` receives: the values that have to stay in step with its frontmatter. */
 export type CustomFeedCardProps = {
+  type: ContentType;
   href: string;
   tags: readonly ContentTag[];
   accent?: Accent;

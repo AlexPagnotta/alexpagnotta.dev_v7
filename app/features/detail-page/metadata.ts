@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { CONTENT_TAG_LABELS, CONTENT_TYPES, type ContentType } from "@/app/features/content/config";
-import { getAllEntries, getEntry, hrefFor } from "@/app/features/content/loader";
+import { CONTENT_TYPES, type ContentType, hrefFor } from "@/app/features/content/config";
+import { getAllEntries, getEntry } from "@/app/features/content/loader";
+import { CONTENT_TAG_LABELS } from "@/app/features/content/tags";
 import { pageMetadata } from "@/app/features/seo/metadata";
 
 export const detailPageParams = (type: ContentType) => getAllEntries(type).map((entry) => ({ slug: entry.slug }));

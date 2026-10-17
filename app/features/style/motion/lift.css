@@ -1,0 +1,28 @@
+/* Sits on a hard `n`px shadow: hover and focus double it, press halves it, and the element moves so the shadow's corner stays put. */
+@utility lift-* {
+  --lift-rest: calc(--value(integer) * 1px);
+  --lift: var(--lift-rest);
+  box-shadow: var(--lift) var(--lift) 0 0 var(--color-black);
+  translate: calc(var(--lift-rest) - var(--lift)) calc(var(--lift-rest) - var(--lift));
+  transition-property: translate, box-shadow;
+
+  &:not(:disabled) {
+    @media (hover: hover) {
+      &:hover {
+        --lift: calc(var(--lift-rest) * 2);
+      }
+    }
+
+    &:focus-visible {
+      --lift: calc(var(--lift-rest) * 2);
+    }
+
+    &:active {
+      --lift: calc(var(--lift-rest) / 2);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: none;
+  }
+}
