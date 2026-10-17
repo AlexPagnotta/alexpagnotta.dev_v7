@@ -27,6 +27,12 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "nursery": {
+        "useConsistentTypeDefinitions": {
+          "level": "error",
+          "options": { "style": "type" }
+        }
+      },
       "suspicious": {
         // Allow array index as key for simple, static lists.
         // @see https://react.dev/learn/rendering-lists#why-does-react-need-keys
