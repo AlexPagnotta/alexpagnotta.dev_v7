@@ -14,11 +14,25 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # Dev server
 
-Port 3000 belongs to the user's own `npm run dev`. Never start, restart, or kill it.
+The user runs their own `npm run dev`. Never start, restart, or kill it.
 
-- It is already running with HMR, so it serves your edits. Read from it (`curl`, a browser) as much as you need; reading disturbs nothing.
+- Find its URL in `.next/dev/lock` (`appUrl`). The file outlives the server, so trust it only if its `pid` is alive: `node -e 'const l=JSON.parse(require("fs").readFileSync(".next/dev/lock"));process.kill(l.pid,0);console.log(l.appUrl)'`. If that fails, the server is not running: tell the user.
+- It serves your edits with HMR. Read from it (`curl`, a browser) as much as you need; reading disturbs nothing.
 - Next 16 refuses a second dev server for the same directory, so `npm run dev -- -p 3001` just exits. There is no parallel instance to fall back on.
 - If you ever do start one, shut down only that instance and match its port: `pkill -f "next dev -p 3001"`. Never `pkill -f "next dev"`.
+
+# Visual verification
+
+After any UI change, check it in Orca's built-in browser before reporting done. `npm run check` alone is not enough.
+
+- Use the `orca-cli` skill and load its browser reference (`orca skills get orca-cli --reference references/browser.md`) before driving a tab. Do not use Claude in Chrome, Playwright, or other browser MCPs unless asked.
+- Use the user's dev server URL (see Dev server). Never guess a port: other projects run on the same ports.
+- Check the changed routes below and above `lg`: `orca exec --command "set viewport 390 844"` and `"set viewport 1440 900"`. Check both color schemes if colors changed (`orca set media --color-scheme dark|light`).
+- `orca reload` resets the viewport: set it after any reload and confirm with `orca eval --expression "innerWidth"`.
+- Entry animations (motion, Lenis) delay content: wait for them to settle before a screenshot, or it catches the page mid-animation.
+- Save screenshots to a file and look at them: `orca exec --command "screenshot <path>.png"` (plain `orca screenshot --json` returns base64).
+- Check `orca console` for errors you introduced.
+- Report the routes, widths and schemes you checked, plus anything you could not verify.
 
 # Styling
 
