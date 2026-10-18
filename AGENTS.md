@@ -41,7 +41,7 @@ After any UI change, check it in Orca's built-in browser before reporting done. 
 - When a `className` no longer fits on one line, or carries long arbitrary values (`[--var:…]`, `calc()`), move it into a named `{elementName}Styles` constant built with `cx(...)`, one concern per argument (e.g. `wordmarkStyles` in `layout/footer.tsx`).
 - Always use the design tokens defined in the Tailwind config — colors, typography, spacing, etc. Do not hardcode raw values.
 - If a style requirement cannot be satisfied with existing tokens, **ask the user** before adding anything new. Once confirmed, add the new token to the appropriate Tailwind config file.
-- Colors are `white`, `black`, `gray-100`, `gray-200`, `gray-300` plus the accents `green-dark/-light`, `yellow-dark/-light`, `pink-dark/-light`, `gray-dark/-light`, `purple-dark/-light`, named as in Figma. `-dark` fills large areas, `-light` is the small bright mark. Each accent also has a `--gradient-{accent}` for the display wordmark.
+- Colors and accents are the tokens in `app/features/style/tailwind.css`, named as in Figma. Each accent has a `-dark` cut that fills large areas, a `-light` cut for the small bright mark, and a `--gradient-{accent}` for the display wordmark.
 - Prefer CSS over JS: reach for container queries, `calc()` and custom properties before adding a measuring client component.
 
 # Spacing units
@@ -52,15 +52,10 @@ After any UI change, check it in Orca's built-in browser before reporting done. 
 
 # Typography
 
-- **Always use the custom typography utilities** defined in `app/features/style/typography.css`, named as the Figma text styles:
-  - `display-1`, `logo`, `logo-sm`
-  - `heading-1` … `heading-4`
-  - `body-1` … `body-4`
-  - `label-1`, `label-2`
-  - `code-1` (Geist Mono, code blocks)
+- **Always use the custom typography utilities** defined in `app/features/style/typography.css`, named as the Figma text styles.
 - **Never use** raw tailwind text size classes (`text-display-1`, `text-heading-1`, `text-body-2`, etc.) directly — these are the underlying tokens used by the utilities above.
 - Display, logo and headings already switch between mobile and desktop at `lg`. Body and label steps don't, so a responsive change there is two utilities (e.g. `body-1 lg:body-3`).
-- Body copy defaults to `body-1` (16px), set on `body` in `global.css`. `label-1`/`label-2` (12/14px) are the tag and caption steps.
+- The default body step is set on `body` in `global.css`.
 - Primitives in `app/features/ui/*` take their typography from the caller, except where a size ties the type step to a fixed Figma height or a text-measured timing (`Button`, `Tag`, `Tab`, `Marquee`); those bind it in the variant.
 
 # SVG imports
