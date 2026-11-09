@@ -1,6 +1,6 @@
 import { NAME_WORDMARK, siteConfig } from "@/app/features/site/config";
 import { cx } from "@/app/features/style/cva";
-import { ButtonLink } from "@/app/features/ui/button";
+import { ButtonAnchor, ButtonLink } from "@/app/features/ui/button";
 import { Container } from "@/app/features/ui/container";
 import { Wordmark } from "@/app/features/ui/wordmark/wordmark";
 
@@ -9,8 +9,7 @@ const LINKS = [
   { label: "Unsplash", href: siteConfig.social.unsplash },
   { label: "GitHub", href: siteConfig.social.github },
   { label: "LinkedIn", href: siteConfig.social.linkedin },
-  // A file, not a route, so there is no RSC payload worth prefetching.
-  { label: "Curriculum", href: siteConfig.resumeUrl, prefetch: false },
+  { label: "Curriculum", href: siteConfig.resumeUrl, isFile: true },
 ];
 
 const wordmarkStyles = cx(
@@ -37,11 +36,14 @@ export const Footer = () => {
           </ButtonLink>
         </div>
         <nav aria-label="Elsewhere" className="flex flex-wrap justify-end gap-16 lg:flex-col lg:items-end lg:gap-32">
-          {LINKS.map(({ label, href, prefetch }) => (
-            <ButtonLink key={label} href={href} prefetch={prefetch} size="md" className="uppercase">
-              {label}
-            </ButtonLink>
-          ))}
+          {LINKS.map(({ label, href, isFile }) => {
+            const LinkComponent = isFile ? ButtonAnchor : ButtonLink;
+            return (
+              <LinkComponent key={label} href={href} size="md" className="uppercase">
+                {label}
+              </LinkComponent>
+            );
+          })}
         </nav>
       </Container>
 

@@ -54,3 +54,10 @@ export type ButtonLinkProps = React.ComponentProps<typeof BaseLink> & ButtonVari
 export const ButtonLink = ({ className, color, size, ...props }: ButtonLinkProps) => (
   <BaseLink className={cx(buttonStyles({ color, size }), className)} {...props} />
 );
+
+export type ButtonAnchorProps = React.ComponentProps<"a"> & ButtonVariants;
+
+/** A plain anchor for static files: Next's Link would route to them client-side and render the 404 page. */
+export const ButtonAnchor = ({ className, color, size, ...props }: ButtonAnchorProps) => (
+  <a className={cx(buttonStyles({ color, size }), className)} {...props} />
+);
